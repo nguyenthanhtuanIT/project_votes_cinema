@@ -9,6 +9,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
 use Hash;
+use Illuminate\Http\Request;
 
 /**
  * Class UsersController.

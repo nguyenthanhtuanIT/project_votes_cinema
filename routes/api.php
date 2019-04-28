@@ -29,7 +29,6 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::post('password/change', 'UsersController@changePass');
 	//user information
 	Route::get('me', 'UsersController@me');
-
 	//users
 	Route::resource('users', 'UsersController');
 	Route::resource('register', 'RegistersController');

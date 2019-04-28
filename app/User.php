@@ -23,6 +23,8 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 *
 	 * @var array
 	 */
+	public $timestamps = true;
+
 	protected $fillable = [
 		'name',
 		'name_signin',
@@ -111,7 +113,6 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 		return $this->hasMany(\App\Models\Register::class, 'user_vote');
 	}
 	public function type_cinema_user() {
-		return $this->hasMany(\App\Models\TypeCinemauser::class, 'id_users');
+		return $this->belongsToMany('\App\Models\TypeCinema', 'type_cinema_user', 'id_users', 'id_type_cinema');
 	}
-
 }

@@ -58,7 +58,6 @@ class EntrustSetupTables extends Migration {
 			$table->integer('id_type_cinema')->unsigned();
 			$table->foreign('id_users')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreign('id_type_cinema')->references('id')->on('type_cinema')->onUpdate('cascade')->onDelete('cascade');
-			$table->timestamps();
 		});
 
 		//    DB::commit();

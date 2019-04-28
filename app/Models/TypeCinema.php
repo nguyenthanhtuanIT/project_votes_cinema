@@ -23,7 +23,7 @@ class TypeCinema extends BaseModel {
 		return $this->hasMany(\App\Models\Films::class, 'id_type_cinema');
 	}
 	public function type_cinema_user() {
-		return $this->hasMany(\App\Models\TypeCinemaUser::class, 'id_type_cinema');
+		return $this->belongsToMany('\App\User', 'type_cinema_user', 'id_type_cinema', 'id_users');
 	}
 
 }

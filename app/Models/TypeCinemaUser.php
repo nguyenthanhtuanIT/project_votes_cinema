@@ -13,16 +13,10 @@ class TypeCinemaUser extends BaseModel {
 	 *
 	 * @var array
 	 */
-	protected $table = "type_cinema_user";
+	public $timestamps = true;
 	protected $fillable = [
 		'id_users',
 		'id_type_cinema',
-
 	];
-	public function type_cinema_user() {
-		return $this->belongsTo(\App\User::class, 'id_users');
-	}
-	public function type_cinema() {
-		return $this->belongsTo(\App\Models\TypeCinema::class, 'id_type_cinema');
-	}
+
 }
