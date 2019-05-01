@@ -2,111 +2,107 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\FilmsCreateRequest;
 use App\Http\Requests\FilmsUpdateRequest;
 use App\Repositories\Contracts\FilmsRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 /**
  * Class FilmsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class FilmsController extends Controller
-{
-    /**
-     * @var FilmsRepository
-     */
-    protected $repository;
+class FilmsController extends Controller {
+	/**
+	 * @var FilmsRepository
+	 */
+	protected $repository;
 
-    /**
-     * FilmsController constructor.
-     *
-     * @param FilmsRepository $repository
-     */
-    public function __construct(FilmsRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+	/**
+	 * FilmsController constructor.
+	 *
+	 * @param FilmsRepository $repository
+	 */
+	public function __construct(FilmsRepository $repository) {
+		$this->repository = $repository;
+	}
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $limit = request()->get('limit', null);
-        
-        $includes = request()->get('include', '');
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
+		$limit = request()->get('limit', null);
 
-        if ($includes) {
-            $this->repository->with(explode(',', $includes));
-        }
+		$includes = request()->get('include', '');
 
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+		if ($includes) {
+			$this->repository->with(explode(',', $includes));
+		}
 
-        $films = $this->repository->paginate($limit, $columns = ['*']);
+		$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-        return response()->json($films);
-    }
+		$films = $this->repository->paginate($limit, $columns = ['*']);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  FilmsCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(FilmsCreateRequest $request)
-    {
-        $film = $this->repository->skipPresenter()->create($request->all());
+		return response()->json($films);
+	}
 
-        return response()->json($film->presenter(), 201);
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  FilmsCreateRequest $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request) {
+		$film = $this->repository->create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $film = $this->repository->find($id);
-        
-        return response()->json($film);
-    }
+		return response()->json($film, 201);
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  FilmsUpdateRequest $request
-     * @param  string $id
-     *
-     * @return Response
-     */
-    public function update(FilmsUpdateRequest $request, $id)
-    {
-        $film = $this->repository->skipPresenter()->update($request->all(), $id);
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show($id) {
+		$film = $this->repository->find($id);
 
-        return response()->json($film->presenter(), 200);
-    }
+		return response()->json($film);
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $this->repository->delete($id);
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  FilmsUpdateRequest $request
+	 * @param  string $id
+	 *
+	 * @return Response
+	 */
+	public function update(Request $request, $id) {
+		$film = $this->repository->skipPresenter()->update($request->all(), $id);
 
-        return response()->json(null, 204);
-    }
+		return response()->json($film->presenter(), 200);
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($id) {
+		$this->repository->delete($id);
+
+		return response()->json(null, 204);
+	}
+	public function Time() {
+
+		return Carbon::now()->day;
+	}
 }

@@ -25,8 +25,8 @@ class EntrustSetupTables extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->integer('role_id')->unsigned();
 
-			$table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-			$table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('role_id')->references('id')->on('roles');
 		});
 
 		// Create table for storing permissions
@@ -56,8 +56,9 @@ class EntrustSetupTables extends Migration {
 			$table->increments('id');
 			$table->integer('id_users')->unsigned();
 			$table->integer('id_type_cinema')->unsigned();
-			$table->foreign('id_users')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-			$table->foreign('id_type_cinema')->references('id')->on('type_cinema')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_users')->references('id')->on('users');
+			$table->foreign('id_type_cinema')->references('id')->on('type_cinema');
+			$table->timestamps();
 		});
 
 		//    DB::commit();

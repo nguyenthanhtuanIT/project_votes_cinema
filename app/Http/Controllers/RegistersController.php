@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterCreateRequest;
 use App\Http\Requests\RegisterUpdateRequest;
-use App\Models\Register;
 use App\Repositories\Contracts\RegisterRepository;
 use Illuminate\Http\Request;
 
@@ -34,19 +33,8 @@ class RegistersController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$limit = request()->get('limit', null);
-
-		$includes = request()->get('include', '');
-
-		if ($includes) {
-			$this->repository->with(explode(',', $includes));
-		}
-
-		$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-
-		$registers = $this->repository->paginate($limit, $columns = ['*']);
-
-		return response()->json($registers);
+		$register = $this->repository->all($colums = ['*']);
+		return response()->json($register, 201);
 	}
 
 	/**
@@ -56,10 +44,10 @@ class RegistersController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(RegisterCreateRequest $request) {
-		$register = $this->repository->skipPresenter()->create($request->all());
+	public function store(Request $request) {
+		$register = $this->repository->create($request->all());
 
-		return response()->json($register->presenter(), 201);
+		return response()->json($register, 201);
 	}
 
 	/**
@@ -83,9 +71,9 @@ class RegistersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function update(RegisterUpdateRequest $request, $id) {
-		$register = $this->repository->skipPresenter()->update($request->all(), $id);
-
+	public function update(Request $request, $id) {
+		$register = $this->repository->skipPresenter()
+			->update($request->all(), $id);
 		return response()->json($register->presenter(), 200);
 	}
 
@@ -98,7 +86,6 @@ class RegistersController extends Controller {
 	 */
 	public function destroy($id) {
 		$this->repository->delete($id);
-
 		return response()->json(null, 204);
 	}
 }

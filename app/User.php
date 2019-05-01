@@ -23,16 +23,14 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 *
 	 * @var array
 	 */
-	public $timestamps = true;
-
 	protected $fillable = [
 		'name',
 		'name_signin',
-		'password',
-		'email',
 		'phone',
 		'address',
 		'sex',
+		'password',
+		'email',
 	];
 
 	/**
@@ -52,6 +50,7 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	public function getCreatedAttribute() {
 		return $this->created_at ? $this->created_at->toIso8601String() : '';
 	}
+
 	/**
 	 * Update update_at
 	 * @param array attributes
@@ -93,7 +92,8 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 * @return array roles
 	 */
 	public function getRoles() {
-		return $this->roles()->orderBy('role_id')->pluck('name')->toArray();
+		return $this->roles()->orderBy('role_id')->pluck('name')
+			->toArray();
 	}
 
 	/**
@@ -108,11 +108,5 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 */
 	public function tokens() {
 		return $this->hasMany(\App\Models\DeviceToken::class, 'user_id');
-	}
-	public function register() {
-		return $this->hasMany(\App\Models\Register::class, 'user_vote');
-	}
-	public function type_cinema_user() {
-		return $this->belongsToMany('\App\Models\TypeCinema', 'type_cinema_user', 'id_users', 'id_type_cinema');
 	}
 }

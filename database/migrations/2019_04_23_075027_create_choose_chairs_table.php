@@ -18,9 +18,9 @@ class CreateChooseChairsTable extends Migration {
 			$table->integer('user_vote')->unsigned();
 			$table->integer('id_vote')->unsigned();
 			$table->integer('id_chair')->unsigned();
-			$table->foreign('user_vote')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-			$table->foreign('id_vote')->references('id')->on('votes')->onUpdate('cascade')->onDelete('cascade');
-			$table->foreign('id_chair')->references('id')->on('chairs')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('user_vote')->references('id')->on('users');
+			$table->foreign('id_vote')->references('id')->on('votes');
+			$table->foreign('id_chair')->references('id')->on('chairs');
 
 			$table->timestamps();
 		});

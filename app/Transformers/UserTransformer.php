@@ -50,7 +50,6 @@ class UserTransformer extends BaseTransformer {
 		if (!$image) {
 			return;
 		}
-
 		return $this->item($image, new ImageTransformer, 'Image');
 	}
 }

@@ -10,17 +10,15 @@ use Prettus\Repository\Presenter\FractalPresenter;
  *
  * @package namespace App\Presenters;
  */
-class VoteDetailsPresenter extends FractalPresenter
-{
-    protected $resourceKeyItem = 'VoteDetails';
-    protected $resourceKeyCollection = 'VoteDetails';
-    /**
-     * Transformer
-     *
-     * @return \League\Fractal\TransformerAbstract
-     */
-    public function getTransformer()
-    {
-        return new VoteDetailsTransformer();
-    }
+class VoteDetailsPresenter extends FractalPresenter {
+	protected $resourceKeyItem = 'VoteDetails';
+	protected $resourceKeyCollection = 'VoteDetails';
+	/**
+	 * Transformer
+	 *
+	 * @return \League\Fractal\TransformerAbstract
+	 */
+	public function getTransformer() {
+		return new VoteDetailsTransformer();
+	}
 }

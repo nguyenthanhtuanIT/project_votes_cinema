@@ -19,9 +19,9 @@ class CreateRegistersTable extends Migration {
 			$table->integer('user_vote')->unsigned();
 			$table->integer('id_vote')->unsigned();
 			$table->integer('id_films')->unsigned();
-			$table->foreign('id_vote')->references('id')->on('votes')->onUpdate('cascade')->onDelete('cascade');
-			$table->foreign('user_vote')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-			$table->foreign('id_films')->references('id')->on('films')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_vote')->references('id')->on('votes');
+			$table->foreign('user_vote')->references('id')->on('users');
+			$table->foreign('id_films')->references('id')->on('films');
 			$table->integer('ticket_number');
 
 			$table->timestamps();

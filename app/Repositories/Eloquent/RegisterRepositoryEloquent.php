@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Register;
 use App\Presenters\RegisterPresenter;
 use App\Repositories\Contracts\RegisterRepository;
+use App\Services\RegisterService;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -38,5 +39,11 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
 	public function boot() {
 		$this->pushCriteria(app(RequestCriteria::class));
 	}
-
+	public function create($attributes) {
+		$register = parent::create($attributes);
+		//var_dump($register);
+		RegisterService::add($register['data']['attributes']['id_films'],
+			$register['data']['attributes']['ticket_number']);
+		return $register;
+	}
 }

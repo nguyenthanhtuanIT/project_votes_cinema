@@ -16,11 +16,11 @@ class CreateVoteDetailsTable extends Migration {
 		Schema::create('vote_details', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('id_user')->unsigned();
-			$table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_user')->references('id')->on('users');
 			$table->integer('id_film')->unsigned();
-			$table->foreign('id_film')->references('id')->on('films')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_film')->references('id')->on('films');
 			$table->integer('id_vote')->unsigned();
-			$table->foreign('id_vote')->references('id')->on('votes')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_vote')->references('id')->on('votes');
 
 			$table->timestamps();
 		});

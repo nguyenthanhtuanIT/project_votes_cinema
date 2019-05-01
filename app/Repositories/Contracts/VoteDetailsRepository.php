@@ -9,7 +9,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories\Contracts;
  */
-interface VoteDetailsRepository extends RepositoryInterface
-{
-    //
+interface VoteDetailsRepository extends RepositoryInterface {
+	//
 }

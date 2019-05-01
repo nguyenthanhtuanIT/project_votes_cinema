@@ -17,19 +17,13 @@ class CreateVotesTable extends Migration {
 			$table->increments('id');
 			$table->string('name_vote');
 			$table->integer('id_user')->unsigned();
-			$table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_user')->references('id')->on('users');
 			$table->integer('status_vote');
 			$table->string('detail');
 			$table->date('dead_line');
 			$table->timestamps();
 		});
 	}
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
 	public function down() {
 		Schema::drop('votes');
 	}

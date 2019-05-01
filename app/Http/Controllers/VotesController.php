@@ -2,111 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\VoteCreateRequest;
 use App\Http\Requests\VoteUpdateRequest;
+use App\Models\Vote;
 use App\Repositories\Contracts\VoteRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class VotesController.
  *
  * @package namespace App\Http\Controllers;
  */
-class VotesController extends Controller
-{
-    /**
-     * @var VoteRepository
-     */
-    protected $repository;
+class VotesController extends Controller {
+	/**
+	 * @var VoteRepository
+	 */
+	protected $repository;
 
-    /**
-     * VotesController constructor.
-     *
-     * @param VoteRepository $repository
-     */
-    public function __construct(VoteRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+	/**
+	 * VotesController constructor.
+	 *
+	 * @param VoteRepository $repository
+	 */
+	public function __construct(VoteRepository $repository) {
+		$this->repository = $repository;
+	}
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $limit = request()->get('limit', null);
-        
-        $includes = request()->get('include', '');
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
+		$vote = $this->repository->all($colums = ['*']);
+		return response()->json($vote);
+	}
 
-        if ($includes) {
-            $this->repository->with(explode(',', $includes));
-        }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  VoteCreateRequest $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(VoteCreateRequest $request) {
+		$vote = $this->repository->skipPresenter()->create($request->all());
 
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+		return response()->json($vote->presenter(), 201);
+	}
 
-        $votes = $this->repository->paginate($limit, $columns = ['*']);
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show($id) {
+		$vote = $this->repository->find($id);
 
-        return response()->json($votes);
-    }
+		return response()->json($vote);
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  VoteCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(VoteCreateRequest $request)
-    {
-        $vote = $this->repository->skipPresenter()->create($request->all());
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  VoteUpdateRequest $request
+	 * @param  string $id
+	 *
+	 * @return Response
+	 */
+	public function update(VoteUpdateRequest $request, $id) {
+		$vote = $this->repository->skipPresenter()->update($request->all(), $id);
 
-        return response()->json($vote->presenter(), 201);
-    }
+		return response()->json($vote, 201);
+	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $vote = $this->repository->find($id);
-        
-        return response()->json($vote);
-    }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($id) {
+		$this->repository->delete($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  VoteUpdateRequest $request
-     * @param  string $id
-     *
-     * @return Response
-     */
-    public function update(VoteUpdateRequest $request, $id)
-    {
-        $vote = $this->repository->skipPresenter()->update($request->all(), $id);
-
-        return response()->json($vote->presenter(), 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $this->repository->delete($id);
-
-        return response()->json(null, 204);
-    }
+		return response()->json(null, 204);
+	}
 }

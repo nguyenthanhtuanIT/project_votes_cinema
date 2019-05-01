@@ -20,7 +20,7 @@ class CreateBlogsTable extends Migration {
 			$table->string('detail');
 			$table->integer('type_blog');
 			$table->integer('id_user')->unsigned();
-			$table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+			$table->foreign('id_user')->references('id')->on('users');
 
 			$table->timestamps();
 		});

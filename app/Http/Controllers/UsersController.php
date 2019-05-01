@@ -9,7 +9,6 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
 use Hash;
-use Illuminate\Http\Request;
 
 /**
  * Class UsersController.
@@ -95,7 +94,6 @@ class UsersController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(UserCreateRequest $request) {
-
 		$user = $this->repository->skipPresenter()->create($request->all());
 
 		return $this->presenterPostJson($user);
@@ -153,5 +151,4 @@ class UsersController extends Controller {
 
 		return $this->presenterPostJson($user);
 	}
-
 }

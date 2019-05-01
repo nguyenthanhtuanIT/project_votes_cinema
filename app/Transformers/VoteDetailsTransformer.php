@@ -28,4 +28,11 @@ class VoteDetailsTransformer extends BaseTransformer {
 	 * @var array
 	 */
 	protected $defaultIncludes = [];
+
+	public function customAttributes($model): array
+	{
+		$film = ['name_film' => $model->getFilm(), 'user_vote' => $model->getName(), 'vote_name' => $model->getVote()];
+		return $film;
+
+	}
 }

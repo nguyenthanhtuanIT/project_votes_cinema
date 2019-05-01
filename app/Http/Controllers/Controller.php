@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Controller extends BaseController {
-	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+class Controller extends BaseController
+{
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-	public function presenterPostJson($item, $code = 201) {
-		return response()->json($item->presenter(), $code);
-	}
+    public function presenterPostJson($item, $code = 201)
+    {
+        return response()->json($item->presenter(), $code);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Vote;
 
 /**
  * Class Vote.
@@ -13,20 +14,7 @@ class Vote extends BaseModel {
 	 *
 	 * @var array
 	 */
-	protected $table = "votes";
-	protected $fillable = [
-		'name_vote',
-		'id_user',
-		'status_vote',
-		'detail',
-		'deadline',
-
-	];
-	public function register() {
-		return $this->hasMany(\App\Models\Register::class, 'id_vote');
-	}
-	public function film() {
-		return $this->hasMany(\App\Models\Films::class, 'id_vote');
-	}
+	protected $fillable = ['name_vote', 'id_user',
+		'status_vote', 'detail', 'dead_line'];
 
 }

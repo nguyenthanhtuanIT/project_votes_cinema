@@ -1,19 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
- */
-
-/**
- * Authorized resources
- */
 Route::group(['prefix' => 'v1'], function () {
 	Route::post('auth/login', 'Auth\AuthController@login');
 	Route::post('auth/facebook', 'Auth\AuthFacebookController@login');
@@ -31,12 +17,15 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::get('me', 'UsersController@me');
 	//users
 	Route::resource('users', 'UsersController');
-	Route::resource('register', 'RegistersController');
-	Route::resource('cinema', 'CinemasController');
-	Route::resource('type_cinema', 'TypeCinemasController');
-	Route::resource('type_cinema_user', 'TypeCinemaUsersController');
-	//promotions
-	//promotions
+	//votes
+	Route::resource('votes', 'VotesController');
+	//film
+	Route::resource('films', 'FilmsController');
+	//votedetail
+	Route::resource('votedetails', 'VoteDetailsController');
 	// images
 	Route::resource('images', 'ImagesController')->only(['store', 'destroy']);
+	//register
+	Route::resource('registers', 'RegistersController');
+	Route::get('time', 'FilmsController@Time');
 });

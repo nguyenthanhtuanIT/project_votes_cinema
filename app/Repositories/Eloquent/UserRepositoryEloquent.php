@@ -3,8 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Image;
-use App\Models\TypeCinema;
-use App\Presenters\UserPresenter;
 use App\Repositories\Contracts\UserRepository;
 use App\Services\RoleService;
 use App\User;
@@ -28,7 +26,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository {
 	}
 
 	public function presenter() {
-		return UserPresenter::class;
+		return \App\Presenters\UserPresenter::class;
 	}
 
 	/**
@@ -45,25 +43,16 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository {
 	 */
 	public function create(array $attributes) {
 		$attributes['password'] = bcrypt($attributes['password']);
-		$user_1 = parent::create(array_except($attributes, 'role', 'name_type_cinema'));
-		$user = User::find($user_1->id);
+		$user = parent::create(array_except($attributes, 'role'));
 
-		//find or create role admin
+		// find or create role admin
 		if (!empty($attributes['role'])) {
 			RoleService::add($user, $attributes['role']);
 		}
-		$type = TypeCinema::where('name_type_cinema', $attributes['name_type_cinema'])->get();
-		$type_cinema = TypeCinema::find($type);
-		$user->type_cinema_user()->attach($type_cinema);
 
 		return $user;
 	}
 
-	/**
-	 * Override method create to add owners
-	 * @param  array  $attributes attributes from request
-	 * @return object
-	 */
 	public function update(array $attributes, $id) {
 		if (!empty($attributes['password'])) {
 			$attributes['password'] = bcrypt($attributes['password']);
