@@ -25,10 +25,12 @@ class CreateFilmsTable extends Migration {
 			$table->foreign('id_type_cinema')->references('id')->on('type_cinema');
 			$table->foreign('id_cinema')->references('id')->on('cinemas');
 			$table->foreign('id_vote')->references('id')->on('votes');
-			$table->string('laguage');
+			$table->string('language');
 			$table->string('age_limit');
 			$table->string('detail');
+			$table->string('trailer_url');
 			$table->decimal('price_film');
+			$table->string('curency');
 			$table->integer('vote_number');
 			$table->integer('register_number');
 			$table->timestamps();

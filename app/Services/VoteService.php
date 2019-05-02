@@ -9,5 +9,4 @@ class VoteService {
 		$film->vote_number += 1;
 		$film->save();
 	}
-
 }

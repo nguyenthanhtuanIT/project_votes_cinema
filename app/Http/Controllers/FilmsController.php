@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FilmsCreateRequest;
 use App\Http\Requests\FilmsUpdateRequest;
 use App\Repositories\Contracts\FilmsRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
@@ -101,8 +100,5 @@ class FilmsController extends Controller {
 
 		return response()->json(null, 204);
 	}
-	public function Time() {
 
-		return Carbon::now()->day;
-	}
 }

@@ -28,4 +28,12 @@ class FilmsTransformer extends BaseTransformer {
 	 * @var array
 	 */
 	protected $defaultIncludes = [];
+
+	public function customAttributes($model): array
+	{
+
+		return ['genre' => $model->getTypeFilms(),
+		];
+
+	}
 }

@@ -94,8 +94,8 @@ class UsersController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(UserCreateRequest $request) {
-		$user = $this->repository->skipPresenter()->create($request->all());
-
+		$user = $this->repository->skipPresenter()
+			->create($request->all());
 		return $this->presenterPostJson($user);
 	}
 
