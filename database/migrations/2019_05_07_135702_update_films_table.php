@@ -2,21 +2,17 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-/**
- * Class CreateChairsTable.
- */
-class CreateChairsTable extends Migration {
+class UpdateFilmsTable extends Migration {
 	/**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
 	public function up() {
-		Schema::create('chairs', function (Blueprint $table) {
-			$table->increments('id');
-			$table->string('name_chair');
-			$table->timestamps();
+		Schema::table('films', function (Blueprint $table) {
+			$table->integer('price_film')->change();
 		});
 	}
 
@@ -26,6 +22,8 @@ class CreateChairsTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::drop('chairs');
+		Schema::table('films', function (Blueprint $table) {
+			//
+		});
 	}
 }

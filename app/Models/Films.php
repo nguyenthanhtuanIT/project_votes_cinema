@@ -22,4 +22,7 @@ class Films extends BaseModel {
 		$type = TypeCinema::where('id', $this->id_type_cinema)->value('name_type_cinema');
 		return $type;
 	}
+	public function votes() {
+		return $this->hasOne(\App\Models\Vote::class, 'id_vote');
+	}
 }

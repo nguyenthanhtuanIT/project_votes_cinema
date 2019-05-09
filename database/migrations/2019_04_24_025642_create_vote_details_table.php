@@ -21,7 +21,6 @@ class CreateVoteDetailsTable extends Migration {
 			$table->foreign('id_film')->references('id')->on('films');
 			$table->integer('id_vote')->unsigned();
 			$table->foreign('id_vote')->references('id')->on('votes');
-
 			$table->timestamps();
 		});
 	}

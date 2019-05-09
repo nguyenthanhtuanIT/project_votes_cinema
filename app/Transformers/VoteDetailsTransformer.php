@@ -31,7 +31,9 @@ class VoteDetailsTransformer extends BaseTransformer {
 
 	public function customAttributes($model): array
 	{
-		$film = ['name_film' => $model->getFilm(), 'user_vote' => $model->getName(), 'vote_name' => $model->getVote()];
+		$film = ['name_film' => $model->getFilm(),
+			'user_vote' => $model->getName(),
+			'vote_name' => $model->getVote()];
 		return $film;
 
 	}

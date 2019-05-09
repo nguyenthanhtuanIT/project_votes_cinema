@@ -18,7 +18,7 @@ class CreateBlogsTable extends Migration {
 			$table->string('name_blog');
 			$table->string('img_blog');
 			$table->string('detail');
-			$table->integer('type_blog');
+			$table->string('content');
 			$table->integer('id_user')->unsigned();
 			$table->foreign('id_user')->references('id')->on('users');
 

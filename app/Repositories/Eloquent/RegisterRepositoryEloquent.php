@@ -46,7 +46,4 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
 			$register['data']['attributes']['ticket_number']);
 		return $register;
 	}
-	// public function numberChair() {
-	// 	$register = Register::where()
-	// }
 }

@@ -24,7 +24,7 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 * @var array
 	 */
 	protected $fillable = [
-		'name',
+		'full_name',
 		'name_signin',
 		'phone',
 		'address',
@@ -92,7 +92,7 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 * @return array roles
 	 */
 	public function getRoles() {
-		return $this->roles()->orderBy('role_id')->pluck('name')
+		return $this->getRoles()->orderBy('role_id')->pluck('name')
 			->toArray();
 	}
 

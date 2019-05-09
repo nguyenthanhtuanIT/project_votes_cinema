@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FilmsCreateRequest;
 use App\Http\Requests\FilmsUpdateRequest;
 use App\Repositories\Contracts\FilmsRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
@@ -83,9 +84,8 @@ class FilmsController extends Controller {
 	 * @return Response
 	 */
 	public function update(Request $request, $id) {
-		$film = $this->repository->skipPresenter()->update($request->all(), $id);
-
-		return response()->json($film->presenter(), 200);
+		$film = $this->repository->update($request->all(), $id);
+		return response()->json($film, 200);
 	}
 
 	/**
@@ -99,6 +99,13 @@ class FilmsController extends Controller {
 		$this->repository->delete($id);
 
 		return response()->json(null, 204);
+	}
+	public function listFilm() {
+		$time = Carbon::now();
+		$film = $this->repository->getlistFilm();
+		return $this->repository->parserResult($film);
+		//return response()->json($film);
+
 	}
 
 }

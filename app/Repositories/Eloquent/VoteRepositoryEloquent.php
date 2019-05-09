@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Vote;
 use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
+use Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -38,5 +39,17 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
 	public function boot() {
 		$this->pushCriteria(app(RequestCriteria::class));
 	}
-
+	public function search($title) {
+		$result = $this->model()::where('name_vote', 'like', '%' . $title . '%')->get();
+		return $result;
+	}
+	public function create(array $attributes) {
+		$vote = parent::create($attributes);
+		$data = [];
+		Mail::send('emails.mail_notification', $data, function ($msg) {
+			$msg->from('shopmoto224@gmail.com', 'Hệ thống');
+			$msg->to("duongdosieu224@gmail.com", 'Công đoàn')->subject('mail_notification');
+		});
+		return $vote;
+	}
 }

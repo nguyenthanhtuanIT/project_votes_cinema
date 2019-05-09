@@ -27,7 +27,7 @@ class CreateFilmsTable extends Migration {
 			$table->foreign('id_vote')->references('id')->on('votes');
 			$table->string('language');
 			$table->string('age_limit');
-			$table->string('detail');
+			$table->string('detail', 3000);
 			$table->string('trailer_url');
 			$table->decimal('price_film');
 			$table->string('curency');

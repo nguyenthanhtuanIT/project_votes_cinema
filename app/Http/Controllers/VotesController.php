@@ -90,4 +90,8 @@ class VotesController extends Controller {
 
 		return response()->json(null, 204);
 	}
+	public function searchByTitle(Request $req) {
+		$result = $this->repository->search($req->keywordx);
+		return response()->json($result);
+	}
 }

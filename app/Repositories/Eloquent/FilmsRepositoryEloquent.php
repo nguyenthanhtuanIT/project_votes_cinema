@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Films;
 use App\Presenters\FilmsPresenter;
 use App\Repositories\Contracts\filmsRepository;
+use Carbon\Carbon;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -41,8 +42,14 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 	public function create($attributes) {
 		$attributes['vote_number'] = 0;
 		$attributes['register_number'] = 0;
+		$attributes['curency'] = 'đ';
 		$film = parent::create($attributes);
 		return response()->json($film);
+	}
+	public function getlistFilm() {
+		$time = Carbon::now();
+		$films = $this->model()::whereMonth('projection_date', $time->month)->whereYear('projection_date', $time->year)->get();
+		return $films;
 	}
 
 }

@@ -21,11 +21,16 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::resource('votes', 'VotesController');
 	//film
 	Route::resource('films', 'FilmsController');
+	Route::get('list_films', 'FilmsController@listFilm');
+	//cinema
+	Route::resource('cinemas', 'CinemasController');
 	//votedetail
 	Route::resource('votedetails', 'VoteDetailsController');
 	// images
 	Route::resource('images', 'ImagesController')->only(['store', 'destroy']);
 	//register
 	Route::resource('registers', 'RegistersController');
-	Route::get('time', 'FilmsController@Time');
+
+	//vote
+	Route::get('search', 'VotesController@searchByTitle');
 });
