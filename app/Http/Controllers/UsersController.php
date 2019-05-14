@@ -6,9 +6,14 @@ use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\Social;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
 use Hash;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Socialite;
 
 /**
  * Class UsersController.
@@ -36,6 +41,7 @@ class UsersController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+
 		$limit = request()->get('limit', null);
 		$includes = request()->get('include', 'roles');
 
@@ -45,9 +51,9 @@ class UsersController extends Controller {
 
 		$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-		$users = $this->repository->paginate($limit, $columns = ['*']);
+		$user = $this->repository->all($columns = ['*']);
+		return response()->json($user);
 
-		return response()->json($users);
 	}
 
 	/**
@@ -55,12 +61,17 @@ class UsersController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function me() {
-		$user = $this->repository->find(auth()->user()->id);
+	public function me(Request $request) {
+		// $user = $this->repository->find(auth()->user()->id);
+		// return response()->json($user);
+		$user = Auth::user();
 
-		return response()->json($user);
+		if ($user) {
+			return response($user, 200);
+		}
+
+		return response(null, 204);
 	}
-
 	/**
 	 * Funtion change pass of the user
 	 */
@@ -94,8 +105,7 @@ class UsersController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(UserCreateRequest $request) {
-		$user = $this->repository->skipPresenter()
-			->create($request->all());
+		$user = $this->repository->skipPresenter()->create($request->all());
 		return $this->presenterPostJson($user);
 	}
 
@@ -120,10 +130,11 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function update(UserUpdateRequest $request, User $user) {
-		$user = $this->repository->skipPresenter()->update($request->all(), $user->id);
+	public function update(UserUpdateRequest $request, $id) {
+		$user = $this->repository->update($request->all(), $id);
 
-		return $this->presenterPostJson($user, 200);
+		return response()->json($user, 201);
+
 	}
 
 	/**
@@ -150,5 +161,13 @@ class UsersController extends Controller {
 		$user = $this->repository->skipPresenter()->create(array_merge($request->all(), ['role' => 'member']));
 
 		return $this->presenterPostJson($user);
+	}
+	public function redirectGoogle() {
+		return Socialite::driver('google')->redirect();
+	}
+	public function loginGoogle() {
+		$provider = Social::PROVIDER_GOOGLE;
+		$user = Socialite::driver('google')->user();
+		dd($user);
 	}
 }

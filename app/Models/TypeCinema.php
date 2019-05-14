@@ -17,13 +17,12 @@ class TypeCinema extends BaseModel {
 	protected $table = "type_cinema";
 	protected $fillable = [
 		'name_type_cinema',
-
 	];
 	public function film() {
-		return $this->hasMany(\App\Models\Films::class, 'id_type_cinema');
+		return $this->hasMany(\App\Models\Films::class, 'type_cinema_id');
 	}
 	public function type_cinema_user() {
-		return $this->belongsToMany('\App\User', 'type_cinema_user', 'id_type_cinema', 'id_users');
+		return $this->belongsToMany(\App\User::class, 'type_cinema_user', 'type_cinema_id', 'user_id');
 	}
 
 }

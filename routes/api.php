@@ -1,8 +1,9 @@
 <?php
 
 Route::group(['prefix' => 'v1'], function () {
-	Route::post('auth/login', 'Auth\AuthController@login');
-	Route::post('auth/facebook', 'Auth\AuthFacebookController@login');
+	//Route::post('auth/login', 'Auth\AuthController@login');
+	Route::post('auth/google', 'Auth\AuthGoogleController@login');
+	//Route::post('auth/facebook', 'Auth\AuthFacebookController@login');
 	Route::post('password/forgot/request', 'Auth\ForgotPasswordController@getResetToken');
 	Route::post('password/forgot/reset', 'Auth\ResetPasswordController@reset');
 	Route::post('register', 'UsersController@register');
@@ -19,9 +20,11 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::resource('users', 'UsersController');
 	//votes
 	Route::resource('votes', 'VotesController');
+	Route::get('search', 'VotesController@searchByTitle');
 	//film
 	Route::resource('films', 'FilmsController');
 	Route::get('list_films', 'FilmsController@listFilm');
+	Route::get('max_vote', 'FilmsController@getFilmRegister');
 	//cinema
 	Route::resource('cinemas', 'CinemasController');
 	//votedetail
@@ -30,7 +33,13 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::resource('images', 'ImagesController')->only(['store', 'destroy']);
 	//register
 	Route::resource('registers', 'RegistersController');
+	//blog
+	Route::resource('blogs', 'BlogsController');
+	//cinema
+	Route::resource('cinemas', 'CinemasController');
+	//type-cinemas
+	Route::resource('typecinemas', 'TypeCinemasController');
+	//chair
+	Route::resource('chairs', 'ChairsController');
 
-	//vote
-	Route::get('search', 'VotesController@searchByTitle');
 });

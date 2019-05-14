@@ -7,13 +7,12 @@ namespace App\Models;
  *
  * @package namespace App\Models;
  */
-class Chair extends App\Models\BaseModel
-{
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [];
+class Chair extends BaseModel {
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [];
 
 }

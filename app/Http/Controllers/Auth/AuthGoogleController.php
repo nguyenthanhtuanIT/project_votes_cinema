@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthFacebookRequest;
-use App\Models\DeviceToken;
 use App\Models\Social;
+use App\Services\RoleService;
 use App\User;
 use Socialite;
 
-class AuthFacebookController extends Controller {
+class AuthGoogleController extends Controller {
 	public function login(AuthFacebookRequest $request) {
-		$provider = Social::PROVIDER_FACEBOOK;
+		$provider = Social::PROVIDER_GOOGLE;
 
 		$profile = Socialite::driver($provider)->userFromToken($request->token);
 
@@ -28,12 +28,15 @@ class AuthFacebookController extends Controller {
 			$user = User::find($social->user_id);
 		} else {
 			$user = User::where(['email' => $profile->email])->first();
+
 			if (!$user) {
 				$user = new User;
-				$user->name = $profile->name;
+				$user->avatar = $profile->avatar;
+				$user->full_name = $profile->name;
 				$user->email = $profile->email;
 				$user->password = bcrypt($profile->id . time());
 				$user->save();
+				RoleService::add($user, 'member');
 			}
 			$social->user_id = $user->id;
 			$social->save();

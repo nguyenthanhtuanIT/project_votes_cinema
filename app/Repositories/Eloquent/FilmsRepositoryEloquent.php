@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Films;
+use App\Models\Vote;
 use App\Presenters\FilmsPresenter;
 use App\Repositories\Contracts\filmsRepository;
 use Carbon\Carbon;
@@ -50,6 +51,13 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 		$time = Carbon::now();
 		$films = $this->model()::whereMonth('projection_date', $time->month)->whereYear('projection_date', $time->year)->get();
 		return $films;
+	}
+	public function maxVoteNumber() {
+		$vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
+		$max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
+		$film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
+			->get();
+		return $film;
 	}
 
 }

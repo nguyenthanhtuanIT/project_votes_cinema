@@ -75,8 +75,8 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository {
 			]);
 		}
 
-		$user = $user->refresh();
+		//$user = $user->refresh();
 
-		return $user;
+		return $this->find($id);
 	}
 }

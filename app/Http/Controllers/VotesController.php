@@ -47,7 +47,6 @@ class VotesController extends Controller {
 	 */
 	public function store(VoteCreateRequest $request) {
 		$vote = $this->repository->skipPresenter()->create($request->all());
-
 		return response()->json($vote->presenter(), 201);
 	}
 
@@ -90,8 +89,8 @@ class VotesController extends Controller {
 
 		return response()->json(null, 204);
 	}
-	public function searchByTitle(Request $req) {
-		$result = $this->repository->search($req->keywordx);
+	public function searchByTitle(Request $request) {
+		$result = $this->repository->search($request->title);
 		return response()->json($result);
 	}
 }

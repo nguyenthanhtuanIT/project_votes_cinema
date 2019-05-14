@@ -16,12 +16,12 @@ class CreateRegistersTable extends Migration {
 		Schema::create('registers', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('name_register');
-			$table->integer('id_user')->unsigned();
-			$table->integer('id_vote')->unsigned();
-			$table->integer('id_films')->unsigned();
-			$table->foreign('id_vote')->references('id')->on('votes');
-			$table->foreign('id_user')->references('id')->on('users');
-			$table->foreign('id_films')->references('id')->on('films');
+			$table->integer('user_id')->unsigned();
+			$table->integer('vote_id')->unsigned();
+			$table->integer('film_id')->unsigned();
+			$table->foreign('vote_id')->references('id')->on('votes');
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('film_id')->references('id')->on('films');
 			$table->integer('ticket_number');
 
 			$table->timestamps();

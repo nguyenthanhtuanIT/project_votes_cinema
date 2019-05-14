@@ -54,10 +54,10 @@ class EntrustSetupTables extends Migration {
 		});
 		Schema::create('type_cinema_user', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('id_users')->unsigned();
-			$table->integer('id_type_cinema')->unsigned();
-			$table->foreign('id_users')->references('id')->on('users');
-			$table->foreign('id_type_cinema')->references('id')->on('type_cinema');
+			$table->integer('user_id')->unsigned();
+			$table->integer('type_cinema_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('type_cinema_id')->references('id')->on('type_cinema');
 			$table->timestamps();
 		});
 

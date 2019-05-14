@@ -42,7 +42,7 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
 
 	public function create(array $attributes) {
 		$VoteDetails = parent::create($attributes);
-		VoteService::add($VoteDetails['data']['attributes']['id_film']);
+		VoteService::add($VoteDetails['data']['attributes']['film_id']);
 		return $VoteDetails;
 
 	}

@@ -15,12 +15,12 @@ class CreateChooseChairsTable extends Migration {
 	public function up() {
 		Schema::create('choose_chairs', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('id_user')->unsigned();
-			$table->integer('id_vote')->unsigned();
-			$table->integer('id_chair')->unsigned();
-			$table->foreign('id_user')->references('id')->on('users');
-			$table->foreign('id_vote')->references('id')->on('votes');
-			$table->foreign('id_chair')->references('id')->on('chairs');
+			$table->integer('user_id')->unsigned();
+			$table->integer('vote_id')->unsigned();
+			$table->integer('chair_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('vote_id')->references('id')->on('votes');
+			$table->foreign('chair_id')->references('id')->on('chairs');
 
 			$table->timestamps();
 		});

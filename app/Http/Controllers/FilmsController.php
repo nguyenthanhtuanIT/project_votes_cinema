@@ -107,5 +107,9 @@ class FilmsController extends Controller {
 		//return response()->json($film);
 
 	}
+	public function getFilmRegister() {
+		$films = $this->repository->maxVoteNumber();
+		return $this->repository->parserResult($films);
+	}
 
 }

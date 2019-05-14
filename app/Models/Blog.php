@@ -7,7 +7,7 @@ namespace App\Models;
  *
  * @package namespace App\Models;
  */
-class Blog extends App\Models\BaseModel {
+class Blog extends BaseModel {
 	/**
 	 * The attributes that are mass assignable.
 	 *

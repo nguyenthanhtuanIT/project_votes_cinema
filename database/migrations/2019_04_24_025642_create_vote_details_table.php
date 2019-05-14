@@ -15,12 +15,12 @@ class CreateVoteDetailsTable extends Migration {
 	public function up() {
 		Schema::create('vote_details', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('id_user')->unsigned();
-			$table->foreign('id_user')->references('id')->on('users');
-			$table->integer('id_film')->unsigned();
-			$table->foreign('id_film')->references('id')->on('films');
-			$table->integer('id_vote')->unsigned();
-			$table->foreign('id_vote')->references('id')->on('votes');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('film_id')->unsigned();
+			$table->foreign('film_id')->references('id')->on('films');
+			$table->integer('vote_id')->unsigned();
+			$table->foreign('vote_id')->references('id')->on('votes');
 			$table->timestamps();
 		});
 	}

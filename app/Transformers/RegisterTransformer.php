@@ -28,4 +28,11 @@ class RegisterTransformer extends BaseTransformer {
 	 * @var array
 	 */
 	protected $defaultIncludes = [];
+
+	public function customAttributes($model): array
+	{
+		return ['name_film' => $model->getNameFilms(),
+			'name_vote' => $model->getTitleVote(),
+			'users' => $model->getUser()];
+	}
 }

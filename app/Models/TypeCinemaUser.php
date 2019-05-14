@@ -15,8 +15,8 @@ class TypeCinemaUser extends BaseModel {
 	 */
 	public $timestamps = true;
 	protected $fillable = [
-		'id_users',
-		'id_type_cinema',
+		'user_id',
+		'type_cinema_id',
 	];
 
 }

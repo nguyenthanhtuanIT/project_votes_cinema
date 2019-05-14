@@ -23,14 +23,16 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 *
 	 * @var array
 	 */
+	protected $table = "users";
 	protected $fillable = [
+		'avatar',
 		'full_name',
-		'name_signin',
-		'phone',
-		'address',
-		'sex',
-		'password',
+		'username',
 		'email',
+		'password',
+		'phone',
+		'sex',
+
 	];
 
 	/**
@@ -92,7 +94,7 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	 * @return array roles
 	 */
 	public function getRoles() {
-		return $this->getRoles()->orderBy('role_id')->pluck('name')
+		return $this->roles()->orderBy('role_id')->pluck('name')
 			->toArray();
 	}
 
@@ -109,4 +111,7 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	public function tokens() {
 		return $this->hasMany(\App\Models\DeviceToken::class, 'user_id');
 	}
+	// public function socials() {
+	// 	return $this->hasOne(\App\Models\Social::class, 'user_id');
+	// }
 }

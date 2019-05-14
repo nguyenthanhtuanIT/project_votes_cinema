@@ -3,7 +3,6 @@
 namespace App\Transformers;
 
 use App\User;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Class UserTransformer.
@@ -33,7 +32,7 @@ class UserTransformer extends BaseTransformer {
 	public function customAttributes($model): array
 	{
 		return [
-			'roles' => $model->getRoles(),
+			'role' => $model->getRoles(),
 			'avatar' => $model->image ? Storage::url('thumbnails/' . $model->image->filename) : null,
 			'tokens' => $model->tokens,
 		];

@@ -149,12 +149,14 @@ return [
 		Illuminate\Translation\TranslationServiceProvider::class,
 		Illuminate\Validation\ValidationServiceProvider::class,
 		Illuminate\View\ViewServiceProvider::class,
+		//jwt
+		Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+		Laravel\Socialite\SocialiteServiceProvider::class,
 
 		/*
 			         * Package Service Providers...
 		*/
 		Prettus\Repository\Providers\RepositoryServiceProvider::class,
-		Laravel\Socialite\SocialiteServiceProvider::class,
 		Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 		Zizaco\Entrust\EntrustServiceProvider::class,
 		Intervention\Image\ImageServiceProvider::class,
@@ -217,6 +219,8 @@ return [
 		'View' => Illuminate\Support\Facades\View::class,
 		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 		'Image' => Intervention\Image\Facades\Image::class,
+		'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+
 	],
 
 ];
