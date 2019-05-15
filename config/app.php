@@ -160,6 +160,7 @@ return [
 		Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 		Zizaco\Entrust\EntrustServiceProvider::class,
 		Intervention\Image\ImageServiceProvider::class,
+
 		/*
 			         * Application Service Providers...
 		*/
@@ -169,6 +170,8 @@ return [
 		App\Providers\RepositoryServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
+		Maatwebsite\Excel\ExcelServiceProvider::class,
+
 	],
 
 	/*
@@ -220,6 +223,7 @@ return [
 		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 		'Image' => Intervention\Image\Facades\Image::class,
 		'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
 	],
 

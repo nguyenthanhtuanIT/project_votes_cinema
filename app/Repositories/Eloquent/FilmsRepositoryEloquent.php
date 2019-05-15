@@ -55,9 +55,12 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 	public function maxVoteNumber() {
 		$vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
 		$max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
-		$film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
-			->get();
+		$film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)->get();
 		return $film;
+	}
+	public function searchFilms($keyword) {
+		$data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
+		return $data;
 	}
 
 }

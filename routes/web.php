@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::get('google', 'UsersController@loginGoogle');
 Route::get('redirect/google', 'UsersController@redirectGoogle');
+Route::get('excel', 'RegistersController@Export');

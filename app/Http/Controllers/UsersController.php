@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserRegisterRequest;
@@ -9,6 +10,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Social;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
+use Excel;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -158,7 +160,8 @@ class UsersController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function register(UserRegisterRequest $request) {
-		$user = $this->repository->skipPresenter()->create(array_merge($request->all(), ['role' => 'member']));
+		$user = $this->repository->skipPresenter()->create(array_merge($request->all(),
+			['role' => 'member']));
 
 		return $this->presenterPostJson($user);
 	}
@@ -169,5 +172,8 @@ class UsersController extends Controller {
 		$provider = Social::PROVIDER_GOOGLE;
 		$user = Socialite::driver('google')->user();
 		dd($user);
+	}
+	public function Export() {
+		return Excel::download(new UsersExport(), 'users.xlsx');
 	}
 }

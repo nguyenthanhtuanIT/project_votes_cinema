@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\RegistersExport;
 use App\Http\Requests\RegisterCreateRequest;
 use App\Http\Requests\RegisterUpdateRequest;
 use App\Repositories\Contracts\RegisterRepository;
+use Excel;
 use Illuminate\Http\Request;
 
 /**
@@ -87,5 +89,8 @@ class RegistersController extends Controller {
 	public function destroy($id) {
 		$this->repository->delete($id);
 		return response()->json(null, 204);
+	}
+	public function Export() {
+		return Excel::download(new RegistersExport, 'listregister.xlsx');
 	}
 }

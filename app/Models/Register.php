@@ -29,7 +29,9 @@ class Register extends BaseModel {
 		return $name;
 	}
 	public function getUser() {
-		$name = User::where('id', $this->user_id)->select('full_name', 'email')->get();
+		$name = User::where('id', $this->user_id)->select('full_name', 'email')
+			->get();
+
 		return $name;
 	}
 }

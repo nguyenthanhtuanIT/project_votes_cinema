@@ -24,7 +24,9 @@ Route::group(['prefix' => 'v1'], function () {
 	//film
 	Route::resource('films', 'FilmsController');
 	Route::get('list_films', 'FilmsController@listFilm');
-	Route::get('max_vote', 'FilmsController@getFilmRegister');
+	Route::get('max_vote', 'FilmsController@maxRegister');
+	Route::post('search_films', 'FilmsController@getFilmsByDate');
+
 	//cinema
 	Route::resource('cinemas', 'CinemasController');
 	//votedetail
@@ -33,6 +35,8 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::resource('images', 'ImagesController')->only(['store', 'destroy']);
 	//register
 	Route::resource('registers', 'RegistersController');
+	//excel
+	Route::get('excel', 'RegistersController@Export');
 	//blog
 	Route::resource('blogs', 'BlogsController');
 	//cinema
