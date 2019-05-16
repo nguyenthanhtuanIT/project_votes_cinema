@@ -307,8 +307,13 @@
                       <tr>
                         <td>
                           <p class="content-title"><b>Vote films</b></p>
-                          <h4>Hi all,</h4>
-                          <p>Đã có đợt vote mới mọi người nhanh tay vào vote nào!!!</p>
+                          <h2>Hi all,</h2>
+                          <p>Đã có đợt vote mới mọi người nhanh tay vào vote nào!</p>
+                          <p><b style="color: blue">Infor-votes</b></p>
+                          <p>{{$votes->name_vote}}</p>
+                          <p>{{$votes->detail}}</p>
+                          <p>{{$votes->time_start}}</p>
+                          <p>{{$votes->name_end}}</p>
                         </td>
                       </tr>
                     </table>

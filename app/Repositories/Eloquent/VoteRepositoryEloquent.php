@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Mail\NotificationMessage;
 use App\Models\Vote;
 use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
+use App\User;
 use Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -45,11 +47,12 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
 	}
 	public function create(array $attributes) {
 		$vote = parent::create($attributes);
-		$data = [];
-		Mail::send('emails.mail_notification', $data, function ($msg) {
-			$msg->from('shopmoto224@gmail.com', 'Hệ thống');
-			$msg->to("duongdosieu224@gmail.com", 'Công đoàn')->subject('mail_notification');
-		});
+		$user = User::all();
+		foreach ($user as $us) {
+			$email = new NotificationMessage($us);
+			Mail::to($us->email)->send($email);
+		}
+
 		return $vote;
 	}
 }

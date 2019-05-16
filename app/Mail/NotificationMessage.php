@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Vote;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -15,9 +16,9 @@ class NotificationMessage extends Mailable {
 	 *
 	 * @return void
 	 */
-	public $Vote;
-	public function __construct(Vote $vote) {
-		$this->vote = $vote;
+	public $user;
+	public function __construct(User $user) {
+		$this->user = $user;
 	}
 
 	/**
@@ -26,6 +27,9 @@ class NotificationMessage extends Mailable {
 	 * @return $this
 	 */
 	public function build() {
-		return $this->view('emails.mail_notification');
+		$vote = Vote::orderBy('id', 'DESC')->first();
+		//dd($vote);
+		return $this->view('emails.mail_notification')
+			->with('votes', $vote);
 	}
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\UsersExport;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserRegisterRequest;
@@ -10,7 +9,6 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Social;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
-use Excel;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
