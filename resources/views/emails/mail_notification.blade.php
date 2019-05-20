@@ -316,6 +316,7 @@
                           <p>{{$votes->name_end}}</p>
                         </td>
                       </tr>
+                      <tr><td><p><i>---Green global company---</i></p></td></tr>
                     </table>
                   </div>
                 </td>

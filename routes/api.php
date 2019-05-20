@@ -7,15 +7,21 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::post('password/forgot/request', 'Auth\ForgotPasswordController@getResetToken');
 	Route::post('password/forgot/reset', 'Auth\ResetPasswordController@reset');
 	Route::post('register', 'UsersController@register');
-});
-
-Route::group(['prefix' => 'v1'], function () {
+	//user information
+	Route::get('me', 'UsersController@me');
 	//auth
 	Route::post('auth/logout', 'Auth\AuthController@logout');
 	//password
 	Route::post('password/change', 'UsersController@changePass');
-	//user information
-	Route::get('me', 'UsersController@me');
+	//films
+	Route::get('list_films', 'FilmsController@listFilm');
+	Route::get('max_vote', 'FilmsController@maxRegister');
+	Route::post('search_films', 'FilmsController@getFilmsByDate');
+	Route::get('choose_chair/{vote_id}', 'ChooseChairsController@choose');
+
+});
+
+Route::group(['prefix' => 'v1'], function () {
 	//users
 	Route::resource('users', 'UsersController');
 	//votes
@@ -23,10 +29,6 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::get('search', 'VotesController@searchByTitle');
 	//film
 	Route::resource('films', 'FilmsController');
-	Route::get('list_films', 'FilmsController@listFilm');
-	Route::get('max_vote', 'FilmsController@maxRegister');
-	Route::post('search_films', 'FilmsController@getFilmsByDate');
-
 	//cinema
 	Route::resource('cinemas', 'CinemasController');
 	//votedetail

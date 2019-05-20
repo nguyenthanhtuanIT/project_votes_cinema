@@ -13,6 +13,6 @@ class Chair extends BaseModel {
 	 *
 	 * @var array
 	 */
-	protected $fillable = [];
+	protected $fillable = ['code_chairs', 'vote_id', 'row_of_seats', 'number_start', 'number_end'];
 
 }
