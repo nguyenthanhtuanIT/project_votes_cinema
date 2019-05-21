@@ -100,7 +100,7 @@ return [
 	*/
 
 	'sendmail' => '/usr/sbin/sendmail -bs',
-
+	'pretend' => FALSE,
 	/*
 		    |--------------------------------------------------------------------------
 		    | Markdown Mail Settings

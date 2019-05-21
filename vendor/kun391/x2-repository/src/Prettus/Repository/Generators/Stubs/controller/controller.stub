@@ -1,0 +1,112 @@
+<?php
+
+$NAMESPACE$
+
+use Illuminate\Http\Request;
+
+use $APPNAME$Http\Requests;
+use $APPNAME$Http\Requests\$CLASS$CreateRequest;
+use $APPNAME$Http\Requests\$CLASS$UpdateRequest;
+$REPOSITORY$
+
+/**
+ * Class $CONTROLLER$Controller.
+ *
+ * @package $NAMESPACE$
+ */
+class $CONTROLLER$Controller extends Controller
+{
+    /**
+     * @var $CLASS$Repository
+     */
+    protected $repository;
+
+    /**
+     * $CONTROLLER$Controller constructor.
+     *
+     * @param $CLASS$Repository $repository
+     */
+    public function __construct($CLASS$Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $limit = request()->get('limit', null);
+        
+        $includes = request()->get('include', '');
+
+        if ($includes) {
+            $this->repository->with(explode(',', $includes));
+        }
+
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+
+        $$PLURAL$ = $this->repository->paginate($limit, $columns = ['*']);
+
+        return response()->json($$PLURAL$);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  $CLASS$CreateRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store($CLASS$CreateRequest $request)
+    {
+        $$SINGULAR$ = $this->repository->skipPresenter()->create($request->all());
+
+        return response()->json($$SINGULAR$->presenter(), 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $$SINGULAR$ = $this->repository->find($id);
+        
+        return response()->json($$SINGULAR$);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  $CLASS$UpdateRequest $request
+     * @param  string $id
+     *
+     * @return Response
+     */
+    public function update($CLASS$UpdateRequest $request, $id)
+    {
+        $$SINGULAR$ = $this->repository->skipPresenter()->update($request->all(), $id);
+
+        return response()->json($$SINGULAR$->presenter(), 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->repository->delete($id);
+
+        return response()->json(null, 204);
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "robclancy/presenter",
+    "description": "Decorate your objects using presenters. Primarily to keep presentation logic out of your models.",
+    "type": "library",
+    "keywords": ["decorator", "presenter", "laravel"],
+    "license": "DBAD",
+    "authors": [
+        {
+            "name": "Robbo",
+            "email": "robbo.clancy@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {
+      "mockery/mockery": "0.7.2",
+      "illuminate/view": "4.2.*",
+      "phpunit/phpunit": "3.7.*",
+      "friendsofphp/php-cs-fixer": "^2.1"
+    },
+    "autoload": {
+      "psr-4": {
+        "Robbo\\Presenter\\": "src/"
+      }
+    }
+}
