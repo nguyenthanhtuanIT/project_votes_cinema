@@ -40,7 +40,7 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
 		$this->pushCriteria(app(RequestCriteria::class));
 	}
 	public function chooseSeats($vote_id) {
-		$seats = Register::where('user_id', 1)
+		$seats = Register::where('user_id', auth()->user()->id)
 			->where('vote_id', $vote_id)->pluck('ticket_number');
 		return $seats;
 	}

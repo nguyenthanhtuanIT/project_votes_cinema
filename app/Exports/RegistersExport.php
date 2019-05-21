@@ -63,16 +63,22 @@ class RegistersExport implements FromCollection, WithHeadings {
 	}
 	public function collection() {
 		$register = Register::all();
-		foreach ($register as $reg) {
-			$data[] = array(
-				'0' => $reg->name_register,
-				'1' => $this->getUsers(),
-				'2' => $this->getEmails(),
-				'3' => $this->getVotes(),
-				'4' => $this->getFilms(),
-				'5' => $reg->ticket_number);
+		if (count($register) > 0) {
+			foreach ($register as $reg) {
+				$data[] = array(
+					'0' => $reg->name_register,
+					'1' => $this->getUsers(),
+					'2' => $this->getEmails(),
+					'3' => $this->getVotes(),
+					'4' => $this->getFilms(),
+					'5' => $reg->ticket_number);
+			}
+			return (collect($data));
+		} else {
+			$data[] = array();
+			return (collect($data));
 		}
-		return (collect($data));
+
 	}
 	public function headings(): array
 	{
