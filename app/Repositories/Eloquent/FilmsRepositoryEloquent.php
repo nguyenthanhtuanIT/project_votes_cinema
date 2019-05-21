@@ -40,7 +40,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 	public function boot() {
 		$this->pushCriteria(app(RequestCriteria::class));
 	}
-	public function create($attributes) {
+	public function create(array $attributes) {
 		$attributes['vote_number'] = 0;
 		$attributes['register_number'] = 0;
 		$attributes['curency'] = 'đ';
