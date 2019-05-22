@@ -58,15 +58,18 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 			$name = $attributes['img']->store('photos');
 			$link = Storage::url($name);
 			$attributes['img'] = $link;
-			// $img = Films::find($id);
-			// $imgold = $img->img;
 
-			// $nameimg = explode('/', $imgold);
+			$img = Films::find($id);
+			$imgold = $img->img;
+			$nameimg = explode('/', $imgold);
 			// dd($nameimg[5]);
-			// Storage::delete($nameimg[5]);
+
+			Storage::delete('/photos/' . $nameimg[5]);
+
 		}
 
 		$film = parent::update($attributes, $id);
+
 		return response()->json($film);
 	}
 	public function getlistFilm() {

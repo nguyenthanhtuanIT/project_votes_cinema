@@ -18,7 +18,7 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::get('max_vote', 'FilmsController@maxRegister');
 	Route::post('search_films', 'FilmsController@getFilmsByDate');
 	Route::get('choose_chair/{vote_id}', 'ChooseChairsController@choose');
-
+	Route::resource('choose_chairs', 'ChooseChairsController');
 });
 
 Route::group(['prefix' => 'v1'], function () {
