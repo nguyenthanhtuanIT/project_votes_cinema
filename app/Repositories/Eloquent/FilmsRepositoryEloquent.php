@@ -7,6 +7,7 @@ use App\Models\Vote;
 use App\Presenters\FilmsPresenter;
 use App\Repositories\Contracts\filmsRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -44,7 +45,28 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 		$attributes['vote_number'] = 0;
 		$attributes['register_number'] = 0;
 		$attributes['curency'] = 'đ';
+
+		$name = $attributes['img']->store('photos');
+		$link = Storage::url($name);
+		$attributes['img'] = $link;
 		$film = parent::create($attributes);
+		return response()->json($film);
+	}
+	public function update(array $attributes, $id) {
+
+		if (isset($attributes['img'])) {
+			$name = $attributes['img']->store('photos');
+			$link = Storage::url($name);
+			$attributes['img'] = $link;
+			// $img = Films::find($id);
+			// $imgold = $img->img;
+
+			// $nameimg = explode('/', $imgold);
+			// dd($nameimg[5]);
+			// Storage::delete($nameimg[5]);
+		}
+
+		$film = parent::update($attributes, $id);
 		return response()->json($film);
 	}
 	public function getlistFilm() {

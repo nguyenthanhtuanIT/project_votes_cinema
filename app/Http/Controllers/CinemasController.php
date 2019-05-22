@@ -2,111 +2,103 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\CinemaCreateRequest;
 use App\Http\Requests\CinemaUpdateRequest;
 use App\Repositories\Contracts\CinemaRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class CinemasController.
  *
  * @package namespace App\Http\Controllers;
  */
-class CinemasController extends Controller
-{
-    /**
-     * @var CinemaRepository
-     */
-    protected $repository;
+class CinemasController extends Controller {
+	/**
+	 * @var CinemaRepository
+	 */
+	protected $repository;
 
-    /**
-     * CinemasController constructor.
-     *
-     * @param CinemaRepository $repository
-     */
-    public function __construct(CinemaRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+	/**
+	 * CinemasController constructor.
+	 *
+	 * @param CinemaRepository $repository
+	 */
+	public function __construct(CinemaRepository $repository) {
+		$this->repository = $repository;
+	}
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $limit = request()->get('limit', null);
-        
-        $includes = request()->get('include', '');
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
+		$limit = request()->get('limit', null);
 
-        if ($includes) {
-            $this->repository->with(explode(',', $includes));
-        }
+		$includes = request()->get('include', '');
 
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+		if ($includes) {
+			$this->repository->with(explode(',', $includes));
+		}
 
-        $cinemas = $this->repository->paginate($limit, $columns = ['*']);
+		$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-        return response()->json($cinemas);
-    }
+		$cinemas = $this->repository->paginate($limit, $columns = ['*']);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  CinemaCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CinemaCreateRequest $request)
-    {
-        $cinema = $this->repository->skipPresenter()->create($request->all());
+		return response()->json($cinemas);
+	}
 
-        return response()->json($cinema->presenter(), 201);
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  CinemaCreateRequest $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(CinemaCreateRequest $request) {
+		$cinema = $this->repository->skipPresenter()->create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $cinema = $this->repository->find($id);
-        
-        return response()->json($cinema);
-    }
+		return response()->json($cinema->presenter(), 201);
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  CinemaUpdateRequest $request
-     * @param  string $id
-     *
-     * @return Response
-     */
-    public function update(CinemaUpdateRequest $request, $id)
-    {
-        $cinema = $this->repository->skipPresenter()->update($request->all(), $id);
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show($id) {
+		$cinema = $this->repository->find($id);
 
-        return response()->json($cinema->presenter(), 200);
-    }
+		return response()->json($cinema);
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $this->repository->delete($id);
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  CinemaUpdateRequest $request
+	 * @param  string $id
+	 *
+	 * @return Response
+	 */
+	public function update(CinemaUpdateRequest $request, $id) {
+		$cinema = $this->repository->skipPresenter()->update($request->all(), $id);
+		//dd($request->name_cinema);
 
-        return response()->json(null, 204);
-    }
+		return response()->json($cinema->presenter(), 200);
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int $id
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($id) {
+		$this->repository->delete($id);
+
+		return response()->json(null, 204);
+	}
 }
