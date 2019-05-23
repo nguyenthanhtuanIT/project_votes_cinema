@@ -58,7 +58,8 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
 	// 	return $vote;
 	// }
 	public function getStatusVote() {
-		$vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->get();
+		$vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->first();
+
 		return $vote;
 	}
 }
