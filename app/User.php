@@ -111,7 +111,4 @@ class User extends BaseModel implements JWTSubject, AuthenticatableContract, Aut
 	public function tokens() {
 		return $this->hasMany(\App\Models\DeviceToken::class, 'user_id');
 	}
-	// public function socials() {
-	// 	return $this->hasOne(\App\Models\Social::class, 'user_id');
-	// }
 }

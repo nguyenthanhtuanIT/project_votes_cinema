@@ -33,7 +33,7 @@ class UserTransformer extends BaseTransformer {
 	{
 		return [
 			'role' => $model->getRoles(),
-			'avatar' => $model->image ? Storage::url('thumbnails/' . $model->image->filename) : null,
+			// 'avatar' => $model->image ? Storage::url('thumbnails/' . $model->image->filename) : null,
 			'tokens' => $model->tokens,
 		];
 	}

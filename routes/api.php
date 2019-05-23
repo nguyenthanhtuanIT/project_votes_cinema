@@ -21,6 +21,8 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::resource('choose_chairs', 'ChooseChairsController');
 	//sum ticket
 	Route::get('total_ticket/{vote_id}/{film_id}', 'FilmsController@getTotalTicket');
+	//status_vote_now
+	Route::get('status_vote', 'VotesController@showStatusVote');
 });
 
 Route::group(['prefix' => 'v1'], function () {

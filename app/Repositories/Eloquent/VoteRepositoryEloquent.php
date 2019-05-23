@@ -38,6 +38,11 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
 	public function boot() {
 		$this->pushCriteria(app(RequestCriteria::class));
 	}
+	public function create(array $attributes) {
+		$attributes['status_vote'] = 0;
+		$votes = parent::create($attributes);
+		return $votes;
+	}
 	public function search($title) {
 		$result = $this->model()::where('name_vote', 'like', '%' . $title . '%')->get();
 		return $result;
@@ -52,4 +57,8 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
 
 	// 	return $vote;
 	// }
+	public function getStatusVote() {
+		$vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->get();
+		return $vote;
+	}
 }

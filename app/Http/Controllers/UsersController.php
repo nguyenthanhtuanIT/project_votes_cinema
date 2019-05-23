@@ -41,14 +41,14 @@ class UsersController extends Controller {
 	 */
 	public function index() {
 
-		$limit = request()->get('limit', null);
-		$includes = request()->get('include', 'roles');
+		// $limit = request()->get('limit', null);
+		// $includes = request()->get('include', 'roles');
 
-		if ($includes) {
-			$this->repository->with(explode(',', $includes));
-		}
+		// if ($includes) {
+		// 	$this->repository->with(explode(',', $includes));
+		// }
 
-		$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+		// $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
 		$user = $this->repository->all($columns = ['*']);
 		return response()->json($user);
