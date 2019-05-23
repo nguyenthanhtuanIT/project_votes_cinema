@@ -95,6 +95,6 @@ class VotesController extends Controller {
 	}
 	public function showStatusVote() {
 		$vote = $this->repository->getStatusVote();
-		return response()->json($vote);
+		return $this->repository->parserResult($vote);
 	}
 }
