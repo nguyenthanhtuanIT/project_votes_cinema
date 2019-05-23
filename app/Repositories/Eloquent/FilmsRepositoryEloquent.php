@@ -83,6 +83,10 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 		$film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)->get()->random();
 		return $film;
 	}
+	public function totalTicket($vote_id, $film_id) {
+		$total = $this->model()::where(['id' => $film_id, 'vote_id' => $vote_id])->first();
+		return $total->register_number;
+	}
 	public function searchFilms($keyword) {
 		$data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
 		return $data;

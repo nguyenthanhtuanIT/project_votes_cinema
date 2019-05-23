@@ -15,7 +15,6 @@ class Vote extends BaseModel {
 	 * @var array
 	 */
 	protected $fillable = ['name_vote', 'user_id',
-		'status_vote', 'detail', 'time_start',
+		'status_vote', 'detail', 'time_start_vote', 'time_start_register',
 		'time_end'];
-	// protected $events = ['created' => Events\NewVote::class];
 }

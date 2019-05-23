@@ -115,4 +115,8 @@ class FilmsController extends Controller {
 		$films = $this->repository->searchFilms($request->keyword);
 		return $this->repository->parserResult($films);
 	}
+	public function getTotalTicket($vote_id, $film_id) {
+		$total = $this->repository->totalTicket($vote_id, $film_id);
+		return response()->json(['total' => $total]);
+	}
 }

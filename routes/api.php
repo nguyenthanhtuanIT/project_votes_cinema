@@ -19,6 +19,8 @@ Route::group(['prefix' => 'v1'], function () {
 	Route::post('search_films', 'FilmsController@getFilmsByDate');
 	Route::get('choose_chair/{vote_id}', 'ChooseChairsController@choose');
 	Route::resource('choose_chairs', 'ChooseChairsController');
+	//sum ticket
+	Route::get('total_ticket/{vote_id}/{film_id}', 'FilmsController@getTotalTicket');
 });
 
 Route::group(['prefix' => 'v1'], function () {

@@ -20,7 +20,8 @@ class CreateVotesTable extends Migration {
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('status_vote');
 			$table->string('detail');
-			$table->date('time_start');
+			$table->date('time_start_vote');
+			$table->date('time_start_register');
 			$table->date('time_end');
 			$table->timestamps();
 		});

@@ -28,4 +28,9 @@ class ChairTransformer extends BaseTransformer {
 	 * @var array
 	 */
 	protected $defaultIncludes = [];
+	public function customAttributes($model): array
+	{
+		return ['seats' => $model->getchair(),
+		];
+	}
 }
