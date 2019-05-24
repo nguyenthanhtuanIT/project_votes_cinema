@@ -6,7 +6,6 @@ use App\Models\Films;
 use App\Models\Vote;
 use App\Presenters\FilmsPresenter;
 use App\Repositories\Contracts\filmsRepository;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -73,15 +72,19 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository 
 		return response()->json($film);
 	}
 	public function getlistFilm() {
-		$time = Carbon::now();
-		$films = $this->model()::whereMonth('projection_date', $time->month)->whereYear('projection_date', $time->year)->get();
+		$vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
+		$vote_id = $vote->id;
+		//dd($status);
+		$films = $this->model()::where('vote_id', $vote_id)->get();
 		return $films;
 	}
 	public function maxVoteNumber() {
 		$vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
 		$max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
-		$film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)->get()->random();
-		return $film;
+		$film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
+			->get();
+		$data = $film->random()->get();
+		return $data;
 	}
 	public function totalTicket($vote_id, $film_id) {
 		$total = $this->model()::where(['id' => $film_id, 'vote_id' => $vote_id])->first();

@@ -2,9 +2,12 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Mail\NotificationMessage;
 use App\Models\Vote;
 use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
+use App\User;
+use Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -38,25 +41,22 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
 	public function boot() {
 		$this->pushCriteria(app(RequestCriteria::class));
 	}
-	public function create(array $attributes) {
-		$attributes['status_vote'] = 0;
-		$votes = parent::create($attributes);
-		return $votes;
-	}
 	public function search($title) {
 		$result = $this->model()::where('name_vote', 'like', '%' . $title . '%')->get();
 		return $result;
 	}
-	// public function create(array $attributes) {
-	// 	$vote = parent::create($attributes);
-	// 	$user = User::all();
-	// 	foreach ($user as $us) {
-	// 		$email = new NotificationMessage($us);
-	// 		Mail::to($us->email)->send($email);
-	// 	}
+	public function create(array $attributes) {
+		$attributes['status_vote'] = 0;
+		//dd(Config::get('mail'));
+		$vote = parent::create($attributes);
+		// $user = User::all();
+		// foreach ($user as $us) {
+		// 	$email = new NotificationMessage($us);
+		// 	Mail::to($us->email)->send($email);
+		}
 
-	// 	return $vote;
-	// }
+		return $vote;
+	}
 	public function getStatusVote() {
 		$vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->first();
 		return $vote;
