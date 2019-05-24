@@ -2,12 +2,9 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Mail\NotificationMessage;
 use App\Models\Vote;
 use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
-use App\User;
-use Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -53,11 +50,11 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
 		// foreach ($user as $us) {
 		// 	$email = new NotificationMessage($us);
 		// 	Mail::to($us->email)->send($email);
-		}
+		//}
 
 		return $vote;
 	}
-	public function getStatusVote() {
+	public function getStatus() {
 		$vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->first();
 		return $vote;
 	}
