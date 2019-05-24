@@ -72,7 +72,7 @@ class VotesController extends Controller {
 	 * @return Response
 	 */
 	public function update(VoteUpdateRequest $request, $id) {
-		$vote = $this->repository->skipPresenter()->update($request->all(), $id);
+		$vote = $this->repository->update($request->all(), $id);
 
 		return response()->json($vote, 201);
 	}
