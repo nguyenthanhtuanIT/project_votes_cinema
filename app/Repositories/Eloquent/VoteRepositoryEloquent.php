@@ -13,49 +13,56 @@ use Prettus\Repository\Eloquent\BaseRepository;
  *
  * @package namespace App\Repositories\Eloquent;
  */
-class VoteRepositoryEloquent extends BaseRepository implements VoteRepository {
-	/**
-	 * Specify Model class name
-	 *
-	 * @return string
-	 */
-	public function model() {
-		return Vote::class;
-	}
+class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
+{
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Vote::class;
+    }
 
-	/**
-	 * Specify Presenter class name
-	 *
-	 * @return string
-	 */
-	public function presenter() {
-		return VotePresenter::class;
-	}
+    /**
+     * Specify Presenter class name
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return VotePresenter::class;
+    }
 
-	/**
-	 * Boot up the repository, pushing criteria
-	 */
-	public function boot() {
-		$this->pushCriteria(app(RequestCriteria::class));
-	}
-	public function search($title) {
-		$result = $this->model()::where('name_vote', 'like', '%' . $title . '%')->get();
-		return $result;
-	}
-	public function create(array $attributes) {
-		$attributes['status_vote'] = 0;
-		//dd(Config::get('mail'));
-		$vote = parent::create($attributes);
-		// $user = User::all();
-		// foreach ($user as $us) {
-		// 	$email = new NotificationMessage($us);
-		// 	Mail::to($us->email)->send($email);
-		//}
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+    public function search($title)
+    {
+        $result = $this->model()::where('name_vote', 'like', '%' . $title . '%')->get();
+        return $result;
+    }
+    public function create(array $attributes)
+    {
+        $attributes['status_vote'] = 0;
+        //dd(Config::get('mail'));
+        $vote = parent::create($attributes);
+        // $user = User::all();
+        // foreach ($user as $us) {
+        //     $email = new NotificationMessage($us);
+        //     Mail::to($us->email)->send($email);
+        //}
 
-		return $vote;
-	}
-	public function getStatus() {
-		$vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->first();
-		return $vote;
-	}
+        return $vote;
+    }
+    public function getStatus()
+    {
+        $vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->first();
+        return $vote;
+    }
 }

@@ -30,7 +30,6 @@ class UsersTableSeeder extends Seeder
                 'description' => 'User is allowed to manage all system.',
             ]
         );
-
         // attach roles
         if (!$user->hasRole(Role::SUPER_ADMIN)) {
             $user->attachRole($roleSuperAdmin);

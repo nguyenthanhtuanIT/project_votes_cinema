@@ -55,3 +55,4 @@ Input :vote_id(của hiện tại)
 - Route::get('search', 'VotesController@searchByTitle');//tìm kiếm đợt xem phim theo tiêu đề (vote_name)
 Input : keyword
 - Route::get('status_vote', 'VotesController@showStatusVote');//status_vote_now
+-Route::get('check_voted/{vote_id}/{user_id}', 'VoteDetailsController@checkVoted') // check used voted
