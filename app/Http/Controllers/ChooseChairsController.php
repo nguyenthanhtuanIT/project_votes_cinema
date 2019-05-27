@@ -12,97 +12,105 @@ use Illuminate\Http\Request;
  *
  * @package namespace App\Http\Controllers;
  */
-class ChooseChairsController extends Controller {
-	/**
-	 * @var ChooseChairRepository
-	 */
-	protected $repository;
+class ChooseChairsController extends Controller
+{
+    /**
+     * @var ChooseChairRepository
+     */
+    protected $repository;
 
-	/**
-	 * ChooseChairsController constructor.
-	 *
-	 * @param ChooseChairRepository $repository
-	 */
-	public function __construct(ChooseChairRepository $repository) {
-		$this->repository = $repository;
-	}
+    /**
+     * ChooseChairsController constructor.
+     *
+     * @param ChooseChairRepository $repository
+     */
+    public function __construct(ChooseChairRepository $repository)
+    {
+        $this->repository = $repository;
+    }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index() {
-		$limit = request()->get('limit', null);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $limit = request()->get('limit', null);
 
-		$includes = request()->get('include', '');
+        $includes = request()->get('include', '');
 
-		if ($includes) {
-			$this->repository->with(explode(',', $includes));
-		}
+        if ($includes) {
+            $this->repository->with(explode(',', $includes));
+        }
 
-		$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-		$chooseChairs = $this->repository->paginate($limit, $columns = ['*']);
+        $chooseChairs = $this->repository->paginate($limit, $columns = ['*']);
 
-		return response()->json($chooseChairs);
-	}
+        return response()->json($chooseChairs);
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  ChooseChairCreateRequest $request
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(ChooseChairCreateRequest $request) {
-		$chooseChair = $this->repository->skipPresenter()->create($request->all());
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  ChooseChairCreateRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ChooseChairCreateRequest $request)
+    {
+        $chooseChair = $this->repository->skipPresenter()->create($request->all());
 
-		return response()->json($chooseChair->presenter(), 201);
-	}
+        return response()->json($chooseChair->presenter(), 201);
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show($id) {
-		$chooseChair = $this->repository->find($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $chooseChair = $this->repository->find($id);
 
-		return response()->json($chooseChair);
-	}
+        return response()->json($chooseChair);
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  ChooseChairUpdateRequest $request
-	 * @param  string $id
-	 *
-	 * @return Response
-	 */
-	public function update(ChooseChairUpdateRequest $request, $id) {
-		$chooseChair = $this->repository->skipPresenter()->update($request->all(), $id);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  ChooseChairUpdateRequest $request
+     * @param  string $id
+     *
+     * @return Response
+     */
+    public function update(ChooseChairUpdateRequest $request, $id)
+    {
+        $chooseChair = $this->repository->skipPresenter()->update($request->all(), $id);
 
-		return response()->json($chooseChair->presenter(), 200);
-	}
+        return response()->json($chooseChair->presenter(), 200);
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy($id) {
-		$this->repository->delete($id);
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->repository->delete($id);
 
-		return response()->json(null, 204);
-	}
-	public function choose($vote_id) {
-		$seat = $this->repository->chooseSeats($vote_id);
-		//dd($seat);
-		return response()->json($seat);
-	}
+        return response()->json(null, 204);
+    }
+    public function choose(Request $request)
+    {
+        $seat = $this->repository->chooseSeats($request->vote_id);
+        //dd($seat);
+        return response()->json($seat);
+    }
 }

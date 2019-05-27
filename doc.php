@@ -50,9 +50,11 @@ output :
 
     Route::post('search_films', 'FilmsController@getFilmsByDate');//tìm kiếm phim theo ngày chiếu(projection_date) or thể loại (type_cinema_id)
 
-- Route::get('choose_chair/{vote_id}', 'ChooseChairsController@choose') // lấy ra số vé của từng user để ràng buộc chọn ghế.
+- Route::post('user_choose_chair', 'ChooseChairsController@choose') // lấy ra số vé của từng user để ràng buộc chọn ghế.
 Input :vote_id(của hiện tại)
 - Route::get('search', 'VotesController@searchByTitle');//tìm kiếm đợt xem phim theo tiêu đề (vote_name)
 Input : keyword
 - Route::get('status_vote', 'VotesController@showStatusVote');//status_vote_now
--Route::get('check_voted/{vote_id}/{user_id}', 'VoteDetailsController@checkVoted') // check used voted
+-Route::post('check_voted', 'VoteDetailsController@checkVoted') // check used voted
+-//sum ticket
+    Route::post('total_ticket', 'FilmsController@getTotalTicket');// tong so ve khi ket thuc dk

@@ -15,84 +15,96 @@ use Prettus\Repository\Eloquent\BaseRepository;
  *
  * @package namespace App\Repositories\Eloquent;
  */
-class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository {
-	/**
-	 * Specify Model class name
-	 *
-	 * @return string
-	 */
-	public function model() {
-		return Films::class;
-	}
+class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
+{
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Films::class;
+    }
 
-	/**
-	 * Specify Presenter class name
-	 *
-	 * @return string
-	 */
-	public function presenter() {
-		return FilmsPresenter::class;
-	}
+    /**
+     * Specify Presenter class name
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return FilmsPresenter::class;
+    }
 
-	/**
-	 * Boot up the repository, pushing criteria
-	 */
-	public function boot() {
-		$this->pushCriteria(app(RequestCriteria::class));
-	}
-	public function create(array $attributes) {
-		$attributes['vote_number'] = 0;
-		$attributes['register_number'] = 0;
-		$attributes['curency'] = 'đ';
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+    public function create(array $attributes)
+    {
+        $attributes['vote_number'] = 0;
+        $attributes['register_number'] = 0;
+        $attributes['curency'] = 'đ';
 
-		$name = $attributes['img']->store('photos');
-		$link = Storage::url($name);
-		$attributes['img'] = $link;
-		$film = parent::create($attributes);
-		return response()->json($film);
-	}
-	public function update(array $attributes, $id) {
+        $name = $attributes['img']->store('photos');
+        $link = Storage::url($name);
+        $attributes['img'] = $link;
+        $film = parent::create($attributes);
+        return response()->json($film);
+    }
+    public function update(array $attributes, $id)
+    {
 
-		if (isset($attributes['img'])) {
-			$name = $attributes['img']->store('photos');
-			$link = Storage::url($name);
-			$attributes['img'] = $link;
+        if (isset($attributes['img'])) {
+            $name = $attributes['img']->store('photos');
+            $link = Storage::url($name);
+            $attributes['img'] = $link;
 
-			$img = Films::find($id);
-			$imgold = $img->img;
-			$nameimg = explode('/', $imgold);
-			// dd($nameimg[5]);
+            $img = Films::find($id);
+            $imgold = $img->img;
+            $nameimg = explode('/', $imgold);
+            // dd($nameimg[5]);
 
-			Storage::delete('/photos/' . $nameimg[5]);
+            Storage::delete('/photos/' . $nameimg[5]);
 
-		}
+        }
 
-		$film = parent::update($attributes, $id);
+        $film = parent::update($attributes, $id);
 
-		return response()->json($film);
-	}
-	public function getlistFilm() {
-		$vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
-		$vote_id = $vote->id;
-		//dd($status);
-		$films = $this->model()::where('vote_id', $vote_id)->get();
-		return $films;
-	}
-	public function maxVoteNumber() {
-		$vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
-		$max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
-		$film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
-			->get();
-		$data = $film->random()->get();
-		return $data;
-	}
-	public function totalTicket($vote_id, $film_id) {
-		$total = $this->model()::where(['id' => $film_id, 'vote_id' => $vote_id])->first();
-		return $total->register_number;
-	}
-	public function searchFilms($keyword) {
-		$data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
-		return $data;
-	}
+        return response()->json($film);
+    }
+    public function getlistFilm()
+    {
+        $vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
+        $vote_id = $vote->id;
+        //dd($status);
+        $films = $this->model()::where('vote_id', $vote_id)->get();
+        return $films;
+    }
+    public function maxVoteNumber()
+    {
+        $vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
+        $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
+        $film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
+            ->get();
+        $data = $film->random()->get();
+        return $data;
+    }
+    public function totalTicket(array $attributes)
+    {
+        $film_id = $attributes['film_id'];
+        $vote_id = $attributes['vote_id'];
+        $total = $this->model()::where(['id' => $film_id, 'vote_id' => $vote_id])->first();
+        return $total->register_number;
+    }
+    public function searchFilms($keyword)
+    {
+        $data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
+        return $data;
+    }
 
 }

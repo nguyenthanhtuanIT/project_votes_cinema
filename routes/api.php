@@ -17,10 +17,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('list_films', 'FilmsController@listFilm');
     Route::get('max_vote', 'FilmsController@maxRegister');
     Route::post('search_films', 'FilmsController@getFilmsByDate');
-    Route::get('choose_chair/{vote_id}', 'ChooseChairsController@choose');
+    Route::get('user_choose_chair', 'ChooseChairsController@choose');
     Route::resource('choose_chairs', 'ChooseChairsController');
     //sum ticket
-    Route::get('total_ticket/{vote_id}/{film_id}', 'FilmsController@getTotalTicket');
+    Route::post('total_ticket', 'FilmsController@getTotalTicket');
     //status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
     //user choose chairs
