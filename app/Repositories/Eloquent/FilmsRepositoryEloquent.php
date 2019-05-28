@@ -6,6 +6,7 @@ use App\Models\Films;
 use App\Models\Vote;
 use App\Presenters\FilmsPresenter;
 use App\Repositories\Contracts\filmsRepository;
+use DB;
 use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -90,9 +91,10 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
         $vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
         $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
         $film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
+            ->orderBy(DB::raw('RAND()'))
+            ->take(1)
             ->get();
-        $data = $film->random()->get();
-        return $data;
+        return $film;
     }
     public function totalTicket(array $attributes)
     {
