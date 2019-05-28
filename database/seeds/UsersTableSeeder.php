@@ -14,10 +14,10 @@ class UsersTableSeeder extends Seeder
     {
         // find or create user admin
         $user = \App\User::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'nguyenthanhtuan15.it@gmail.com'],
             [
-                'name' => 'Super Admin',
-                'password' => bcrypt('123123'),
+                'full_name' => 'Super Admin',
+                'password' => bcrypt('tuan1234'),
                 'remember_token' => str_random(60),
             ]
         );
@@ -30,9 +30,20 @@ class UsersTableSeeder extends Seeder
                 'description' => 'User is allowed to manage all system.',
             ]
         );
+        // find or create role member
+        $roleMember = Role::firstOrCreate(
+            ['name' => Role::MEMBER],
+            [
+                'display_name' => 'member',
+                'description' => 'User is allowed to using system with role member.',
+            ]
+        );
         // attach roles
         if (!$user->hasRole(Role::SUPER_ADMIN)) {
             $user->attachRole($roleSuperAdmin);
+        }
+        if (!$user->hasRole(Role::MEMBER)) {
+            $user->attachRole($roleMember);
         }
     }
 }

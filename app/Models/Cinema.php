@@ -7,12 +7,13 @@ namespace App\Models;
  *
  * @package namespace App\Models;
  */
-class Cinema extends BaseModel {
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = ['name_cinema', 'address'];
+class Cinema extends BaseModel
+{
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name_cinema', 'address'];
 
 }

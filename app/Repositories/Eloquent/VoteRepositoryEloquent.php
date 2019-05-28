@@ -51,7 +51,7 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     {
         $attributes['status_vote'] = 0;
         //dd(Config::get('mail'));
-        // $vote = parent::create($attributes);
+        $vote = parent::create($attributes);
         // $user = User::all();
         // foreach ($user as $us) {
         //     $email = new NotificationMessage($us);
