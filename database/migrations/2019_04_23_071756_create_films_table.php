@@ -32,6 +32,7 @@ class CreateFilmsTable extends Migration
             $table->string('detail', 3000);
             $table->string('trailer_url');
             $table->integer('price_film');
+            $table->integer('choose');
             $table->string('curency');
             $table->integer('vote_number');
             $table->integer('register_number');

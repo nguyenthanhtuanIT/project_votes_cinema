@@ -14,12 +14,11 @@ Route::group(['prefix' => 'v1'], function () {
     //password
     Route::post('password/change', 'UsersController@changePass');
     //films
-    Route::get('list_films', 'FilmsController@listFilm');
-    Route::get('random_film', 'FilmsController@randomFilm');
-    Route::get('film_to_register', 'FilmsController@listMaxVote');
+    Route::get('list_films', 'FilmsController@listFilmToVote');
     Route::post('search_films', 'FilmsController@getFilmsByDate');
     //return film to register user
-    Route::post('infor_film_register', 'FilmsController@getBookFilm');
+    Route::get('film_to_register', 'FilmsController@getFilmToRegister');
+
     //chair
     Route::get('user_choose_chair', 'ChooseChairsController@choose');
     Route::resource('choose_chairs', 'ChooseChairsController');
@@ -43,6 +42,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('search', 'VotesController@searchByTitle');
     //film
     Route::resource('films', 'FilmsController');
+    Route::get('list_film_to_register', 'FilmsController@listMaxVote');
     //cinema
     Route::resource('cinemas', 'CinemasController');
     //admin votedetail

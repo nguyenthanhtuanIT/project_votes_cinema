@@ -107,18 +107,12 @@ class FilmsController extends Controller
 
         return response()->json(null, 204);
     }
-    public function listFilm()
+    public function listFilmToVote()
     {
         $time = Carbon::now();
-        $film = $this->repository->getlistFilm();
+        $film = $this->repository->getlistFilmToVote();
         return $this->repository->parserResult($film);
         //return response()->json($film);
-
-    }
-    public function randomFilm()
-    {
-        $films = $this->repository->randomFilmToRegister();
-        return $this->repository->parserResult($films);
     }
     public function listMaxVote()
     {
@@ -135,13 +129,9 @@ class FilmsController extends Controller
         $total = $this->repository->totalTicket($request->all());
         return response()->json(['total' => $total]);
     }
-    public function getBookFilm(Request $request)
+    public function getFilmToRegister()
     {
-        $films = $this->repository->bookFilm($request->all());
-        if ($films) {
-            return $this->repository->parserResult($films);
-        }
-        return response('choose not exit', 400);
-
+        $film = $this->repository->filmToRegister();
+        return $this->repository->parserResult($film);
     }
 }

@@ -17,7 +17,6 @@ class CreateRegistersTable extends Migration
     {
         Schema::create('registers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_register');
             $table->integer('user_id')->unsigned();
             $table->integer('vote_id')->unsigned();
             $table->integer('film_id')->unsigned();
@@ -25,7 +24,6 @@ class CreateRegistersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('film_id')->references('id')->on('films');
             $table->integer('ticket_number');
-
             $table->timestamps();
         });
     }

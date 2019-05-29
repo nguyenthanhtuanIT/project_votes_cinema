@@ -79,7 +79,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
 
         return response()->json($film);
     }
-    public function getlistFilm()
+    public function getlistFilmToVote()
     {
         $vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
         $vote_id = $vote->id;
@@ -89,7 +89,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     }
     public function randomFilmToRegister()
     {
-        $vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
+        $vote = Vote::where('status_vote', 2)->orwhere('status_vote', 1)->select('id', 'status_vote')->first();
         $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
         $film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
             ->orderBy(DB::raw('RAND()'))
@@ -99,7 +99,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     }
     public function listFilmMaxVote()
     {
-        $vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
+        $vote = Vote::where('status_vote', 2)->orwhere('status_vote', 1)->select('id', 'status_vote')->first();
         $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
         $films = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
             ->get();
@@ -117,10 +117,27 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
         $data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
         return $data;
     }
-    public function bookFilm($attributes)
+    public function filmToRegister()
     {
-        $data = $this->model()::where(['vote_id' => $attributes['vote_id'], 'choose' => 1])->first();
-        return $data;
+        $vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
+        $check = $this->model()::where(['vote_id' => $vote->id, 'choose' => 1])
+            ->get();
+        if ($check->count() == 0) {
+            $list = $this->listFilmMaxVote();
+            if ($list->count() > 1) {
+                $rands = $this->randomFilmToRegister();
+                foreach ($rands as $rand) {
+                    $update = $this->model()::where('id', $rand->id)->update(['choose' => 1]);
+                    if ($update == 1) {
+                        $result = $this->model()::find($rand->id);
+                    }
+                }
+            }
+            return $result;
+        } else {
+            $result = $this->model()::where(['vote_id' => $vote->id, 'choose' => 1])->first();
+            return $result;
+        }
+        //return $data;
     }
-
 }
