@@ -86,7 +86,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
         $films = $this->model()::where('vote_id', $vote_id)->get();
         return $films;
     }
-    public function maxVoteNumber()
+    public function randomFilmToRegister()
     {
         $vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
         $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
@@ -95,6 +95,14 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
             ->take(1)
             ->get();
         return $film;
+    }
+    public function listFilmMaxVote()
+    {
+        $vote = Vote::where('status_vote', 2)->select('id', 'status_vote')->first();
+        $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
+        $films = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
+            ->get();
+        return $films;
     }
     public function totalTicket(array $attributes)
     {

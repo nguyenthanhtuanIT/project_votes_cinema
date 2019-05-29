@@ -15,7 +15,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('password/change', 'UsersController@changePass');
     //films
     Route::get('list_films', 'FilmsController@listFilm');
-    Route::get('max_vote', 'FilmsController@maxRegister');
+    Route::get('random_film', 'FilmsController@randomFilm');
+    Route::get('film_to_register', 'FilmsController@listMaxVote');
     Route::post('search_films', 'FilmsController@getFilmsByDate');
     Route::get('user_choose_chair', 'ChooseChairsController@choose');
     Route::resource('choose_chairs', 'ChooseChairsController');

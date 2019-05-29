@@ -45,7 +45,6 @@ output :
         }
     ]
 }
-    - Route::get('max_vote', 'FilmsController@maxRegister');//film có lượt vote cao nhất (trong database phải có đợt vote có status = 2)
 
 
     Route::post('search_films', 'FilmsController@getFilmsByDate');//tìm kiếm phim theo ngày chiếu(projection_date) or thể loại (type_cinema_id)
@@ -58,3 +57,5 @@ Input : keyword
 -Route::post('check_voted', 'VoteDetailsController@checkVoted') // check used voted
 -//sum ticket
     Route::post('total_ticket', 'FilmsController@getTotalTicket');// tong so ve khi ket thuc dk
+ - Route::get('random_film', 'FilmsController@randomFilm');// chon film de dk
+    - Route::get('film_to_register', 'FilmsController@listMaxVote');// list film có lượt vote cao nhất (trong database phải có đợt vote có status = 2)

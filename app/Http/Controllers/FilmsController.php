@@ -115,10 +115,15 @@ class FilmsController extends Controller
         //return response()->json($film);
 
     }
-    public function maxRegister()
+    public function randomFilm()
     {
-        $films = $this->repository->maxVoteNumber();
+        $films = $this->repository->randomFilmToRegister();
         return $this->repository->parserResult($films);
+    }
+    public function listMaxVote()
+    {
+        $list = $this->repository->listFilmMaxVote();
+        return $this->repository->parserResult($list);
     }
     public function getFilmsByDate(Request $request)
     {
