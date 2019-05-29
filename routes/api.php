@@ -32,6 +32,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('votedetails', 'VoteDetailsController')->only('store');
     //check voted
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
+    //check register
+    Route::post('check_register', 'RegistersController@checkRegistered');
 });
 
 Route::group(['prefix' => 'v1'], function () {
