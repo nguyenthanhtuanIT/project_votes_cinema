@@ -49,6 +49,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     {
         $attributes['vote_number'] = 0;
         $attributes['register_number'] = 0;
+        $attributes['choose'] = 0;
         $attributes['curency'] = 'đ';
 
         $name = $attributes['img']->store('photos');
@@ -114,6 +115,11 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     public function searchFilms($keyword)
     {
         $data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
+        return $data;
+    }
+    public function bookFilm($attributes)
+    {
+        $data = $this->model()::where(['vote_id' => $attributes['vote_id'], 'choose' => 1])->first();
         return $data;
     }
 
