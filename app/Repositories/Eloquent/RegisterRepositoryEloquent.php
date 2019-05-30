@@ -45,6 +45,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     }
     public function create($attributes)
     {
+        //$attributes['ticket_number'] = 0;
         $register = parent::create($attributes);
         //var_dump($register);
         RegisterService::add($register['data']['attributes']['film_id'],
