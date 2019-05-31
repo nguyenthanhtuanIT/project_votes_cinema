@@ -14,6 +14,6 @@ class ChooseChair extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'vote_id', 'chair_id', 'seats'];
+    protected $fillable = ['user_id', 'vote_id', 'seats'];
 
 }
