@@ -34,6 +34,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
     //check register
     Route::post('check_register', 'RegistersController@checkRegistered');
+    //get diagram_chairs by votes
+    Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
+
 });
 
 Route::group(['prefix' => 'v1'], function () {

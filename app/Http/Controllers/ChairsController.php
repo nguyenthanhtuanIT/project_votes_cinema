@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\ChairCreateRequest;
 use App\Http\Requests\ChairUpdateRequest;
 use App\Repositories\Contracts\ChairRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class ChairsController.
@@ -39,7 +37,7 @@ class ChairsController extends Controller
     public function index()
     {
         $limit = request()->get('limit', null);
-        
+
         $includes = request()->get('include', '');
 
         if ($includes) {
@@ -77,7 +75,7 @@ class ChairsController extends Controller
     public function show($id)
     {
         $chair = $this->repository->find($id);
-        
+
         return response()->json($chair);
     }
 
@@ -109,4 +107,10 @@ class ChairsController extends Controller
 
         return response()->json(null, 204);
     }
+    public function getDiagramChairByVote(Request $request)
+    {
+        $diagram = $this->repository->diagramChairByVote($request->all());
+        return $this->repository->parserResult($diagram);
+    }
+
 }

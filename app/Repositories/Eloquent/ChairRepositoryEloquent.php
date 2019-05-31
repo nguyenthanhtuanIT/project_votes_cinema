@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Eloquent;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\ChairRepository;
-use App\Presenters\ChairPresenter;
 use App\Models\Chair;
+use App\Presenters\ChairPresenter;
+use App\Repositories\Contracts\ChairRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class ChairRepositoryEloquent.
@@ -42,5 +42,10 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+    public function diagramChairByVote(array $attributes)
+    {
+        $vote_id = $attributes['vote_id'];
+        $diagram = $this->model()::where('vote_id', $vote_id)->first();
+        return $diagram;
+    }
 }

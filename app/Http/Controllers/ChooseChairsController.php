@@ -58,7 +58,7 @@ class ChooseChairsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ChooseChairCreateRequest $request)
+    public function store(Request $request)
     {
         $chooseChair = $this->repository->skipPresenter()->create($request->all());
 
@@ -87,7 +87,7 @@ class ChooseChairsController extends Controller
      *
      * @return Response
      */
-    public function update(ChooseChairUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $chooseChair = $this->repository->skipPresenter()->update($request->all(), $id);
 
