@@ -24,11 +24,7 @@ class ChairCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'row_of_seats' => [
-            //     function ($attribute, $value, $fail) {
-            //         dd($attribute['vote_id']);
-            //     },
-            // ],
+
         ];
     }
 }

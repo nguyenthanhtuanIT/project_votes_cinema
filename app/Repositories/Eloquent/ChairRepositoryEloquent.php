@@ -42,10 +42,26 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+    public function create(array $attributes)
+    {
+        if (isset($attributes['row_of_seats'])) {
+            $validate = $this->model()::where([
+                'row_of_seats' => $attributes['row_of_seats'],
+                'vote_id' => $attributes['vote_id'],
+            ])->count();
+            if ($validate > 0) {
+                return 'attributes aready exited';
+            } else {
+                $chairs = parent::create($attributes);
+                return $chairs;
+            }
+
+        }
+    }
     public function diagramChairByVote(array $attributes)
     {
         $vote_id = $attributes['vote_id'];
-        $diagram = $this->model()::where('vote_id', $vote_id)->first();
+        $diagram = $this->model()::where('vote_id', $vote_id)->get();
         return $diagram;
     }
 }
