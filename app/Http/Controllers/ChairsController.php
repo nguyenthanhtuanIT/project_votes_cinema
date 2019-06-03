@@ -88,9 +88,9 @@ class ChairsController extends Controller
      */
     public function update(ChairUpdateRequest $request, $id)
     {
-        $chair = $this->repository->skipPresenter()->update($request->all(), $id);
+        $chair = $this->repository->update($request->all(), $id);
 
-        return response()->json($chair->presenter(), 200);
+        return response()->json($chair, 200);
     }
 
     /**
@@ -110,6 +110,11 @@ class ChairsController extends Controller
     {
         $diagram = $this->repository->diagramChairByVote($request->all());
         return $this->repository->parserResult($diagram);
+    }
+    public function updateStatusChair(Request $request)
+    {
+        $status = $this->repository->test($request->all());
+        return response()->json($status);
     }
 
 }
