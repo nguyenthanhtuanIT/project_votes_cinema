@@ -13,7 +13,7 @@ class Vote_detailsUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
