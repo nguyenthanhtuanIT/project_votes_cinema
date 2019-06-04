@@ -67,17 +67,7 @@ class UsersController extends Controller
     {
         $user = $this->repository->find(auth()->user()->id);
         return response()->json($user);
-        //     $user = Auth::user();
-
-        //     if ($user) {
-        //         return response($user, 200);
-        //     }
-
-        //     return response(null, 204);
-        // }
-        /**
-         * Funtion change pass of the user
-         */}
+    }
     public function changePass(ChangePasswordRequest $request)
     {
         $request_data = $request->all();
