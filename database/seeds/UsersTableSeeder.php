@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     {
         // find or create user admin
         $user = \App\User::firstOrCreate(
-            ['email' => 'nguyenthanhtuan15.it@gmail.com'],
+            ['email' => 'dev.fresher@greenglobal.vn'],
             [
                 'full_name' => 'Super Admin',
                 'password' => bcrypt('tuan1234'),
