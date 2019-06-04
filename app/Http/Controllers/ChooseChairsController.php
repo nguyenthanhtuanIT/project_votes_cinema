@@ -109,8 +109,13 @@ class ChooseChairsController extends Controller
     }
     public function choose(Request $request)
     {
-        $seat = $this->repository->chooseSeats($request->vote_id);
+        $seat = $this->repository->chooseSeats($request->all());
         //dd($seat);
         return response()->json($seat);
+    }
+    public function checkUserChooed(Request $request)
+    {
+        $check = $this->repository->checkChoosed($request->all());
+        return response()->json($check);
     }
 }

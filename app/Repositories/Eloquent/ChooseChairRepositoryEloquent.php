@@ -43,11 +43,20 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    public function chooseSeats($attributes)
+    public function chooseSeats(array $attributes)
     {
         $seats = Register::where('user_id', auth()->user()->id)
             ->where('vote_id', $attributes['vote_id'])->pluck('ticket_number');
         return $seats;
+    }
+    public function checkChoosed(array $attributes)
+    {
+        $check = true;
+        $count = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
+        if ($count == 1) {
+            $check = false;
+        }
+        return response()->json($check, 200);
     }
 
 }

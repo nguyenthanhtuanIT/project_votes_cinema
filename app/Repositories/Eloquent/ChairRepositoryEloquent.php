@@ -109,7 +109,7 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
             }
             return response('ok', 200);
         } else {
-            return response('error', 401);
+            return response('error', 200);
         }
 
     }

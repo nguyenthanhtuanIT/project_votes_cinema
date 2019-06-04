@@ -20,7 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\Cors::class,
-        //\App\Http\Middleware\CheckRoles::class,
+        \App\Http\Middleware\CheckRoles::class,
     ];
 
     /**
@@ -64,6 +64,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \App\Http\Middleware\Cors::class,
         'scopes' => \App\Http\Middleware\ScopeByRole::class,
-        //'checkroles' => \App\Http\Middleware\CheckRoles::class,
+        'checkroles' => \App\Http\Middleware\CheckRoles::class,
     ];
 }

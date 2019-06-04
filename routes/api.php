@@ -38,6 +38,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
     //
     Route::post('update_status_chair', 'ChairsController@updateStatusChair');
+    //check
+    Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
 });
 
 Route::group(['prefix' => 'v1'], function () {
