@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FilmsCreateRequest;
 use App\Http\Requests\FilmsUpdateRequest;
 use App\Repositories\Contracts\FilmsRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
@@ -109,7 +108,6 @@ class FilmsController extends Controller
     }
     public function listFilmToVote()
     {
-        $time = Carbon::now();
         $film = $this->repository->getlistFilmToVote();
         return $this->repository->parserResult($film);
         //return response()->json($film);

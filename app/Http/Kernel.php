@@ -20,7 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\Cors::class,
-        \App\Http\Middleware\CheckRoles::class,
+        // \App\Http\Middleware\CheckRoles::class,
     ];
 
     /**
@@ -43,6 +43,7 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
             'cors',
+            'auth:api',
         ],
     ];
 

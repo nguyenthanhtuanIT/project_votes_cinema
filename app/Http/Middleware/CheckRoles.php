@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Trust\Role;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,12 +16,11 @@ class CheckRoles
      */
     public function handle($request, Closure $next)
     {
-        $roles = auth()->user()->hasRole(Role::SUPER_ADMIN);
+        $roles = auth()->user()->hasRole('super_admin');
         if ($roles) {
-            //dd('ok');
             return $next($request);
         } else {
-            return response('You do not have admin right', 400);
+            return response()->json('You do not have admin right', 401);
         }
 
     }
