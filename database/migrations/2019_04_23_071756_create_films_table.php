@@ -21,12 +21,7 @@ class CreateFilmsTable extends Migration
             $table->string('img');
             $table->date('projection_date');
             $table->string('projection_time');
-            $table->integer('type_cinema_id')->unsigned();
-            $table->integer('cinema_id')->unsigned();
-            $table->integer('vote_id')->unsigned();
-            $table->foreign('type_cinema_id')->references('id')->on('type_cinema');
-            $table->foreign('cinema_id')->references('id')->on('cinemas');
-            $table->foreign('vote_id')->references('id')->on('votes');
+            $table->string('movies_type')->nullable();
             $table->string('language');
             $table->string('age_limit');
             $table->string('detail', 3000);

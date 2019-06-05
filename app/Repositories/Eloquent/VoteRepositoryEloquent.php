@@ -5,6 +5,8 @@ namespace App\Repositories\Eloquent;
 use App\Models\Vote;
 use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -49,20 +51,44 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     }
     public function create(array $attributes)
     {
-        $attributes['status_vote'] = 0;
-        //dd(Config::get('mail'));
+        $name = $attributes['background']->store('photos');
+        $link = Storage::url($name);
+        $attributes['background'] = $link;
         $vote = parent::create($attributes);
+        return $vote;
         // $user = User::all();
         // foreach ($user as $us) {
         //     $email = new NotificationMessage($us);
         //     Mail::to($us->email)->send($email);
         // }
-
+    }
+    public function update(array $attributes, $id)
+    {
+        if (isset($attributes['background'])) {
+            $name = $attributes['background']->store('photos');
+            $link = Storage::url($name);
+            $attributes['background'] = $link;
+            $img = Vote::find($id);
+            $imgold = $img->background;
+            $nameimg = explode('/', $imgold);
+            Storage::delete('/photos/' . $nameimg[5]);
+        }
+        $vote = parent::update($attributes, $id);
         return $vote;
     }
     public function getStatus()
     {
-        $vote = $this->model()::where('status_vote', 1)->orwhere('status_vote', 2)->first();
-        return $vote;
+        $data[] = array('created', 'end');
+        $vote = Vote::whereNotIn('status_vote', $data)->first();
+        $date = Carbon::now()->toDateString();
+        if ($vote->time_registing <= $date && $date < $vote->time_booking_chair && $vote->status_vote != 'registing') {
+            $update = Vote::where('id', $vote->id)->update(['status_vote' => 'registing']);
+        } elseif ($vote->time_booking_chair <= $date && $date < $vote->time_end && $vote->status_vote != 'booking_chair') {
+            $update = Vote::where('id', $vote->id)->update(['status_vote' => 'booking_chair']);
+        } elseif ($date >= $vote->time_end && $vote->status_vote != 'end') {
+            $update = Vote::where('id', $vote->id)->update(['status_vote' => 'end']);
+        }
+        $v = Vote::find($vote->id);
+        return response()->json(['id' => $v->id, 'status' => $v->status_vote]);
     }
 }

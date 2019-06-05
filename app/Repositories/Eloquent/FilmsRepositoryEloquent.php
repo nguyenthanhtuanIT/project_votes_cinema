@@ -6,7 +6,6 @@ use App\Models\Films;
 use App\Models\Vote;
 use App\Presenters\FilmsPresenter;
 use App\Repositories\Contracts\filmsRepository;
-use DB;
 use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -81,63 +80,66 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     }
     public function getlistFilmToVote()
     {
-        $vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
-        $vote_id = $vote->id;
-        //dd($status);
-        $films = $this->model()::where('vote_id', $vote_id)->get();
-        return $films;
-    }
-    public function randomFilmToRegister()
-    {
-        $vote = Vote::where('status_vote', 2)->orwhere('status_vote', 1)->select('id', 'status_vote')->first();
-        $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
-        $film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
-            ->orderBy(DB::raw('RAND()'))
-            ->take(1)
-            ->get();
-        return $film;
-    }
-    public function listFilmMaxVote()
-    {
-        $vote = Vote::where('status_vote', 2)->orwhere('status_vote', 1)->select('id', 'status_vote')->first();
-        $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
-        $films = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
-            ->get();
-        return $films;
-    }
-    public function totalTicket(array $attributes)
-    {
-        $film_id = $attributes['film_id'];
-        $vote_id = $attributes['vote_id'];
-        $total = $this->model()::where(['id' => $film_id, 'vote_id' => $vote_id])->first();
-        return $total->register_number;
-    }
-    public function searchFilms($keyword)
-    {
-        $data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
-        return $data;
-    }
-    public function filmToRegister()
-    {
-        $vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
-        $check = $this->model()::where(['vote_id' => $vote->id, 'choose' => 1])
-            ->get();
-        if ($check->count() == 0) {
-            $list = $this->listFilmMaxVote();
-            if ($list->count() > 1) {
-                $rands = $this->randomFilmToRegister();
-                foreach ($rands as $rand) {
-                    $update = $this->model()::where('id', $rand->id)->update(['choose' => 1]);
-                    if ($update == 1) {
-                        $result = $this->model()::find($rand->id);
-                    }
-                }
-            }
-            return $result;
-        } else {
-            $result = $this->model()::where(['vote_id' => $vote->id, 'choose' => 1])->first();
-            return $result;
+        $vote = Vote::where('status_vote', 'voting')->first();
+        $list = $vote->list_films;
+        $arr = explode(',', $list);
+        for ($i = 0; $i < count($arr); $i++) {
+            $film = Films::find($arr[$i]);
+            $a[] = $film;
         }
-        //return $data;
+        return response()->json($a);
     }
+    // public function randomFilmToRegister()
+    // {
+    //     $vote = Vote::where('status_vote', 2)->orwhere('status_vote', 1)->select('id', 'status_vote')->first();
+    //     $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
+    //     $film = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
+    //         ->orderBy(DB::raw('RAND()'))
+    //         ->take(1)
+    //         ->get();
+    //     return $film;
+    // }
+    // public function listFilmMaxVote()
+    // {
+    //     $vote = Vote::where('status_vote', 2)->orwhere('status_vote', 1)->select('id', 'status_vote')->first();
+    //     $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
+    //     $films = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
+    //         ->get();
+    //     return $films;
+    // }
+    // public function totalTicket(array $attributes)
+    // {
+    //     $film_id = $attributes['film_id'];
+    //     $vote_id = $attributes['vote_id'];
+    //     $total = $this->model()::where(['id' => $film_id, 'vote_id' => $vote_id])->first();
+    //     return $total->register_number;
+    // }
+    // public function searchFilms($keyword)
+    // {
+    //     $data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
+    //     return $data;
+    // }
+    // public function filmToRegister()
+    // {
+    //     $vote = Vote::where('status_vote', 1)->orwhere('status_vote', 2)->first();
+    //     $check = $this->model()::where(['vote_id' => $vote->id, 'choose' => 1])
+    //         ->get();
+    //     if ($check->count() == 0) {
+    //         $list = $this->listFilmMaxVote();
+    //         if ($list->count() > 1) {
+    //             $rands = $this->randomFilmToRegister();
+    //             foreach ($rands as $rand) {
+    //                 $update = $this->model()::where('id', $rand->id)->update(['choose' => 1]);
+    //                 if ($update == 1) {
+    //                     $result = $this->model()::find($rand->id);
+    //                 }
+    //             }
+    //         }
+    //         return $result;
+    //     } else {
+    //         $result = $this->model()::where(['vote_id' => $vote->id, 'choose' => 1])->first();
+    //         return $result;
+    //     }
+    //     //return $data;
+    // }
 }

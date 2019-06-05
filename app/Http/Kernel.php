@@ -43,7 +43,7 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
             'cors',
-            'auth:api',
+            //'auth:api',
         ],
     ];
 
@@ -65,6 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'cors' => \App\Http\Middleware\Cors::class,
         'scopes' => \App\Http\Middleware\ScopeByRole::class,
-        'checkroles' => \App\Http\Middleware\CheckRoles::class,
+        //'checkroles' => \App\Http\Middleware\CheckRoles::class,
     ];
 }

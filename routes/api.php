@@ -5,35 +5,36 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('register', 'UsersController@register');
     Route::get('list_films', 'FilmsController@listFilmToVote');
 });
-Route::group(['prefix' => 'v1', 'auth:api'], function () {
-    Route::resource('registers', 'RegistersController')->only('store');
+Route::group(['prefix' => 'v1'], function () {
+    //Route::resource('registers', 'RegistersController')->only('store');
     //user information
-    Route::get('me', 'UsersController@me');
-    //auth
-    Route::post('auth/logout', 'Auth\AuthController@logout');
-    //chair
-    Route::get('user_choose_chair', 'ChooseChairsController@choose');
-    //sum ticket
-    Route::post('total_ticket', 'FilmsController@getTotalTicket');
-    //status_vote_now
+    //Route::get('me', 'UsersController@me');
+    // //auth
+    // Route::post('auth/logout', 'Auth\AuthController@logout');
+    // //chair
+    // Route::get('user_choose_chair', 'ChooseChairsController@choose');
+    // //sum ticket
+    // Route::post('total_ticket', 'FilmsController@getTotalTicket');
+    // //status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
-    //user choose chairs
-    Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
-    //user voting
-    Route::resource('votedetails', 'VoteDetailsController')->only('store');
-    //check voted
-    Route::post('check_voted', 'VoteDetailsController@checkVoted');
-    //check register
-    Route::post('check_register', 'RegistersController@checkRegistered');
-    //get diagram_chairs by votes
-    Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
-    Route::post('update_status_chair', 'ChairsController@updateStatusChair');
-    //check
-    Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
-    Route::get('film_to_register', 'FilmsController@getFilmToRegister');
-    Route::get('list_film_to_register', 'FilmsController@listMaxVote');
+    // //user choose chairs
+    // Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
+    // //user voting
+    // Route::resource('votedetails', 'VoteDetailsController')->only('store');
+    // //check voted
+    // Route::post('check_voted', 'VoteDetailsController@checkVoted');
+    // //check register
+    // Route::post('check_register', 'RegistersController@checkRegistered');
+    // //get diagram_chairs by votes
+    // Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
+    // Route::post('update_status_chair', 'ChairsController@updateStatusChair');
+    // //check
+    // Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
+    // Route::get('film_to_register', 'FilmsController@getFilmToRegister');
+    // Route::get('list_film_to_register', 'FilmsController@listMaxVote');
+
     //admin
-    Route::group(['prefix' => 'admin', 'middleware' => 'checkroles'], function () {
+    Route::group(['prefix' => 'admin'], function () {
         //users
         Route::resource('users', 'UsersController');
         //votes
@@ -49,8 +50,6 @@ Route::group(['prefix' => 'v1', 'auth:api'], function () {
         Route::get('excel', 'RegistersController@Export');
         //blog
         Route::resource('blogs', 'BlogsController');
-        //type-cinemas
-        Route::resource('typecinemas', 'TypeCinemasController');
         //chair
         Route::resource('chairs', 'ChairsController');
         //admin choose chairs

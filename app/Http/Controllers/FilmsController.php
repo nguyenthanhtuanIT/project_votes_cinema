@@ -109,7 +109,7 @@ class FilmsController extends Controller
     public function listFilmToVote()
     {
         $film = $this->repository->getlistFilmToVote();
-        return $this->repository->parserResult($film);
+        return response()->json($film);
         //return response()->json($film);
     }
     public function listMaxVote()
