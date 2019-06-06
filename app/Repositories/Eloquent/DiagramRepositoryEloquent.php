@@ -42,5 +42,19 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+      public function create(array $attributes)
+    {
+        if (!empty($attributes['row_of_seats']) && !empty($attributes['room_id'])) {
+            $validate = $this->model()::where([
+                'row_of_seats' => $attributes['row_of_seats'],
+                'vote_id' => $attributes['vote_id'],
+            ])->count();
+                return 'attributes aready exited';
+            } else {
+                $chairs = parent::create($attributes);
+                return $chairs;
+            }
+        }
+    }
+
 }

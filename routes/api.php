@@ -43,19 +43,21 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('films', 'FilmsController');
         //cinema
         Route::resource('cinemas', 'CinemasController');
-        //admin votedetail
+        //room
+        Route::resource('rooms', 'RoomsController');
+        // votedetail
         Route::resource('votedetails', 'VoteDetailsController')->only(['index', 'destroy', 'update']);
         Route::resource('registers', 'RegistersController')->only(['index', 'destroy', 'update']);
         //excel
-        Route::get('excel', 'RegistersController@Export');
+        //Route::get('excel', 'RegistersController@Export');
         //blog
-        Route::resource('blogs', 'BlogsController');
+        //Route::resource('blogs', 'BlogsController');
         //chair
         Route::resource('chairs', 'ChairsController');
         //admin choose chairs
         Route::resource('choose_chairs', 'ChooseChairsController')->only(['index', 'update', 'destroy']);
-        Route::post('search_films', 'FilmsController@getFilmsByDate');
+        //Route::post('search_films', 'FilmsController@getFilmsByDate');
         //return film to register user
-        Route::get('search', 'VotesController@searchByTitle');
+        //Route::get('search', 'VotesController@searchByTitle');
     });
 });

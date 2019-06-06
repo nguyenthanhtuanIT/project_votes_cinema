@@ -7,13 +7,13 @@ namespace App\Models;
  *
  * @package namespace App\Models;
  */
-class Room extends \App\Models\BaseModel
+class Room extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['cinema_id', 'name_room', 'total_chairs'];
 
 }

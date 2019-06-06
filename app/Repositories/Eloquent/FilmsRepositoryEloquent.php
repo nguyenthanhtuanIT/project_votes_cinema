@@ -46,11 +46,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     }
     public function create(array $attributes)
     {
-        $attributes['vote_number'] = 0;
-        $attributes['register_number'] = 0;
-        $attributes['choose'] = 0;
         $attributes['curency'] = 'đ';
-
         $name = $attributes['img']->store('photos');
         $link = Storage::url($name);
         $attributes['img'] = $link;
@@ -77,13 +73,18 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     public function getlistFilmToVote()
     {
         $vote = Vote::where('status_vote', 'voting')->first();
-        $list = $vote->list_films;
-        $arr = explode(',', $list);
-        for ($i = 0; $i < count($arr); $i++) {
-            $film = Films::find($arr[$i]);
-            $a[] = $film;
+        if (!empty($vote)) {
+            $list = $vote->list_films;
+            $arr = explode(',', $list);
+            for ($i = 0; $i < count($arr); $i++) {
+                $film = Films::find($arr[$i]);
+                $a[] = $film;
+            }
+            return response()->json($a);
+
+        } else {
+            return response()->json(['status' => 'not data']);
         }
-        return response()->json($a);
     }
     // public function randomFilmToRegister()
     // {

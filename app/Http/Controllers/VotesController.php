@@ -104,5 +104,6 @@ class VotesController extends Controller
     {
         $vote = $this->repository->getStatus();
         return response()->json($vote);
+
     }
 }

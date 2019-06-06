@@ -7,7 +7,7 @@ namespace App\Models;
  *
  * @package namespace App\Models;
  */
-class Statistical extends \App\Models\BaseModel
+class Statistical extends BaseModel
 {
     /**
      * The attributes that are mass assignable.

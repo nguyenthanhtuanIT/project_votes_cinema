@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\RoomCreateRequest;
 use App\Http\Requests\RoomUpdateRequest;
 use App\Repositories\Contracts\RoomRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class RoomsController.
@@ -39,7 +37,7 @@ class RoomsController extends Controller
     public function index()
     {
         $limit = request()->get('limit', null);
-        
+
         $includes = request()->get('include', '');
 
         if ($includes) {
@@ -77,7 +75,7 @@ class RoomsController extends Controller
     public function show($id)
     {
         $room = $this->repository->find($id);
-        
+
         return response()->json($room);
     }
 

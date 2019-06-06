@@ -7,13 +7,13 @@ namespace App\Models;
  *
  * @package namespace App\Models;
  */
-class Diagram extends \App\Models\BaseModel
+class Diagram extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['room_id', 'row_of_seats', 'amount_chairs_of_row', 'chairs'];
 
 }
