@@ -69,13 +69,9 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
             $imgold = $img->img;
             $nameimg = explode('/', $imgold);
             // dd($nameimg[5]);
-
             Storage::delete('/photos/' . $nameimg[5]);
-
         }
-
         $film = parent::update($attributes, $id);
-
         return response()->json($film);
     }
     public function getlistFilmToVote()

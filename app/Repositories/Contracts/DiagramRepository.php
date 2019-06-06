@@ -5,11 +5,11 @@ namespace App\Repositories\Contracts;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface TypeCinemaRepository.
+ * Interface DiagramRepository.
  *
  * @package namespace App\Repositories\Contracts;
  */
-interface TypeCinemaRepository extends RepositoryInterface
+interface DiagramRepository extends RepositoryInterface
 {
     //
 }

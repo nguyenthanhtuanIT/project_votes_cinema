@@ -50,7 +50,6 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
                 'row_of_seats' => $attributes['row_of_seats'],
                 'vote_id' => $attributes['vote_id'],
             ])->count();
-            if ($validate > 0) {
                 return 'attributes aready exited';
             } else {
                 $chairs = parent::create($attributes);
@@ -105,7 +104,6 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
                     $string = implode(',', $status_chairs);
                     $chair_update = $chair->update(['status_chairs' => $string]);
                 }
-
             }
             return response('ok', 200);
         } else {

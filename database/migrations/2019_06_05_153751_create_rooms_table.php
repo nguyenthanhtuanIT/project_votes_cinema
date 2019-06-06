@@ -4,9 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 /**
- * Class CreateCinemasTable.
+ * Class CreateRoomsTable.
  */
-class CreateCinemasTable extends Migration
+class CreateRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +15,12 @@ class CreateCinemasTable extends Migration
      */
     public function up()
     {
-        Schema::create('cinemas', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name_cinema');
-            $table->string('address');
-            $table->Integer('amount_rooms')->nullable();
+            $table->Integer('cinema_id')->unsigned();
+            $table->foreign('cinema_id')->references('id')->on('cinemas');
+            $table->string('name_room');
+            $table->Integer('total_chairs')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateCinemasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cinemas');
+        Schema::drop('rooms');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\VoteDetails;
 use App\Presenters\VoteDetailsPresenter;
 use App\Repositories\Contracts\VoteDetailsRepository;
-use App\Services\VoteService;
+use App\Services\FilmService;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -47,7 +47,7 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
     public function create(array $attributes)
     {
         $VoteDetails = parent::create($attributes);
-        VoteService::add($VoteDetails['data']['attributes']['film_id']);
+        FilmService::addVoteNumber($VoteDetails['data']['attributes']['film_id']);
         return $VoteDetails;
     }
     public function checkVotes(array $attributes)

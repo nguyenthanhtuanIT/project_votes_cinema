@@ -5,7 +5,6 @@ namespace App\Repositories\Eloquent;
 use App\Models\Register;
 use App\Presenters\RegisterPresenter;
 use App\Repositories\Contracts\RegisterRepository;
-use App\Services\RegisterService;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -45,11 +44,9 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     }
     public function create($attributes)
     {
-        //$attributes['ticket_number'] = 0;
         $register = parent::create($attributes);
         //var_dump($register);
-        RegisterService::add($register['data']['attributes']['film_id'],
-            $register['data']['attributes']['ticket_number']);
+        RegisterService::addRegisterNumber($register['data']['attributes']['film_id']);
         return $register;
     }
     public function checkRegister(array $attributes)
