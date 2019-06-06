@@ -17,5 +17,5 @@ class Vote extends BaseModel
      * @var array
      */
     protected $fillable = ['name_vote', 'list_films', 'user_id', 'room_id',
-        'background', 'status_vote', 'detail', 'time_voting', 'time_registing', 'time_booking_chair', 'time_end'];
+        'background', 'status_vote', 'detail', 'time_voting', 'time_registing', 'time_booking_chair', 'time_end', 'total_ticket'];
 }

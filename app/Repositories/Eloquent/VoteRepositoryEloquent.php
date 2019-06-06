@@ -90,8 +90,7 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'end']);
             }
             $v = Vote::find($vote->id);
-            return response()->json(['id' => $v->id, 'status' => $v->status_vote,
-                'time_voting' => $v->time_voting, 'time_registing' => $v->time_registing, 'time_booking_chair' => $v->time_booking_chair, 'time_end' => $v->time_end]);
+            return response()->json(['id' => $v->id, 'background' => $v->background, 'status' => $v->status_vote, 'time_voting' => $v->time_voting, 'time_registing' => $v->time_registing, 'time_booking_chair' => $v->time_booking_chair, 'time_end' => $v->time_end]);
 
         } else {
             return response()->json(['status' => 'not votes']);
