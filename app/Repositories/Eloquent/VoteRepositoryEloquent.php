@@ -78,18 +78,23 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     }
     public function getStatus()
     {
-        $data[] = array('created', 'end');
-        $vote = Vote::whereNotIn('status_vote', $data)->first();
-        $date = Carbon::now()->toDateString();
-        if ($vote->time_registing <= $date && $date < $vote->time_booking_chair && $vote->status_vote != 'registing') {
-            $update = Vote::where('id', $vote->id)->update(['status_vote' => 'registing']);
-        } elseif ($vote->time_booking_chair <= $date && $date < $vote->time_end && $vote->status_vote != 'booking_chair') {
-            $update = Vote::where('id', $vote->id)->update(['status_vote' => 'booking_chair']);
-        } elseif ($date >= $vote->time_end && $vote->status_vote != 'end') {
-            $update = Vote::where('id', $vote->id)->update(['status_vote' => 'end']);
+        $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->first();
+        //dd($vote);
+        if ($vote) {
+            $date = Carbon::now()->toDateString();
+            if ($vote->time_registing <= $date && $date < $vote->time_booking_chair && $vote->status_vote != 'registing') {
+                $update = Vote::where('id', $vote->id)->update(['status_vote' => 'registing']);
+            } elseif ($vote->time_booking_chair <= $date && $date < $vote->time_end && $vote->status_vote != 'booking_chair') {
+                $update = Vote::where('id', $vote->id)->update(['status_vote' => 'booking_chair']);
+            } elseif ($date >= $vote->time_end && $vote->status_vote != 'end') {
+                $update = Vote::where('id', $vote->id)->update(['status_vote' => 'end']);
+            }
+            $v = Vote::find($vote->id);
+            return response()->json(['id' => $v->id, 'status' => $v->status_vote,
+                'time_voting' => $v->time_voting, 'time_registing' => $v->time_registing, 'time_booking_chair' => $v->time_booking_chair, 'time_end' => $v->time_end]);
+
+        } else {
+            return response()->json(['status' => 'not votes']);
         }
-        $v = Vote::find($vote->id);
-        return response()->json(['id' => $v->id, 'status' => $v->status_vote,
-            'time_voting' => $v->time_voting, 'time_registing' => $v->time_registing, 'time_booking_chair' => $v->time_booking_chair, 'time_end' => $v->time_end]);
     }
 }
