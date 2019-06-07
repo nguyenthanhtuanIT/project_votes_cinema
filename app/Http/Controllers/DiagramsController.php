@@ -61,7 +61,7 @@ class DiagramsController extends Controller
     public function store(DiagramCreateRequest $request)
     {
         $diagram = $this->repository->create($request->all());
-        return response()->json($diagram);
+        return $diagram;
         //var_dump($diagram);
         // if ($diagram != 'row_of_seats') {
 

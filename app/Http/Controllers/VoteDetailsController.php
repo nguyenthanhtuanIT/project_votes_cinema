@@ -111,6 +111,5 @@ class VoteDetailsController extends Controller
     {
         $check = $this->repository->checkVotes($request->all());
         return response()->json($check);
-        //return $this->repository->parserResult($check);
     }
 }
