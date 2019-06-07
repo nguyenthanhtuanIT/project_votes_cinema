@@ -60,9 +60,9 @@ class RoomsController extends Controller
      */
     public function store(RoomCreateRequest $request)
     {
-        $room = $this->repository->skipPresenter()->create($request->all());
+        $room = $this->repository->create($request->all());
 
-        return response()->json($room->presenter(), 201);
+        return response()->json($room, 201);
     }
 
     /**

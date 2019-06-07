@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\StatisticalCreateRequest;
 use App\Http\Requests\StatisticalUpdateRequest;
 use App\Repositories\Contracts\StatisticalRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class StatisticalsController.
@@ -39,7 +37,7 @@ class StatisticalsController extends Controller
     public function index()
     {
         $limit = request()->get('limit', null);
-        
+
         $includes = request()->get('include', '');
 
         if ($includes) {
@@ -62,9 +60,9 @@ class StatisticalsController extends Controller
      */
     public function store(StatisticalCreateRequest $request)
     {
-        $statistical = $this->repository->skipPresenter()->create($request->all());
+        $statistical = $this->repository->create($request->all());
 
-        return response()->json($statistical->presenter(), 201);
+        return response()->json($statistical, 201);
     }
 
     /**
@@ -77,7 +75,7 @@ class StatisticalsController extends Controller
     public function show($id)
     {
         $statistical = $this->repository->find($id);
-        
+
         return response()->json($statistical);
     }
 
@@ -91,9 +89,9 @@ class StatisticalsController extends Controller
      */
     public function update(StatisticalUpdateRequest $request, $id)
     {
-        $statistical = $this->repository->skipPresenter()->update($request->all(), $id);
+        $statistical = $this->repository->update($request->all(), $id);
 
-        return response()->json($statistical->presenter(), 200);
+        return response()->json($statistical, 200);
     }
 
     /**

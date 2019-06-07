@@ -2,11 +2,12 @@
 
 namespace App\Repositories\Eloquent;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\DiagramRepository;
-use App\Presenters\DiagramPresenter;
 use App\Models\Diagram;
+use App\Presenters\DiagramPresenter;
+use App\Repositories\Contracts\DiagramRepository;
+use Illuminate\Http\Response;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class DiagramRepositoryEloquent.
@@ -42,19 +43,19 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-      public function create(array $attributes)
+    public function create(array $attributes)
     {
-        if (!empty($attributes['row_of_seats']) && !empty($attributes['room_id'])) {
-            $validate = $this->model()::where([
-                'row_of_seats' => $attributes['row_of_seats'],
-                'vote_id' => $attributes['vote_id'],
-            ])->count();
-                return 'attributes aready exited';
-            } else {
-                $chairs = parent::create($attributes);
-                return $chairs;
-            }
+        //$diagram = '';
+        $validate = $this->model()::where([
+            'row_of_seats' => $attributes['row_of_seats'],
+            'room_id' => $attributes['room_id'],
+        ])->count();
+        if ($validate == 1) {
+            return response()->json('row_of_seats exited', Response::HTTP_BAD_REQUEST);
+        } else {
+            $diagram = parent::create($attributes);
+            return $diagram;
         }
-    }
 
+    }
 }

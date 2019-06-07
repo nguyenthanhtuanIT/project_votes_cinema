@@ -20,9 +20,9 @@ Route::group(['prefix' => 'v1'], function () {
     // //user choose chairs
     // Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
     // //user voting
-    // Route::resource('votedetails', 'VoteDetailsController')->only('store');
+    Route::resource('votedetails', 'VoteDetailsController')->only('store');
     // //check voted
-    // Route::post('check_voted', 'VoteDetailsController@checkVoted');
+    Route::post('check_voted', 'VoteDetailsController@checkVoted');
     // //check register
     // Route::post('check_register', 'RegistersController@checkRegistered');
     // //get diagram_chairs by votes
@@ -45,6 +45,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('cinemas', 'CinemasController');
         //room
         Route::resource('rooms', 'RoomsController');
+        //diagram
+        Route::resource('diagrams', 'DiagramsController');
         // votedetail
         Route::resource('votedetails', 'VoteDetailsController')->only(['index', 'destroy', 'update']);
         Route::resource('registers', 'RegistersController')->only(['index', 'destroy', 'update']);

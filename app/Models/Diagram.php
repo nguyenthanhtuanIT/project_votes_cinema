@@ -14,6 +14,8 @@ class Diagram extends BaseModel
      *
      * @var array
      */
+    public $timestamps = false;
+
     protected $fillable = ['room_id', 'row_of_seats', 'amount_chairs_of_row', 'chairs'];
 
 }

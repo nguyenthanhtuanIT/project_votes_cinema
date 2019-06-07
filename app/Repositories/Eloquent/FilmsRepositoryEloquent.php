@@ -81,7 +81,6 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
                 $a[] = $film;
             }
             return response()->json($a);
-
         } else {
             return response()->json(['status' => 'not data']);
         }

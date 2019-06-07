@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\VoteDetails;
 use App\Presenters\VoteDetailsPresenter;
 use App\Repositories\Contracts\VoteDetailsRepository;
+use App\Services\StatisticalService;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -46,23 +47,24 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
     public function create(array $attributes)
     {
         $VoteDetails = parent::create($attributes);
-        // FilmService::addVoteNumber($VoteDetails['data']['attributes']['film_id']);
+        StatisticalService::addRow($VoteDetails['data']['attributes']['film_id'], $VoteDetails['data']['attributes']['vote_id']);
         return $VoteDetails;
     }
+
     public function checkVotes(array $attributes)
     {
-        $data = $this->model()::where('user_id', $attributes['user_id'])->where('vote_id', $attributes['vote_id'])->first();
-        $check = 'false';
-        if ($data) {
-            $film_id = $data->film_id;
-            $check = 'true';
-            $result[] = array('check' => $check,
-                'film_id' => $film_id);
+        $user_id = $attributes['user_id'];
+        $vote_id = $attributes['vote_id'];
+        $data = $this->model()::where(['user_id' => $user_id, 'vote_id' => $vote_id])->get();
+        $arr[] = array();
+        if (!empty($data)) {
+            foreach ($data as $value) {
+                $arr[] = $value->film_id;
+            }
+            return response()->json($arr);
         } else {
-            $result[] = array('check' => $check);
+            return $arr;
         }
 
-        return $result;
     }
-
 }

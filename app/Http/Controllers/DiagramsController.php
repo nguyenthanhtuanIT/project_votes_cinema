@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\DiagramCreateRequest;
 use App\Http\Requests\DiagramUpdateRequest;
 use App\Repositories\Contracts\DiagramRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class DiagramsController.
@@ -39,7 +37,7 @@ class DiagramsController extends Controller
     public function index()
     {
         $limit = request()->get('limit', null);
-        
+
         $includes = request()->get('include', '');
 
         if ($includes) {
@@ -62,9 +60,14 @@ class DiagramsController extends Controller
      */
     public function store(DiagramCreateRequest $request)
     {
-        $diagram = $this->repository->skipPresenter()->create($request->all());
+        $diagram = $this->repository->create($request->all());
+        return response()->json($diagram);
+        //var_dump($diagram);
+        // if ($diagram != 'row_of_seats') {
 
-        return response()->json($diagram->presenter(), 201);
+        // } else {
+        //     return response()->json($diagram, 400);
+        // }
     }
 
     /**
@@ -77,7 +80,7 @@ class DiagramsController extends Controller
     public function show($id)
     {
         $diagram = $this->repository->find($id);
-        
+
         return response()->json($diagram);
     }
 
