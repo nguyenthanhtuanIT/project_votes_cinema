@@ -104,7 +104,6 @@ class VoteDetailsController extends Controller
     public function destroy($id)
     {
         $this->repository->delete($id);
-
         return response()->json(null, 204);
     }
     public function checkVoted(Request $request)

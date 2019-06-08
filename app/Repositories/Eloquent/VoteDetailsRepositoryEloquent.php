@@ -50,6 +50,13 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
         StatisticalService::addRow($VoteDetails['data']['attributes']['film_id'], $VoteDetails['data']['attributes']['vote_id']);
         return $VoteDetails;
     }
+    public function delete($id)
+    {
+        $data = VoteDetails::find($id);
+        StatisticalService::updateRow($data->film_id, $data->vote_id);
+        $VoteDetails = parent::delete($id);
+        return response()->json(null, 204);
+    }
 
     public function checkVotes(array $attributes)
     {

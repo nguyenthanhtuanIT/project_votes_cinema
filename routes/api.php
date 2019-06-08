@@ -20,7 +20,7 @@ Route::group(['prefix' => 'v1'], function () {
     // //user choose chairs
     // Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
     // //user voting
-    Route::resource('votedetails', 'VoteDetailsController')->only('store');
+    Route::resource('votedetails', 'VoteDetailsController')->only('store', 'destroy');
     // //check voted
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
     // //check register
@@ -30,7 +30,7 @@ Route::group(['prefix' => 'v1'], function () {
     // Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     // //check
     // Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
-    // Route::get('film_to_register', 'FilmsController@getFilmToRegister');
+    Route::post('film_to_register', 'FilmsController@getFilmToRegister');
     // Route::get('list_film_to_register', 'FilmsController@listMaxVote');
 
     //admin

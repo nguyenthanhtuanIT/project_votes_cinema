@@ -112,24 +112,24 @@ class FilmsController extends Controller
         return response()->json($film);
         //return response()->json($film);
     }
-    public function listMaxVote()
+    // public function listMaxVote()
+    // {
+    //     $list = $this->repository->listFilmMaxVote();
+    //     return $this->repository->parserResult($list);
+    // }
+    // public function getFilmsByDate(Request $request)
+    // {
+    //     $films = $this->repository->searchFilms($request->keyword);
+    //     return $this->repository->parserResult($films);
+    // }
+    // public function getTotalTicket(Request $request)
+    // {
+    //     $total = $this->repository->totalTicket($request->all());
+    //     return response()->json(['total' => $total]);
+    // }
+    public function getFilmToRegister(Request $request)
     {
-        $list = $this->repository->listFilmMaxVote();
-        return $this->repository->parserResult($list);
-    }
-    public function getFilmsByDate(Request $request)
-    {
-        $films = $this->repository->searchFilms($request->keyword);
-        return $this->repository->parserResult($films);
-    }
-    public function getTotalTicket(Request $request)
-    {
-        $total = $this->repository->totalTicket($request->all());
-        return response()->json(['total' => $total]);
-    }
-    public function getFilmToRegister()
-    {
-        $film = $this->repository->filmToRegister();
+        $film = $this->repository->filmToRegister($request->vote_id);
         return $this->repository->parserResult($film);
     }
 }

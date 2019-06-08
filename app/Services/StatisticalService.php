@@ -23,4 +23,12 @@ class StatisticalService
             }
         }
     }
+    public static function updateRow($film_id, $vote_id)
+    {
+        $data = Statistical::where(['vote_id' => $vote_id, 'films_id' => $film_id])->get();
+        foreach ($data as $value) {
+            $value->amount_votes -= 1;
+            $value->save();
+        }
+    }
 }
