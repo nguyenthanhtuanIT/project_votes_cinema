@@ -23,6 +23,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('votedetails', 'VoteDetailsController')->only('store', 'destroy');
     // //check voted
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
+    Route::resource('registers', 'RegistersController'); //->only(['store', 'destroy', 'update']);
     // //check register
     // Route::post('check_register', 'RegistersController@checkRegistered');
     // //get diagram_chairs by votes
@@ -49,7 +50,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('diagrams', 'DiagramsController');
         // votedetail
         Route::resource('votedetails', 'VoteDetailsController')->only(['index', 'destroy', 'update']);
-        Route::resource('registers', 'RegistersController')->only(['index', 'destroy', 'update']);
+
         //excel
         //Route::get('excel', 'RegistersController@Export');
         //blog

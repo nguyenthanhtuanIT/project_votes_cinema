@@ -31,4 +31,17 @@ class StatisticalService
             $value->save();
         }
     }
+    public static function addRegister($film_id, $vote_id)
+    {
+        $data = Statistical::where(['vote_id' => $vote_id, 'films_id' => $film_id])->first();
+        $data->amount_registers += 1;
+        $data->save();
+    }
+    public static function updateRegister($film_id, $vote_id)
+    {
+        $data = Statistical::where(['vote_id' => $vote_id, 'films_id' => $film_id])->first();
+        $data->amount_registers -= 1;
+        $data->save();
+
+    }
 }
