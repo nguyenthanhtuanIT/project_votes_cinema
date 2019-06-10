@@ -15,68 +15,79 @@ use Prettus\Repository\Eloquent\BaseRepository;
  *
  * @package namespace App\Repositories\Eloquent;
  */
-class UserRepositoryEloquent extends BaseRepository implements UserRepository {
-	/**
-	 * Specify Model class name
-	 *
-	 * @return string
-	 */
-	public function model() {
-		return User::class;
-	}
+class UserRepositoryEloquent extends BaseRepository implements UserRepository
+{
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return User::class;
+    }
 
-	public function presenter() {
-		return \App\Presenters\UserPresenter::class;
-	}
+    public function presenter()
+    {
+        return \App\Presenters\UserPresenter::class;
+    }
 
-	/**
-	 * Boot up the repository, pushing criteria
-	 */
-	public function boot() {
-		$this->pushCriteria(app(RequestCriteria::class));
-	}
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
 
-	/**
-	 * Override method create to add owners
-	 * @param  array  $attributes attributes from request
-	 * @return object
-	 */
-	public function create(array $attributes) {
-		$attributes['password'] = bcrypt($attributes['password']);
-		$user = parent::create(array_except($attributes, 'role'));
+    /**
+     * Override method create to add owners
+     * @param  array  $attributes attributes from request
+     * @return object
+     */
+    public function create(array $attributes)
+    {
+        $attributes['password'] = bcrypt($attributes['password']);
+        $user = parent::create(array_except($attributes, 'role'));
 
-		// find or create role admin
-		if (!empty($attributes['role'])) {
-			RoleService::add($user, $attributes['role']);
-		}
+        // find or create role admin
+        if (!empty($attributes['role'])) {
+            RoleService::add($user, $attributes['role']);
+        }
 
-		return $user;
-	}
+        return $user;
+    }
 
-	public function update(array $attributes, $id) {
-		if (!empty($attributes['password'])) {
-			$attributes['password'] = bcrypt($attributes['password']);
-		}
-		$user = parent::update(array_except($attributes, 'role', 'photo'), $id);
+    public function update(array $attributes, $id)
+    {
+        if (!empty($attributes['password'])) {
+            $attributes['password'] = bcrypt($attributes['password']);
+        }
+        $user = parent::update(array_except($attributes, 'role', 'photo'), $id);
 
-		if (!empty($attributes['role'])) {
-			RoleService::sync($user, $attributes['role']);
-		}
+        if (!empty($attributes['role'])) {
+            RoleService::sync($user, $attributes['role']);
+        }
 
-		if (!empty($attributes['photo'])) {
-			if ($user->image) {
-				Storage::delete($user->image->pathname);
-				Storage::delete('thumbnails/' . $user->image->filename);
-				$user->image->delete();
-			}
-			Image::where('id', $attributes['photo'])->update([
-				'object_id' => $user->id,
-				'object_type' => User::IMAGE_TYPE,
-			]);
-		}
+        if (!empty($attributes['photo'])) {
+            if ($user->image) {
+                Storage::delete($user->image->pathname);
+                Storage::delete('thumbnails/' . $user->image->filename);
+                $user->image->delete();
+            }
+            Image::where('id', $attributes['photo'])->update([
+                'object_id' => $user->id,
+                'object_type' => User::IMAGE_TYPE,
+            ]);
+        }
 
-		//$user = $user->refresh();
+        //$user = $user->refresh();
 
-		return $this->find($id);
-	}
+        return $this->find($id);
+    }
+    public function getListUser()
+    {
+        $film = User::select('id', 'full_name', 'email')->get();
+        return $film;
+    }
 }

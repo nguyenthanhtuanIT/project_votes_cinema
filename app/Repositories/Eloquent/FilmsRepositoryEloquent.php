@@ -108,20 +108,20 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     // }
     public function filmToRegister($vote_id)
     {
-        $check = Statistical::where(['vote_id' => $vote_id, 'movie selected' => 1])->get();
+        $check = Statistical::where(['vote_id' => $vote_id, 'movie_selected' => 1])->get();
         if ($check->count() != 1) {
             $max = Statistical::where('vote_id', $vote_id)->max('amount_votes');
             $statistical = Statistical::where(['vote_id' => $vote_id, 'amount_votes' => $max])->get();
             if (count($statistical) == 1) {
                 foreach ($statistical as $f) {
                     $film = Films::find($f->films_id);
-                    Statistical::where(['vote_id' => $vote_id, 'amount_votes' => $max])->update(['movie selected' => 1]);
+                    Statistical::where(['vote_id' => $vote_id, 'amount_votes' => $max])->update(['movie_selected' => 1]);
                     return $film;
                 }
             } else {
                 $rand = Statistical::where(['vote_id' => $vote_id, 'amount_votes' => $max])->get()->random();
                 $films = Films::find($rand->films_id);
-                Statistical::where(['vote_id' => $vote_id, 'films_id' => $films->films_id])->update(['movie selected' => 1]);
+                Statistical::where(['vote_id' => $vote_id, 'films_id' => $films->films_id])->update(['movie_selected' => 1]);
                 return $films;
             }
 

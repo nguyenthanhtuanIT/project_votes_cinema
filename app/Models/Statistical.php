@@ -15,6 +15,6 @@ class Statistical extends BaseModel
      * @var array
      */
     public $timestamps = false;
-    protected $fillable = ['vote_id', 'films_id', 'amount_votes', 'movie selected'];
+    protected $fillable = ['vote_id', 'films_id', 'amount_votes', 'movie_selected'];
 
 }

@@ -22,7 +22,7 @@ class CreateStatisticalsTable extends Migration
             $table->Integer('films_id')->unsigned();
             $table->foreign('films_id')->references('id')->on('films');
             $table->Integer('amount_votes')->default(0);
-            $table->integer('movie selected')->default(0);
+            $table->integer('movie_selected')->default(0);
             $table->Integer('amount_registers')->default(0);
         });
     }

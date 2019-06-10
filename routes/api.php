@@ -6,16 +6,16 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('list_films', 'FilmsController@listFilmToVote');
 });
 Route::group(['prefix' => 'v1'], function () {
-    //Route::resource('registers', 'RegistersController')->only('store');
+    Route::resource('blogs', 'BlogsController');
     //user information
-    //Route::get('me', 'UsersController@me');
+    Route::get('me', 'UsersController@me');
     // //auth
-    // Route::post('auth/logout', 'Auth\AuthController@logout');
+    Route::post('auth/logout', 'Auth\AuthController@logout');
     // //chair
     // Route::get('user_choose_chair', 'ChooseChairsController@choose');
     // //sum ticket
     // Route::post('total_ticket', 'FilmsController@getTotalTicket');
-    // //status_vote_now
+    //  status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
     // //user choose chairs
     // Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
@@ -32,6 +32,7 @@ Route::group(['prefix' => 'v1'], function () {
     // //check
     // Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');
+    Route::get('list_users', 'UsersController@listUsers');
     // Route::get('list_film_to_register', 'FilmsController@listMaxVote');
 
     //admin

@@ -24,6 +24,7 @@ class CreateRegistersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('film_id')->references('id')->on('films');
             $table->integer('ticket_number');
+            $table->string('best_friend')->nullable();
             $table->timestamps();
         });
     }

@@ -3,17 +3,17 @@
 namespace App\Models;
 
 /**
- * Class Blog.
+ * Class Comment.
  *
  * @package namespace App\Models;
  */
-class Blog extends BaseModel
+class Comment extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name_blog', 'img', 'description', 'content', 'user_id'];
+    protected $fillable = ['user_id', 'blog_id', 'content'];
 
 }

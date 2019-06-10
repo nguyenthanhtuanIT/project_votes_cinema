@@ -12,7 +12,6 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Socialite;
 
 /**
  * Class UsersController.
@@ -161,15 +160,20 @@ class UsersController extends Controller
 
         return $this->presenterPostJson($user);
     }
-    public function redirectGoogle()
+    public function listUsers()
     {
-        return Socialite::driver('google')->redirect();
+        $user = $this->repository->getListUser();
+        return response()->json($user);
     }
-    public function loginGoogle()
-    {
-        //$provider = Social::PROVIDER_GOOGLE;
-        $user = Socialite::driver('google')->user();
-        dd($user);
-    }
+    // public function redirectGoogle()
+    // {
+    //     return Socialite::driver('google')->redirect();
+    // }
+    // public function loginGoogle()
+    // {
+    //     //$provider = Social::PROVIDER_GOOGLE;
+    //     $user = Socialite::driver('google')->user();
+    //     dd($user);
+    // }
 
 }
