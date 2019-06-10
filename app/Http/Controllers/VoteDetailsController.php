@@ -111,4 +111,9 @@ class VoteDetailsController extends Controller
         $check = $this->repository->checkVotes($request->all());
         return response()->json($check);
     }
+    public function unVoted(Request $request)
+    {
+        $unvote = $this->repository->delVote($request->all());
+        return response()->json(null, 204);
+    }
 }

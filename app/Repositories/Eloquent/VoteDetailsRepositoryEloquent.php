@@ -71,6 +71,15 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
         } else {
             return response()->json([]);
         }
-
+    }
+    public function delVote(array $attributes)
+    {
+        $votedetail = VoteDetails::where([
+            'vote_id' => $attributes['vote_id'],
+            'film_id' => $attributes['film_id'],
+            'user_id' => $attributes['user_id'],
+        ])->first();
+        $del = $this->delete($votedetail->id);
+        return $del;
     }
 }

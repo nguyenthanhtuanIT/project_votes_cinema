@@ -33,6 +33,7 @@ Route::group(['prefix' => 'v1'], function () {
     // Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');
     Route::get('list_users', 'UsersController@listUsers');
+    Route::post('un_voted', 'VoteDetailsController@unVoted');
     // Route::get('list_film_to_register', 'FilmsController@listMaxVote');
 
     //admin
@@ -55,7 +56,7 @@ Route::group(['prefix' => 'v1'], function () {
         //excel
         //Route::get('excel', 'RegistersController@Export');
         //blog
-        //Route::resource('blogs', 'BlogsController');
+        Route::resource('blogs', 'BlogsController');
         //chair
         Route::resource('chairs', 'ChairsController');
         //admin choose chairs

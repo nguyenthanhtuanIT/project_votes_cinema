@@ -29,6 +29,7 @@ class CreateVotesTable extends Migration
             $table->date('time_registing');
             $table->date('time_booking_chair');
             $table->date('time_end');
+            $table->Integer('total_ticket')->default(0);
             $table->timestamps();
         });
     }
