@@ -163,6 +163,7 @@ class UsersController extends Controller
     public function listUsers()
     {
         $user = $this->repository->getListUser();
+        //return $this->repository->parserResult($user);
         return response()->json($user);
     }
     // public function redirectGoogle()

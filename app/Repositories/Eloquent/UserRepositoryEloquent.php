@@ -88,6 +88,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     public function getListUser()
     {
         $film = User::select('id', 'full_name', 'email')->get();
-        return $film;
+        return response()->json($film);
     }
 }
