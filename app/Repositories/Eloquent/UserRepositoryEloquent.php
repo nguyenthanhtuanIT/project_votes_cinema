@@ -108,7 +108,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         }
         $arr = array_merge($arr_r, $arr_r2);
         $result = array_unique($arr);
-        $user = User::whereNotIn('id', $result)->get(['id', 'full_name', 'email']);
+        $user = User::whereNotIn('id', $result)->get(['id', 'avatar', 'full_name', 'email']);
         return response()->json($user);
     }
 }
