@@ -29,4 +29,11 @@ class StatisticalTransformer extends \App\Transformers\BaseTransformer
      * @var array
      */
     protected $defaultIncludes = [];
+    public function customAttributes($model): array
+    {
+        return [
+            'name_film' => $model->getNameFilms(),
+            'name_vote' => $model->getVote(),
+        ];
+    }
 }

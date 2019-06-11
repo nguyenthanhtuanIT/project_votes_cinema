@@ -62,12 +62,6 @@ class DiagramsController extends Controller
     {
         $diagram = $this->repository->create($request->all());
         return $diagram;
-        //var_dump($diagram);
-        // if ($diagram != 'row_of_seats') {
-
-        // } else {
-        //     return response()->json($diagram, 400);
-        // }
     }
 
     /**
@@ -111,5 +105,10 @@ class DiagramsController extends Controller
         $this->repository->delete($id);
 
         return response()->json(null, 204);
+    }
+    public function diagramChairByVote(Request $request)
+    {
+        $result = $this->repository->getDiagramChairByVote($request->vote_id);
+        return response()->json($result);
     }
 }

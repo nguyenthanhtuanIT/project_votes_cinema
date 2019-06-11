@@ -45,12 +45,13 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
     }
     public function create(array $attributes)
     {
-        if (isset($attributes['row_of_seats'])) {
+        if (!empty($attributes['row_of_seats'])) {
             $validate = $this->model()::where([
                 'row_of_seats' => $attributes['row_of_seats'],
                 'vote_id' => $attributes['vote_id'],
             ])->count();
-                return 'attributes aready exited';
+            if ($validate == 1) {
+                return response()->json('attributes aready exited', Response::HTTP_BAD_REQUEST);
             } else {
                 $chairs = parent::create($attributes);
                 return $chairs;

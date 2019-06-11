@@ -11,15 +11,13 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('me', 'UsersController@me');
     // //auth
     Route::post('auth/logout', 'Auth\AuthController@logout');
-    // //chair
+    //chair
     // Route::get('user_choose_chair', 'ChooseChairsController@choose');
-    // //sum ticket
-    // Route::post('total_ticket', 'FilmsController@getTotalTicket');
     //  status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
-    // //user choose chairs
-    // Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
-    // //user voting
+    //user choose chairs
+    Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
+    //user voting
     Route::resource('votedetails', 'VoteDetailsController')->only('store', 'destroy');
     // //check voted
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
@@ -29,7 +27,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('un_register', 'RegistersController@unRegister');
     Route::post('guest_refuse', 'RegistersController@guestRefuses');
     // //get diagram_chairs by votes
-    // Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
+    Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
     // Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     // //check
     // Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');

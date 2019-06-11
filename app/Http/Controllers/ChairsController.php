@@ -61,7 +61,7 @@ class ChairsController extends Controller
     public function store(ChairCreateRequest $request)
     {
         $chair = $this->repository->create($request->all());
-        return response()->json($chair, 201);
+        return $chair;
     }
 
     /**

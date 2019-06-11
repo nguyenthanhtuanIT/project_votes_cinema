@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Diagram;
+use App\Models\Vote;
 use App\Presenters\DiagramPresenter;
 use App\Repositories\Contracts\DiagramRepository;
 use Illuminate\Http\Response;
@@ -55,6 +56,17 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
         } else {
             $diagram = parent::create($attributes);
             return $diagram;
+        }
+
+    }
+    public function getDiagramChairByVote($vote_id)
+    {
+        $vote = Vote::find($vote_id);
+        if ($vote->room_id != 0) {
+            $diagram = Diagram::where('room_id', $vote->room_id)->get();
+            return response()->json($diagram);
+        } else {
+            return response()->json(['status' => 'not room']);
         }
 
     }
