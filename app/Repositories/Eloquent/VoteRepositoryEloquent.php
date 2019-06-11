@@ -64,7 +64,7 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     }
     public function update(array $attributes, $id)
     {
-        if (isset($attributes['background'])) {
+        if (!empty($attributes['background'])) {
             $name = $attributes['background']->store('photos');
             $link = Storage::url($name);
             $attributes['background'] = $link;
