@@ -81,9 +81,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
                 'object_type' => User::IMAGE_TYPE,
             ]);
         }
-
-        //$user = $user->refresh();
-
         return $this->find($id);
     }
     public function getListUser($vote_id)
