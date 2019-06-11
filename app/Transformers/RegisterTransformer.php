@@ -32,9 +32,10 @@ class RegisterTransformer extends BaseTransformer
 
     public function customAttributes($model): array
     {
-        return [ //'name_film' => $model->getNameFilms(),
-            //     'name_vote' => $model->getTitleVote(),
-            //     'users' => $model->getUser()
+        return ['name_film' => $model->getNameFilms(),
+            'name_vote' => $model->getTitleVote(),
+            'users' => $model->getUser(),
+            'best_friend' => $model->getFriend(),
         ];
     }
 }
