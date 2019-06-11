@@ -27,6 +27,7 @@ Route::group(['prefix' => 'v1'], function () {
     // //check register
     Route::post('check_register', 'RegistersController@checkRegistered');
     Route::post('un_register', 'RegistersController@unRegister');
+    Route::post('guest_refuse', 'RegistersController@guestRefuses');
     // //get diagram_chairs by votes
     // Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
     // Route::post('update_status_chair', 'ChairsController@updateStatusChair');

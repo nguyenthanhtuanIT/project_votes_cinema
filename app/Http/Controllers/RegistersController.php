@@ -111,4 +111,9 @@ class RegistersController extends Controller
         $un = $this->repository->delRegister($request->all());
         return $un;
     }
+    public function guestRefuses(Request $request)
+    {
+        $ac = $this->repository->guestRefuse($request->all());
+        return response()->json(['status' => $ac], 200);
+    }
 }

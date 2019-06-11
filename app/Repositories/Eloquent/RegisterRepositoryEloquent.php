@@ -61,10 +61,6 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     }
     public function update(array $attributes, $id)
     {
-        if (!empty($attributes['best_friend'])) {
-
-        }
-
         if (!empty($attributes['ticket_number'])) {
             $find = Register::find($id);
             $number_old = $find->ticket_number;
@@ -109,5 +105,30 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
             'user_id' => $attributes['user_id']])->first();
         $del = $this->delete($data->id);
         return $del;
+    }
+    public function guestRefuse(array $attributes)
+    {
+        $vote_id = $attributes['vote_id'];
+        $user_id = $attributes['user_id'];
+        $guest_id = $attributes['guest_id'];
+        $data = Register::where(['vote_id' => $vote_id,
+            'user_id' => $user_id])->first();
+        $arr = explode(',', $data->best_friend);
+        for ($i = 0; $i < count($arr); $i++) {
+            if ($arr[$i] == $guest_id) {
+                unset($arr[$i]);
+                break;
+            }
+        }
+        $str = implode(',', $arr);
+        $num = count($arr) + 1;
+        $up = Register::where(['vote_id' => $vote_id,
+            'user_id' => $user_id])->update(['best_friend' => $str, 'ticket_number' => $num]);
+        if ($up == 1) {
+            $new = Register::where(['vote_id' => $vote_id,
+                'user_id' => $user_id])->first();
+            VoteService::updateTicket($vote_id, $data->ticket_number, $new->ticket_number);
+        }
+        return $c = 'success';
     }
 }
