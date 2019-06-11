@@ -25,41 +25,31 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
     Route::resource('registers', 'RegistersController'); //->only(['store', 'destroy', 'update']);
     // //check register
-    // Route::post('check_register', 'RegistersController@checkRegistered');
+    Route::post('check_register', 'RegistersController@checkRegistered');
+    Route::post('un_register', 'RegistersController@unRegister');
     // //get diagram_chairs by votes
     // Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
     // Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     // //check
     // Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');
-    Route::get('list_users', 'UsersController@listUsers');
+    Route::post('list_users', 'UsersController@listUsers');
     Route::post('un_voted', 'VoteDetailsController@unVoted');
-    // Route::get('list_film_to_register', 'FilmsController@listMaxVote');
-
+    Route::resource('statisticals', 'StatisticalsController');
     //admin
     Route::group(['prefix' => 'admin'], function () {
-        //users
         Route::resource('users', 'UsersController');
-        //votes
         Route::resource('votes', 'VotesController');
-        //film
         Route::resource('films', 'FilmsController');
-        //cinema
         Route::resource('cinemas', 'CinemasController');
-        //room
         Route::resource('rooms', 'RoomsController');
-        //diagram
         Route::resource('diagrams', 'DiagramsController');
-        // votedetail
         Route::resource('votedetails', 'VoteDetailsController')->only(['index', 'destroy', 'update']);
 
         //excel
         //Route::get('excel', 'RegistersController@Export');
-        //blog
         Route::resource('blogs', 'BlogsController');
-        //chair
         Route::resource('chairs', 'ChairsController');
-        //admin choose chairs
         Route::resource('choose_chairs', 'ChooseChairsController')->only(['index', 'update', 'destroy']);
         //Route::post('search_films', 'FilmsController@getFilmsByDate');
         //return film to register user

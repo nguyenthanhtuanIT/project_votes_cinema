@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Image;
+use App\Models\Register;
 use App\Repositories\Contracts\UserRepository;
 use App\Services\RoleService;
 use App\User;
@@ -85,9 +86,29 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
         return $this->find($id);
     }
-    public function getListUser()
+    public function getListUser($vote_id)
     {
-        $film = User::select('id', 'full_name', 'email')->get();
-        return response()->json($film);
+        $arr_r = array();
+        $arr_r1 = array();
+        $arr_r2 = array();
+        $r = Register::where('vote_id', $vote_id)->get();
+        foreach ($r as $val) {
+            array_push($arr_r, $val->user_id);
+        }
+        $r1 = Register::where('vote_id', $vote_id)->where('ticket_number', '>', 1)->get();
+        foreach ($r1 as $val) {
+            $us = explode(',', $val->best_friend);
+            for ($i = 0; $i < count($us); $i++) {
+                $arr_r1[] = $us[$i];
+            }
+        }
+        for ($i = 0; $i < count($arr_r1); $i++) {
+            $k = (int) $arr_r1[$i];
+            $arr_r2[] = $k;
+        }
+        $arr = array_merge($arr_r, $arr_r2);
+        $result = array_unique($arr);
+        $user = User::whereNotIn('id', $result)->get(['id', 'full_name', 'email']);
+        return response()->json($user);
     }
 }

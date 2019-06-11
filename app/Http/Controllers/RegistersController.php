@@ -101,9 +101,14 @@ class RegistersController extends Controller
     {
         return Excel::download(new RegistersExport, 'listregister.xlsx');
     }
-    // public function checkRegistered(Request $request)
-    // {
-    //     $check = $this->repository->checkRegister($request->all());
-    //     return response()->json($check);
-    // }
+    public function checkRegistered(Request $request)
+    {
+        $check = $this->repository->checkRegister($request->all());
+        return response()->json($check);
+    }
+    public function unRegister(Request $request)
+    {
+        $un = $this->repository->delRegister($request->all());
+        return $un;
+    }
 }

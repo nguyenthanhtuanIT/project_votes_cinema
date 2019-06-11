@@ -73,23 +73,35 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
             $register = parent::update($attributes, $id);
             return $register;
         }
-
-        // StatisticalService::addRegister($register['data']['attributes']['film_id'], $register['data']['attributes']['vote_id']);
-        // VoteService::addTicket($register['data']['attributes']['vote_id'], $register['data']['attributes']['ticket_number']);
-        // return $register;
     }
-    // public function checkRegister(array $attributes)
-    // {
-    //     $data = $this->model()::where('user_id', $attributes['user_id'])->where('vote_id', $attributes['vote_id'])->first();
-    //     $check = 'false';
-    //     if ($data) {
-    //         $ticket_number = $data->ticket_number;
-    //         $check = 'true';
-    //         $result[] = array('check' => $check,
-    //             'ticket_number' => $ticket_number);
-    //     } else {
-    //         $result[] = array('check' => $check);
-    //     }
-    //     return $result;
-    // }
+    public function checkRegister(array $attributes)
+    {
+        $check = true;
+        $data = Register::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
+        $data1 = Register::where('vote_id', $attributes['vote_id'])->where('ticket_number', '>', 1)->get();
+        //dd($data1->count());
+        if ($data != 0) {
+            $check = false;
+        }
+        if ($data1->count() != 0) {
+            foreach ($data1 as $value) {
+                $peo = explode(',', $value->best_friend);
+                for ($i = 0; $i < count($peo); $i++) {
+                    if ($peo[$i] == $attributes['user_id']) {
+                        $check = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return response()->json($check);
+    }
+    public function delRegister(array $attributes)
+    {
+        $data = Register::where([
+            'vote_id' => $attributes['vote_id'],
+            'user_id' => $attributes['user_id']])->first();
+        $del = $this->delete($data->id);
+        return $del;
+    }
 }

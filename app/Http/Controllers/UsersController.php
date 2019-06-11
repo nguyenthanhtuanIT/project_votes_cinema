@@ -42,19 +42,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-
-        // $limit = request()->get('limit', null);
-        // $includes = request()->get('include', 'roles');
-
-        // if ($includes) {
-        //     $this->repository->with(explode(',', $includes));
-        // }
-
-        // $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-
         $user = $this->repository->all($columns = ['*']);
         return response()->json($user);
-
     }
 
     /**
@@ -160,10 +149,9 @@ class UsersController extends Controller
 
         return $this->presenterPostJson($user);
     }
-    public function listUsers()
+    public function listUsers(Request $request)
     {
-        $user = $this->repository->getListUser();
-        //return $this->repository->parserResult($user);
+        $user = $this->repository->getListUser($request->vote_id);
         return response()->json($user);
     }
     // public function redirectGoogle()
