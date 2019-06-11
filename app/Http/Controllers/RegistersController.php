@@ -103,8 +103,8 @@ class RegistersController extends Controller
     }
     public function checkRegistered(Request $request)
     {
-        $check = $this->repository->checkRegister($request->all());
-        return response()->json($check);
+        $arr = $this->repository->checkRegister($request->all());
+        return response()->json($arr);
     }
     public function unRegister(Request $request)
     {
