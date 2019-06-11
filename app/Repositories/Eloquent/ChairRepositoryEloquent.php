@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Chair;
+use App\Models\ChooseChair;
 use App\Presenters\ChairPresenter;
 use App\Repositories\Contracts\ChairRepository;
 use Illuminate\Http\Response;
@@ -64,52 +65,76 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
         $diagram = $this->model()::where('vote_id', $vote_id)->get();
         return $diagram;
     }
-    public function test(array $attributes)
+    public function updateChairs(array $attributes)
     {
-        $attr = $attributes['update_status_chair'];
         $vote_id = $attributes['vote_id'];
-        $arr = explode(';', $attr);
-        $check = true;
-        //dd(count($arr));
-        for ($i = 0; $i < count($arr); $i++) {
-            $chill_arr = explode(',', $arr[$i]);
-            $chair = $this->model()::find($chill_arr[0]);
-            $status_chairs = explode(',', $chair->status_chairs);
-            if ($chair) {
-                for ($k = 0; $k < count($status_chairs); $k++) {
-                    if ($status_chairs[$k] == $chill_arr[$k + 1]) {
-                        $check = true;
-                    } else {
-                        if ($status_chairs[$k] == 'empty' && is_numeric($chill_arr[$k + 1])) {
-                            $check = true;
-                        } else {
-                            $check = false;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (!$check) {
-                break;
-            }
-        }
-        if ($check) {
+        $result = $c_c = $c = array();
+        $ch_chair = ChooseChair::where('vote_id', $vote_id)->get();
+        $chair = Chair::where('vote_id', $vote_id)->get();
+        foreach ($chair as $val) {
+            $arr = explode(',', $val->status_chairs);
             for ($i = 0; $i < count($arr); $i++) {
-                $chill_arr = explode(',', $arr[$i]);
-                $chair = $this->model()::find($chill_arr[0]);
-                $status_chairs = explode(',', $chair->status_chairs);
-                if ($chair) {
-                    for ($k = 0; $k < count($status_chairs); $k++) {
-                        $status_chairs[$k] = $chill_arr[$k + 1];
-                    }
-                    $string = implode(',', $status_chairs);
-                    $chair_update = $chair->update(['status_chairs' => $string]);
-                }
+                $c[] = $arr[$i];
             }
-            return response('ok', 200);
-        } else {
-            return response('error', 200);
         }
-
+        foreach ($ch_chair as $val) {
+            $arr = explode(',', $val->seats);
+            for ($i = 0; $i < count($arr); $i++) {
+                $c_c[] = $arr[$i];
+            }
+        }
+        $res = array_diff($c, $c_c);
+        foreach ($res as $key => $value) {
+            $result[] = $value;
+        }
+        return response()->json($result);
     }
+    // public function test(array $attributes)
+    // {
+    //     $attr = $attributes['update_status_chair'];
+    //     $vote_id = $attributes['vote_id'];
+    //     $arr = explode(';', $attr);
+    //     $check = true;
+    //     //dd(count($arr));
+    //     for ($i = 0; $i < count($arr); $i++) {
+    //         $chill_arr = explode(',', $arr[$i]);
+    //         $chair = $this->model()::find($chill_arr[0]);
+    //         $status_chairs = explode(',', $chair->status_chairs);
+    //         if ($chair) {
+    //             for ($k = 0; $k < count($status_chairs); $k++) {
+    //                 if ($status_chairs[$k] == $chill_arr[$k + 1]) {
+    //                     $check = true;
+    //                 } else {
+    //                     if ($status_chairs[$k] == 'empty' && is_numeric($chill_arr[$k + 1])) {
+    //                         $check = true;
+    //                     } else {
+    //                         $check = false;
+    //                         break;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         if (!$check) {
+    //             break;
+    //         }
+    //     }
+    //     if ($check) {
+    //         for ($i = 0; $i < count($arr); $i++) {
+    //             $chill_arr = explode(',', $arr[$i]);
+    //             $chair = $this->model()::find($chill_arr[0]);
+    //             $status_chairs = explode(',', $chair->status_chairs);
+    //             if ($chair) {
+    //                 for ($k = 0; $k < count($status_chairs); $k++) {
+    //                     $status_chairs[$k] = $chill_arr[$k + 1];
+    //                 }
+    //                 $string = implode(',', $status_chairs);
+    //                 $chair_update = $chair->update(['status_chairs' => $string]);
+    //             }
+    //         }
+    //         return response('ok', 200);
+    //     } else {
+    //         return response('error', 200);
+    //     }
+
+    // }
 }

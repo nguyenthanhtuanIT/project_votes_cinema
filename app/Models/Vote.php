@@ -22,7 +22,7 @@ class Vote extends BaseModel
     public function getListFilms()
     {
         $list = explode(',', $this->list_films);
-        $arr[] = array();
+        $arr = array();
         for ($i = 0; $i < count($list); $i++) {
             $film = Films::find($list[$i]);
             $arr[] = $film;

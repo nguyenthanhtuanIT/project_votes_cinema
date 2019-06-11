@@ -113,8 +113,8 @@ class ChairsController extends Controller
     }
     public function updateStatusChair(Request $request)
     {
-        $status = $this->repository->test($request->all());
-        return response()->json($status);
+        $result = $this->repository->updateChairs($request->all());
+        return response()->json($result);
     }
 
 }

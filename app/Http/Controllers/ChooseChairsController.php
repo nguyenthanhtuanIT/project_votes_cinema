@@ -107,15 +107,20 @@ class ChooseChairsController extends Controller
 
         return response()->json(null, 204);
     }
-    public function choose(Request $request)
+    public function ticketOfUser(Request $request)
     {
-        $seat = $this->repository->chooseSeats($request->all());
+        $ticket = $this->repository->ticketUser($request->all());
         //dd($seat);
-        return response()->json($seat);
+        return response()->json($ticket);
     }
-    public function checkUserChooed(Request $request)
+    public function checkUserChoosed(Request $request)
     {
         $check = $this->repository->checkChoosed($request->all());
         return response()->json($check);
+    }
+    public function reChooses(Request $request)
+    {
+        $re = $this->repository->reChoose($request->all());
+        return response()->json($re, 201);
     }
 }

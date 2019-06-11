@@ -11,8 +11,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('me', 'UsersController@me');
     // //auth
     Route::post('auth/logout', 'Auth\AuthController@logout');
-    //chair
-    // Route::get('user_choose_chair', 'ChooseChairsController@choose');
+
+    Route::get('ticket_of_user', 'ChooseChairsController@ticketOfUser');
     //  status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
     //user choose chairs
@@ -28,9 +28,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('guest_refuse', 'RegistersController@guestRefuses');
     // //get diagram_chairs by votes
     Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
-    // Route::post('update_status_chair', 'ChairsController@updateStatusChair');
-    // //check
-    // Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
+    //check
+    Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed');
+    Route::post('update_status_chair', 'ChairsController@updateStatusChair');
+    Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');
     Route::post('list_users', 'UsersController@listUsers');
     Route::post('un_voted', 'VoteDetailsController@unVoted');
