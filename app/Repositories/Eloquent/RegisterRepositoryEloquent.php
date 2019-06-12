@@ -46,10 +46,19 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     }
     public function create(array $attributes)
     {
-        $register = parent::create($attributes);
-        StatisticalService::addRegister($register['data']['attributes']['film_id'], $register['data']['attributes']['vote_id']);
-        VoteService::addTicket($register['data']['attributes']['vote_id'], $register['data']['attributes']['ticket_number']);
-        return $register;
+        $validate = $this->model()::where([
+            'user_id' => $attributes['user_id'],
+            'vote_id' => $attributes['vote_id'],
+        ])->count();
+        if ($validate == 1) {
+            return response()->json('ready exited', Response::HTTP_BAD_REQUEST);
+        } else {
+            $register = parent::create($attributes);
+            StatisticalService::addRegister($register['data']['attributes']['film_id'], $register['data']['attributes']['vote_id']);
+            VoteService::addTicket($register['data']['attributes']['vote_id'], $register['data']['attributes']['ticket_number']);
+            return $register;
+        }
+
     }
     public function delete($id)
     {
