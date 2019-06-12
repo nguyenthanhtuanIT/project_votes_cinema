@@ -88,7 +88,6 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     {
         $check = false;
         $guest = false;
-        $arr = array();
         $data = Register::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->get();
         $data1 = Register::where('vote_id', $attributes['vote_id'])->where('ticket_number', '>', 1)->get();
         //dd($data1->count());
@@ -98,8 +97,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                 return response()->json(['check' => $check, 'guest' => $guest, 'user_id' => $value->user_id, 'ticket_number' => $value->ticket_number]);
             }
 
-        }
-        if ($data1->count() != 0) {
+        } elseif ($data1->count() != 0) {
             foreach ($data1 as $value) {
                 $peo = explode(',', $value->best_friend);
                 for ($i = 0; $i < count($peo); $i++) {
@@ -114,7 +112,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                 }
             }
         }
-
+        return response()->json(['check' => $check, 'guest' => $guest]);
     }
     public function delRegister(array $attributes)
     {
