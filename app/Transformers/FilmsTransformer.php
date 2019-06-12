@@ -33,6 +33,7 @@ class FilmsTransformer extends BaseTransformer
     public function customAttributes($model): array
     {
         return [
+            //'movies' => $model->movies_type(),
         ];
     }
 }

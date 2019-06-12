@@ -34,7 +34,8 @@ class VoteTransformer extends BaseTransformer
     {
 
         return [
-            'lists' => $model->getListFilms(),
+            'lists' => $model->getFilms(),
+            // 'films' => $model->getList(),
         ];
     }
 
