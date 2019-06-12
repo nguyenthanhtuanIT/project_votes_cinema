@@ -104,7 +104,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                     if ($peo[$i] == $attributes['user_id']) {
                         $check = true;
                         $guest = true;
-                        $id = $value->id;
+                        $id = $value->user_id;
                         $user = User::find($id);
                         return response()->json(['check' => $check, 'guest' => $guest, 'fullname' => $user->full_name, 'avatar' => $user->avatar, 'user_id' => $id]);
                         break;
@@ -246,19 +246,12 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     {
         $data = Register::where('vote_id', $attributes['vote_id'])->get();
         $data1 = Chair::where('vote_id', $attributes['vote_id'])->get();
-        $arr = $arr1 = $d = $b = $c = array();
+        $arr = $arr1 = $d = $b = $c = $a = array();
         foreach ($data as $val) {
             if ($val->ticket_number == 1) {
-                $b[] = array($val->user_id);
-            } elseif ($val->ticket_number > 1) {
-                $c[] = array($val->user_id . ',' . $val->best_friend);
+                $a[] = array($val->user_id);
             }
-            $arr = array_merge($c, $b);
         }
-        foreach ($data1 as $val) {
-            $arr1[] = array($val->status_chairs);
-        }
-        //return $arr1;
-        return $this->shuffle_seats($arr1, $arr);
+        //print_r($this->shuffle_seats($arr1, $arr));
     }
 }
