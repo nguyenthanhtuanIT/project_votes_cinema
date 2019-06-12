@@ -103,7 +103,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                     if ($peo[$i] == $attributes['user_id']) {
                         $check = true;
                         $guest = true;
-                        $id = $value->user_id;
+                        $id = $value->id;
                         $user = User::find($id);
                         return response()->json(['check' => $check, 'guest' => $guest, 'fullname' => $user->full_name, 'avatar' => $user->avatar, 'user_id' => $id]);
                         break;

@@ -87,26 +87,6 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
             return response()->json(['status' => 'not data']);
         }
     }
-    // public function listFilmMaxVote()
-    // {
-    //     $vote = Vote::where('status_vote', 2)->orwhere('status_vote', 1)->select('id', 'status_vote')->first();
-    //     $max = $this->model()::where('vote_id', $vote->id)->max('vote_number');
-    //     $films = $this->model()::where('vote_id', $vote->id)->where('vote_number', $max)
-    //         ->get();
-    //     return $films;
-    // }
-    // public function totalTicket(array $attributes)
-    // {
-    //     $film_id = $attributes['film_id'];
-    //     $vote_id = $attributes['vote_id'];
-    //     $total = $this->model()::where(['id' => $film_id, 'vote_id' => $vote_id])->first();
-    //     return $total->register_number;
-    // }
-    // public function searchFilms($keyword)
-    // {
-    //     $data = $this->model()::where('projection_date', $keyword)->orwhere('type_cinema_id', $keyword)->get();
-    //     return $data;
-    // }
     public function filmToRegister($vote_id)
     {
         $check = Statistical::where(['vote_id' => $vote_id, 'movie_selected' => 1])->get();
