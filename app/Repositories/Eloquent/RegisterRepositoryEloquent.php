@@ -7,6 +7,7 @@ use App\Presenters\RegisterPresenter;
 use App\Repositories\Contracts\RegisterRepository;
 use App\Services\StatisticalService;
 use App\Services\VoteService;
+use App\User;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -85,12 +86,14 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     public function checkRegister(array $attributes)
     {
         $check = false;
-        $guest = 0;
-        $data = Register::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
+        $guest = false;
+        $arr = array();
+        $data = Register::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->get();
         $data1 = Register::where('vote_id', $attributes['vote_id'])->where('ticket_number', '>', 1)->get();
         //dd($data1->count());
-        if ($data != 0) {
+        if (count($data) != 0) {
             $check = true;
+            return response()->json(['check' => $check, 'guest' => $guest]);
         }
         if ($data1->count() != 0) {
             foreach ($data1 as $value) {
@@ -98,14 +101,16 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                 for ($i = 0; $i < count($peo); $i++) {
                     if ($peo[$i] == $attributes['user_id']) {
                         $check = true;
-                        $guest = 1;
+                        $guest = true;
+                        $id = $value->user_id;
+                        $user = User::find($id);
+                        return response()->json(['check' => $check, 'guest' => $guest, 'fullname' => $user->full_name, 'avatar' => $user->avatar]);
                         break;
                     }
                 }
             }
         }
-        $arr[] = array('check' => $check, 'guest' => $guest);
-        return response()->json($arr);
+
     }
     public function delRegister(array $attributes)
     {
@@ -140,4 +145,24 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         }
         return $c = 'success';
     }
+    // public function randChair(array $attributes)
+    // {
+    //     $data = Register::where('vote_id', $attributes['vote_id'])->get();
+    //     $b = $c = array();
+
+    //     //dd($data);
+    //     foreach ($data as $val) {
+    //         if ($val->ticket_number == 1) {
+    //             $a[] = $val->user_id;
+    //             $b[] = $a;
+    //         } else {
+    //             $str = $val->user_id . ',' . $val->best_friend;
+    //             //dd($str);
+    //             $b[] = $str;
+    //             $c[] = $b;
+    //         }
+    //         $arr = array_merge($b, $c);
+    //         dd($arr);
+    //     }
+    // }
 }

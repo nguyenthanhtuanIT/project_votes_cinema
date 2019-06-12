@@ -104,7 +104,7 @@ class RegistersController extends Controller
     public function checkRegistered(Request $request)
     {
         $arr = $this->repository->checkRegister($request->all());
-        return response()->json($arr);
+        return $arr;
     }
     public function unRegister(Request $request)
     {
@@ -115,5 +115,10 @@ class RegistersController extends Controller
     {
         $ac = $this->repository->guestRefuse($request->all());
         return response()->json(['status' => $ac], 200);
+    }
+    public function randChairs(Request $request)
+    {
+        $ac = $this->repository->randChair($request->all());
+        return $ac;
     }
 }

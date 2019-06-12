@@ -45,9 +45,9 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     }
     public function ticketUser(array $attributes)
     {
-        $ticket = Register::where('user_id', auth()->user()->id)
-            ->where('vote_id', $attributes['vote_id'])->pluck('ticket_number');
-        return $ticket;
+        $ticket = Register::where('user_id', 1)
+            ->where('vote_id', $attributes['vote_id'])->get(['ticket_number']);
+        return response()->json($ticket[0]);
     }
     public function checkChoosed(array $attributes)
     {

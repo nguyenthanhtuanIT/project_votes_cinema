@@ -75,8 +75,9 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
     {
         $vote = Vote::where('status_vote', 'voting')->first();
         if (!empty($vote)) {
-            $list = $vote->list_films;
-            $arr = explode(',', $list);
+            //$list = $vote->list_films;
+            $str = implode(',', $vote->list_films);
+            $arr = explode(',', $str);
             for ($i = 0; $i < count($arr); $i++) {
                 $film = Films::find($arr[$i]);
                 $a[] = $film;

@@ -12,13 +12,13 @@ Route::group(['prefix' => 'v1'], function () {
     // //auth
     Route::post('auth/logout', 'Auth\AuthController@logout');
 
-    Route::get('ticket_of_user', 'ChooseChairsController@ticketOfUser');
+    Route::post('ticket_of_user', 'ChooseChairsController@ticketOfUser');
     //  status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
     //user choose chairs
     Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
     //user voting
-    Route::resource('votedetails', 'VoteDetailsController')->only('store', 'destroy');
+    Route::resource('votedetails', 'VoteDetailsController');
     // //check voted
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
     Route::resource('registers', 'RegistersController');
@@ -29,7 +29,8 @@ Route::group(['prefix' => 'v1'], function () {
     // //get diagram_chairs by votes
     Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
     //check
-    Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed');
+    Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
+    Route::post('rand', 'RegistersController@randChairs');
     Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');
@@ -44,7 +45,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('cinemas', 'CinemasController');
         Route::resource('rooms', 'RoomsController');
         Route::resource('diagrams', 'DiagramsController');
-        Route::resource('votedetails', 'VoteDetailsController')->only(['index', 'destroy', 'update']);
+        Route::resource('votedetails', 'VoteDetailsController');
         Route::resource('registers', 'RegistersController');
         //excel
         //Route::get('excel', 'RegistersController@Export');

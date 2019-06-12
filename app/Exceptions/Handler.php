@@ -37,14 +37,5 @@ class Handler extends ExceptionHandler
     {
         parent::report($exception);
     }
-    public function render($request, Exception $exception)
-    {
-        return redirect()->route('yourWishedRoute');
 
-    }
-
-// if ($exception instanceof MethodNotAllowedHttpException)
-    // {
-    //     return redirect()->route('yourWishedRoute');
-    // }
 }
