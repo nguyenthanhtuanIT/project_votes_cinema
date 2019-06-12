@@ -93,8 +93,11 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         $data1 = Register::where('vote_id', $attributes['vote_id'])->where('ticket_number', '>', 1)->get();
         //dd($data1->count());
         if (count($data) != 0) {
-            $check = true;
-            return response()->json(['check' => $check, 'guest' => $guest, 'user_id' => $attributes['user_id']]);
+            foreach ($variable as $value) {
+                $check = true;
+                return response()->json(['check' => $check, 'guest' => $guest, 'user_id' => $value->user_id, 'ticket_number' => $value->ticket_number]);
+            }
+
         }
         if ($data1->count() != 0) {
             foreach ($data1 as $value) {
