@@ -11,7 +11,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('me', 'UsersController@me');
     // //auth
     Route::post('auth/logout', 'Auth\AuthController@logout');
-
     Route::post('ticket_of_user', 'ChooseChairsController@ticketOfUser');
     //  status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
@@ -27,11 +26,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('un_register', 'RegistersController@unRegister');
     Route::post('guest_refuse', 'RegistersController@guestRefuses');
     // //get diagram_chairs by votes
-    Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
+    //Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
     //Route::post('chairs_bought', 'ChairsController@getDiagramChairByVote');
     //check
     Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
-
+    Route::resource('blogs', 'BlogsController')->only('index');
     Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');
@@ -39,7 +38,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('un_voted', 'VoteDetailsController@unVoted');
     Route::resource('statisticals', 'StatisticalsController');
     Route::post('infor_vote', 'VotesController@inforVotes');
-
+    Route::get('user_comment/{blog_id}', 'CommentsController@getComments');
+    Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
     //admin
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('users', 'UsersController');
@@ -55,6 +55,7 @@ Route::group(['prefix' => 'v1'], function () {
         //Route::get('excel', 'RegistersController@Export');
         Route::resource('blogs', 'BlogsController');
         Route::resource('chairs', 'ChairsController');
+        Route::resource('comments', 'CommentsController');
         Route::resource('choose_chairs', 'ChooseChairsController')->only(['index', 'update', 'destroy']);
         //Route::post('search_films', 'FilmsController@getFilmsByDate');
         //return film to register user

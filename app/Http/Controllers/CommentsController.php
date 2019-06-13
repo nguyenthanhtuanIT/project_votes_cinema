@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\CommentCreateRequest;
 use App\Http\Requests\CommentUpdateRequest;
 use App\Repositories\Contracts\CommentRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class CommentsController.
@@ -39,7 +37,7 @@ class CommentsController extends Controller
     public function index()
     {
         $limit = request()->get('limit', null);
-        
+
         $includes = request()->get('include', '');
 
         if ($includes) {
@@ -77,7 +75,7 @@ class CommentsController extends Controller
     public function show($id)
     {
         $comment = $this->repository->find($id);
-        
+
         return response()->json($comment);
     }
 
@@ -108,5 +106,10 @@ class CommentsController extends Controller
         $this->repository->delete($id);
 
         return response()->json(null, 204);
+    }
+    public function getComments($blog_id)
+    {
+        $res = $this->repository->commentsByBlog($blog_id);
+        return response()->json($res);
     }
 }
