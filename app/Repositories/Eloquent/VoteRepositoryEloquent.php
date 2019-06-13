@@ -2,6 +2,11 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Cinema;
+use App\Models\Diagram;
+use App\Models\Films;
+use App\Models\Room;
+use App\Models\Statistical;
 use App\Models\Vote;
 use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
@@ -95,5 +100,17 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         } else {
             return response()->json(['status' => 'not votes']);
         }
+    }
+    public function infor($vote_id)
+    {
+        $result = array();
+        $sta = Statistical::where(['vote_id' => $vote_id, 'movie_selected' => 1])->first();
+        $film = Films::find($sta->films_id);
+        $vote = Vote::find($vote_id);
+        $rom = Room::find($vote->room_id);
+        $cinema = Cinema::find($rom->cinema_id);
+        $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
+        $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram);
+        return response()->json($result);
     }
 }
