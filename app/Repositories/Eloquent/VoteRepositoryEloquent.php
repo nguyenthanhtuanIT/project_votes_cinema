@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Chair;
 use App\Models\Cinema;
 use App\Models\Diagram;
 use App\Models\Films;
@@ -110,13 +111,14 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         $rom = Room::find($vote->room_id);
         $cinema = Cinema::find($rom->cinema_id);
         $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
+        $chair = Chair::where('vote_id', $vote_id)->get(['row_of_seats', 'status_chairs']);
         if (!empty($vote->infor_time)) {
             $t = new Carbon($vote->infor_time);
             $date = $t->toDateString();
             $time = $t->toTimeString();
-            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'date' => $date, 'time' => $time);
+            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'date' => $date, 'time' => $time);
         } else {
-            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'time' => $vote->infor_time);}
+            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'time' => $vote->infor_time);}
         return response()->json($result);
     }
 }

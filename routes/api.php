@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('guest_refuse', 'RegistersController@guestRefuses');
     // //get diagram_chairs by votes
     Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
-    Route::post('chairs_bought', 'ChairsController@getDiagramChairByVote');
+    //Route::post('chairs_bought', 'ChairsController@getDiagramChairByVote');
     //check
     Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
 
