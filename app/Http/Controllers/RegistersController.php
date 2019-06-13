@@ -116,9 +116,4 @@ class RegistersController extends Controller
         $ac = $this->repository->guestRefuse($request->all());
         return response()->json(['status' => $ac], 200);
     }
-    public function randChairs(Request $request)
-    {
-        $ac = $this->repository->randChair($request->all());
-        return $ac;
-    }
 }

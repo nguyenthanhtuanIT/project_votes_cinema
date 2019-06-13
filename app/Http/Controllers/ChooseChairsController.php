@@ -123,4 +123,9 @@ class ChooseChairsController extends Controller
         $re = $this->repository->reChoose($request->all());
         return response()->json($re, 201);
     }
+    public function randChairs(Request $request)
+    {
+        $ac = $this->repository->randChair($request->all());
+        return $ac;
+    }
 }

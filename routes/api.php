@@ -30,13 +30,14 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
     //check
     Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
-    Route::post('rand', 'RegistersController@randChairs');
+
     Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');
     Route::post('list_users', 'UsersController@listUsers');
     Route::post('un_voted', 'VoteDetailsController@unVoted');
     Route::resource('statisticals', 'StatisticalsController');
+    Route::post('infor_vote', 'VotesController@inforVotes');
     //admin
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('users', 'UsersController');
@@ -47,6 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('diagrams', 'DiagramsController');
         Route::resource('votedetails', 'VoteDetailsController');
         Route::resource('registers', 'RegistersController');
+        Route::post('rand', 'ChooseChairsController@randChairs');
         //excel
         //Route::get('excel', 'RegistersController@Export');
         Route::resource('blogs', 'BlogsController');

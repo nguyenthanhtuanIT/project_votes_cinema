@@ -39,12 +39,12 @@ class Register extends BaseModel
     }
     public function getFriend()
     {
-        $arr[] = array();
+        $arr = array();
         if (!empty($this->best_friend)) {
             $list = explode(',', $this->best_friend);
             for ($i = 0; $i < count($list); $i++) {
                 $user = User::find($list[$i]);
-                $arr[] = $user;
+                $arr[] = $user->full_name;
             }
 
         }

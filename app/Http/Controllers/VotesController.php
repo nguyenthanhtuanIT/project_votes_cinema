@@ -104,6 +104,10 @@ class VotesController extends Controller
     {
         $vote = $this->repository->getStatus();
         return response()->json($vote);
-
+    }
+    public function inforVotes(Request $request)
+    {
+        $infor = $this->repository->infor($request->vote_id);
+        return $infor;
     }
 }
