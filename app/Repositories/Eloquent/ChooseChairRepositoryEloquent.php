@@ -68,7 +68,7 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
         $res = parent::create($attributes);
         return $res;
     }
-    public function shuffle_seats($seats = [[]], $viewers = [[]])
+    public function shuffle_seats($seats = [[]], $viewers = [[]], $vote_id)
     {
         $seats = array_values($seats);
         $viewers = array_values($viewers);
@@ -160,6 +160,7 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
 
         return [
             'status' => 'success',
+            'vote_id' => $vote_id,
             'data' => $results,
         ];
     }
@@ -190,7 +191,9 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
             }
             $seats[] = $d;
         }
-        return $this->shuffle_seats($seats, $viewers);
+        $result = $this->shuffle_seats($seats, $viewers, $attributes['vote_id']);
+        // $arr = array($result, 'vote_id' => );
+        return $result;
     }
 
 }
