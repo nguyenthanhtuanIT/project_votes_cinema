@@ -110,7 +110,13 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         $rom = Room::find($vote->room_id);
         $cinema = Cinema::find($rom->cinema_id);
         $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
-        $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram);
+        if (!empty($vote->infor_time)) {
+            $t = new Carbon($vote->infor_time);
+            $date = $t->toDateString();
+            $time = $t->toTimeString();
+            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'date' => $date, 'time' => $time);
+        } else {
+            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'time' => $vote->infor_time);}
         return response()->json($result);
     }
 }
