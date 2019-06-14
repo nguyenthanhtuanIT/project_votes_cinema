@@ -184,7 +184,8 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
         }
         $viewers = array_merge($a, $c);
         foreach ($data1 as $val) {
-            $arr = explode(',', $val->status_chairs);
+            $str = implode(',', $val->status_chairs);
+            $arr = explode(',', $str);
             $d = array();
             for ($i = 0; $i < count($arr); $i++) {
                 $d[] = $arr[$i];
