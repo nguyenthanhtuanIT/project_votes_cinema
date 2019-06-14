@@ -45,6 +45,11 @@ class RandomRepositoryEloquent extends BaseRepository implements RandomRepositor
     public function create(array $attributes)
     {
         $check = Random::where('vote_id', $attributes['vote_id'])->count();
-
+        if ($check == 1) {
+            return response()->json('vote_id exited', Response::HTTP_BAD_REQUEST);
+        } else {
+            $rand = parent::create($attributes);
+            return $rand;
+        }
     }
 }
