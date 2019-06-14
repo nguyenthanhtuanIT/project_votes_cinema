@@ -46,18 +46,14 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
     }
     public function create(array $attributes)
     {
-        if (!empty($attributes['row_of_seats'])) {
-            $validate = $this->model()::where([
-                'row_of_seats' => $attributes['row_of_seats'],
-                'vote_id' => $attributes['vote_id'],
-            ])->count();
-            if ($validate == 1) {
-                return response()->json('attributes aready exited', Response::HTTP_BAD_REQUEST);
-            } else {
-                $chairs = parent::create($attributes);
-                return $chairs;
-            }
+        $validate = $this->model()::where('vote_id', $attributes['vote_id'])->count();
+        if ($validate == 1) {
+            return response()->json('attributes aready exited', Response::HTTP_BAD_REQUEST);
+        } else {
+            $chairs = parent::create($attributes);
+            return $chairs;
         }
+
     }
     public function diagramChairByVote(array $attributes)
     {
@@ -72,8 +68,9 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
         $ch_chair = ChooseChair::where('vote_id', $vote_id)->get();
         $chair = Chair::where('vote_id', $vote_id)->get();
         foreach ($chair as $val) {
-            $str = implode(',', $val->status_chairs);
-            $arr = explode(',', $str);
+            // $str = implode(',', $val->status_chairs);
+            // $arr = explode(',', $str);
+            $arr = $val->chairs;
             for ($i = 0; $i < count($arr); $i++) {
                 $c[] = $arr[$i];
             }

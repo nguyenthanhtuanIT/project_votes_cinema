@@ -14,12 +14,10 @@ class Chair extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['vote_id', 'row_of_seats', 'amount_chairs', 'status_chairs'];
+    protected $fillable = ['vote_id', 'amount_chairs', 'chairs'];
     protected $hidden = [];
-    public function getStatusChairsAttribute($value)
+    public function getChairsAttribute($value)
     {
-
         return explode(',', $value);
-
     }
 }

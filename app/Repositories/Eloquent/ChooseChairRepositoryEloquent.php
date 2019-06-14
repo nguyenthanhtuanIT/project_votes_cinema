@@ -83,7 +83,6 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
                 if ($data->count() != 0) {
                     $check = true;
                     return array('check' => $check, 'seats' => $data->seats);
-
                 }
             } else {
                 $data2 = $this->model()::where(['user_id' => $user, 'vote_id' => $attributes['vote_id']])->first();
@@ -233,7 +232,6 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
             $seats[] = $d;
         }
         $result = $this->shuffle_seats($seats, $viewers, $vote->id);
-        // $arr = array($result, 'vote_id' => );
         return $result;
     }
 
