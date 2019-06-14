@@ -15,7 +15,7 @@ Route::group(['prefix' => 'v1'], function () {
     //  status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
     //user choose chairs
-    Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
+    Route::resource('choose_chairs', 'ChooseChairsController')->only('store', 'update');
     //user voting
     Route::resource('votedetails', 'VoteDetailsController');
     // //check voted

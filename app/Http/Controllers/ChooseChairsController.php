@@ -62,7 +62,7 @@ class ChooseChairsController extends Controller
     {
         $chooseChair = $this->repository->skipPresenter()->create($request->all());
 
-        return response()->json($chooseChair->presenter(), 201);
+        return response()->json($chooseChair, 201);
     }
 
     /**
@@ -90,7 +90,7 @@ class ChooseChairsController extends Controller
     public function update(Request $request, $id)
     {
         $chooseChair = $this->repository->skipPresenter()->update($request->all(), $id);
-        return response()->json($chooseChair->presenter(), 200);
+        return response()->json($chooseChair, 200);
     }
 
     /**

@@ -70,16 +70,18 @@ class RegistersExport implements FromCollection, WithHeadings
     {
         $register = Register::all();
         $user = User::all();
+        $u = array();
         foreach ($register as $res) {
-            $str = implode(',', $res->best_friend);
-            $arr = explode(',', $str);
+            //$str = implode(',', );
+            $arr = explode(',', $res->best_friend);
             for ($i = 0; $i < count($arr); $i++) {
                 foreach ($user as $us) {
-                    if ($arr[$i] == $us->full_name) {
-
+                    if ($arr[$i] == $us->id) {
+                        $u[] = $us->full_name;
                     }
                 }
             }
+            return $u;
         }
 
     }
@@ -93,7 +95,8 @@ class RegistersExport implements FromCollection, WithHeadings
                     '1' => $this->getEmails(),
                     '2' => $this->getVotes(),
                     '3' => $this->getFilms(),
-                    '4' => $reg->ticket_number);
+                    '4' => $reg->ticket_number,
+                    '5' => $this->getbestfriend());
             }
             return (collect($data));
         } else {
@@ -110,6 +113,7 @@ class RegistersExport implements FromCollection, WithHeadings
             'Name_vote',
             'Name_film',
             'Ticket_number',
+            'Best friend',
         ];
     }
 }

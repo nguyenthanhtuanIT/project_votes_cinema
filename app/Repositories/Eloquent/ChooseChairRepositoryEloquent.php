@@ -47,9 +47,10 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     }
     public function create(array $attributes)
     {
-        $validate = $this->model()::where('user_id', $attributes['user_id'])->count();
+        $validate = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
         if ($validate == 1) {
-            return response()->json('user registered', Response::HTTP_BAD_REQUEST);
+            $update = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->update(['seats' => $attributes['seats']]);
+            return $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->first();
         } else {
             $seats = parent::create($attributes);
             return $seats;
@@ -69,10 +70,11 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
             $check = true;
         }
         if ($check == true) {
-            $data1 = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->first();
-            return array('check' => $check, 'seats' => $data1->seats);
+            $data = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->first();
+            return array('check' => $check, 'seats' => $data->seats);
+        } else {
+            return array('check' => $check);
         }
-        return array('check' => $check);
     }
     public function reChoose(array $attributes)
     {
