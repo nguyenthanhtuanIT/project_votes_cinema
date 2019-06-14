@@ -167,9 +167,10 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     }
     public function randChair(array $attributes)
     {
-        $data = Register::where('vote_id', $attributes['vote_id'])->get();
-        $data1 = Chair::where('vote_id', $attributes['vote_id'])->get();
         $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->first();
+        $data = Register::where('vote_id', $vote->id)->get();
+        $data1 = Chair::where('vote_id', $vote->id)->get();
+
         $seats = $viewers = $b = $c = $a = array();
         foreach ($data as $val) {
             if ($val->ticket_number == 1) {

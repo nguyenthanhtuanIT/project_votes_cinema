@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Eloquent;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\RoomRepository;
-use App\Presenters\RoomPresenter;
 use App\Models\Room;
+use App\Presenters\RoomPresenter;
+use App\Repositories\Contracts\RoomRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class RoomRepositoryEloquent.
@@ -42,5 +42,4 @@ class RoomRepositoryEloquent extends BaseRepository implements RoomRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
 }

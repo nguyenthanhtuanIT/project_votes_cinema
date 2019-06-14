@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Eloquent;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\RandomRepository;
-use App\Presenters\RandomPresenter;
 use App\Models\Random;
+use App\Presenters\RandomPresenter;
+use App\Repositories\Contracts\RandomRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class RandomRepositoryEloquent.
@@ -42,5 +42,9 @@ class RandomRepositoryEloquent extends BaseRepository implements RandomRepositor
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+    public function create(array $attributes)
+    {
+        $check = Random::where('vote_id', $attributes['vote_id'])->count();
+
+    }
 }
