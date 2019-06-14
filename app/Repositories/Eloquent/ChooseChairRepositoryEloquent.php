@@ -8,6 +8,7 @@ use App\Models\Register;
 use App\Models\Vote;
 use App\Presenters\ChooseChairPresenter;
 use App\Repositories\Contracts\ChooseChairRepository;
+use Illuminate\Http\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 

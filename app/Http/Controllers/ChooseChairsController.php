@@ -6,6 +6,7 @@ use App\Http\Requests\ChooseChairCreateRequest;
 use App\Http\Requests\ChooseChairUpdateRequest;
 use App\Repositories\Contracts\ChooseChairRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * Class ChooseChairsController.

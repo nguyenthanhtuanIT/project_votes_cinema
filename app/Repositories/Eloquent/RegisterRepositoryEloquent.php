@@ -8,6 +8,7 @@ use App\Repositories\Contracts\RegisterRepository;
 use App\Services\StatisticalService;
 use App\Services\VoteService;
 use App\User;
+use Illuminate\Http\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
