@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Random;
 use App\Presenters\RandomPresenter;
 use App\Repositories\Contracts\RandomRepository;
+use Illuminate\Http\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 

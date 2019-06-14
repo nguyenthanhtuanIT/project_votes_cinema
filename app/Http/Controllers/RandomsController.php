@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\RandomCreateRequest;
 use App\Http\Requests\RandomUpdateRequest;
 use App\Repositories\Contracts\RandomRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class RandomsController.
@@ -39,7 +37,7 @@ class RandomsController extends Controller
     public function index()
     {
         $limit = request()->get('limit', null);
-        
+
         $includes = request()->get('include', '');
 
         if ($includes) {
@@ -63,8 +61,7 @@ class RandomsController extends Controller
     public function store(RandomCreateRequest $request)
     {
         $random = $this->repository->skipPresenter()->create($request->all());
-
-        return response()->json($random->presenter(), 201);
+        return $random;
     }
 
     /**
@@ -77,7 +74,7 @@ class RandomsController extends Controller
     public function show($id)
     {
         $random = $this->repository->find($id);
-        
+
         return response()->json($random);
     }
 

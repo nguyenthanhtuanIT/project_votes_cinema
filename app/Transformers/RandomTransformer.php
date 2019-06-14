@@ -29,4 +29,11 @@ class RandomTransformer extends \App\Transformers\BaseTransformer
      * @var array
      */
     protected $defaultIncludes = [];
+
+    public function customAttributes($model): array
+    {
+        return [
+            'full_name' => $model->nameUser(),
+        ];
+    }
 }
