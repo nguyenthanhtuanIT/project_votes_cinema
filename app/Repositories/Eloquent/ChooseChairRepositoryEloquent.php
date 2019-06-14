@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Chair;
 use App\Models\ChooseChair;
 use App\Models\Register;
+use App\Models\Vote;
 use App\Presenters\ChooseChairPresenter;
 use App\Repositories\Contracts\ChooseChairRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -168,6 +169,7 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     {
         $data = Register::where('vote_id', $attributes['vote_id'])->get();
         $data1 = Chair::where('vote_id', $attributes['vote_id'])->get();
+        $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->first();
         $seats = $viewers = $b = $c = $a = array();
         foreach ($data as $val) {
             if ($val->ticket_number == 1) {
@@ -192,7 +194,7 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
             }
             $seats[] = $d;
         }
-        $result = $this->shuffle_seats($seats, $viewers, $attributes['vote_id']);
+        $result = $this->shuffle_seats($seats, $viewers, $vote->id);
         // $arr = array($result, 'vote_id' => );
         return $result;
     }
