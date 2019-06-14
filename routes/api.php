@@ -52,7 +52,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('registers', 'RegistersController');
         Route::post('rand', 'ChooseChairsController@randChairs');
         //excel
-        //Route::get('excel', 'RegistersController@Export');
+        Route::get('excel', 'RegistersController@Export');
         Route::resource('rands', 'RandomsController');
         Route::resource('blogs', 'BlogsController');
         Route::resource('chairs', 'ChairsController');

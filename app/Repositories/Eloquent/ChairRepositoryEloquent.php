@@ -72,7 +72,8 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
         $ch_chair = ChooseChair::where('vote_id', $vote_id)->get();
         $chair = Chair::where('vote_id', $vote_id)->get();
         foreach ($chair as $val) {
-            $arr = explode(',', $val->status_chairs);
+            $str = implode(',', $val->status_chairs);
+            $arr = explode(',', $str);
             for ($i = 0; $i < count($arr); $i++) {
                 $c[] = $arr[$i];
             }

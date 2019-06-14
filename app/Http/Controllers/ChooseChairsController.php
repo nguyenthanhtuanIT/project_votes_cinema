@@ -90,7 +90,6 @@ class ChooseChairsController extends Controller
     public function update(Request $request, $id)
     {
         $chooseChair = $this->repository->skipPresenter()->update($request->all(), $id);
-
         return response()->json($chooseChair->presenter(), 200);
     }
 

@@ -66,6 +66,23 @@ class RegistersExport implements FromCollection, WithHeadings
         }
         return $film;
     }
+    public function getbestfriend()
+    {
+        $register = Register::all();
+        $user = User::all();
+        foreach ($register as $res) {
+            $str = implode(',', $res->best_friend);
+            $arr = explode(',', $str);
+            for ($i = 0; $i < count($arr); $i++) {
+                foreach ($user as $us) {
+                    if ($arr[$i] == $us->full_name) {
+
+                    }
+                }
+            }
+        }
+
+    }
     public function collection()
     {
         $register = Register::all();

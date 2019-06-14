@@ -45,6 +45,16 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+    public function create(array $attributes)
+    {
+        $validate = $this->model()::where('user_id', $attributes['user_id'])->count();
+        if ($validate == 1) {
+            return response()->json('user registered', Response::HTTP_BAD_REQUEST);
+        } else {
+            $seats = parent::create($attributes);
+            return $seats;
+        }
+    }
     public function ticketUser(array $attributes)
     {
         $ticket = Register::where('user_id', 1)
@@ -54,11 +64,15 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     public function checkChoosed(array $attributes)
     {
         $check = false;
-        $count = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
-        if ($count == 1) {
+        $data = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
+        if ($data != 0) {
             $check = true;
         }
-        return response()->json([$check]);
+        if ($check == true) {
+            $data1 = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->first();
+            return array('check' => $check, 'seats' => $data1->seats);
+        }
+        return array('check' => $check);
     }
     public function reChoose(array $attributes)
     {
