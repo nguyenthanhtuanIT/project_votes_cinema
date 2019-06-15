@@ -74,11 +74,9 @@ class RandomRepositoryEloquent extends BaseRepository implements RandomRepositor
             return response()->json($all);
         }
     }
+    public function chairsByVote($vote_id)
+    {
+        $result = Random::where('vote_id', $vote_id)->get();
+        return response()->json($result);
+    }
 }
-// $check = Random::where('vote_id', $attributes['vote_id'])->count();
-//        if ($check == 1) {
-//            return response()->json('vote_id exited', Response::HTTP_BAD_REQUEST);
-//        } else {
-//            $rand = parent::create($attributes);
-//            return $rand;
-//        }

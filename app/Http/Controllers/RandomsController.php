@@ -61,7 +61,7 @@ class RandomsController extends Controller
     public function store(RandomCreateRequest $request)
     {
         $random = $this->repository->skipPresenter()->create($request->all());
-        return $random;
+        return response()->json($random);
     }
 
     /**
@@ -105,5 +105,10 @@ class RandomsController extends Controller
         $this->repository->delete($id);
 
         return response()->json(null, 204);
+    }
+    public function getChairsByVote($vote_id)
+    {
+        $res = $this->repository->chairsByVote($vote_id);
+        return response()->json($res);
     }
 }
