@@ -8,6 +8,7 @@ use App\Models\Register;
 use App\Models\Vote;
 use App\Presenters\ChooseChairPresenter;
 use App\Repositories\Contracts\ChooseChairRepository;
+use App\User;
 use Illuminate\Http\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -210,21 +211,29 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
         $seats = $viewers = $b = $c = $a = array();
         foreach ($data as $val) {
             if ($val->ticket_number == 1) {
-                $a[] = array($val->user_id);
+                $name = User::find($val->user_id);
+                $a[] = array($name->full_name);
             } elseif ($val->ticket_number > 1) {
-                $b = array($val->user_id);
+                $n = User::find($val->user_id);
+                $b = array($n->full_name);
                 $ex = explode(',', $val->best_friend);
                 for ($i = 0; $i < count($ex); $i++) {
-                    $k = (int) $ex[$i];
-                    $b[] = $k;
+                    if (is_numeric($ex[$i])) {
+                        $k = (int) $ex[$i];
+                        if ($k != 0) {
+                            $name = User::find($k);
+                            $b[] = $name->full_name;
+                        }
+                    } else {
+                        $b[] = $ex[$i];
+                    }
                 }
                 $c[] = $b;
             }
         }
         $viewers = array_merge($a, $c);
         foreach ($data1 as $val) {
-            $str = implode(',', $val->status_chairs);
-            $arr = explode(',', $str);
+            $arr = $val->chairs;
             $d = array();
             for ($i = 0; $i < count($arr); $i++) {
                 $d[] = $arr[$i];

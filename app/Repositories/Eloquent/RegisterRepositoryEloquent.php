@@ -48,6 +48,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     }
     public function create(array $attributes)
     {
+        $ticket_outsite = 0;
         $validate = $this->model()::where([
             'user_id' => $attributes['user_id'],
             'vote_id' => $attributes['vote_id'],
@@ -55,6 +56,13 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         if ($validate == 1) {
             return response()->json('ready exited', Response::HTTP_BAD_REQUEST);
         } else {
+            $arr = explode(',', $attributes['best_friend']);
+            for ($i = 0; $i < count($arr); $i++) {
+                if (!is_numeric($arr[$i])) {
+                    $ticket_outsite += 1;
+                }
+            }
+            $attributes['ticket_outsite'] = $ticket_outsite;
             $register = parent::create($attributes);
             StatisticalService::addRegister($register['data']['attributes']['film_id'], $register['data']['attributes']['vote_id']);
             VoteService::addTicket($register['data']['attributes']['vote_id'], $register['data']['attributes']['ticket_number']);

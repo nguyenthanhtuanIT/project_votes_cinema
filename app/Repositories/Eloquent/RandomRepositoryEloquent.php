@@ -45,12 +45,40 @@ class RandomRepositoryEloquent extends BaseRepository implements RandomRepositor
     }
     public function create(array $attributes)
     {
-        $check = Random::where('vote_id', $attributes['vote_id'])->count();
-        if ($check == 1) {
+        $vote_id = 0;
+        $check = 0;
+        $array = explode(';', $attributes['rand']);
+        for ($i = 0; $i < count($array); $i++) {
+            $ar = explode(',', $array[$i]);
+            for ($j = 0; $j < count($ar); $j++) {
+                $vote_id = $ar[0];
+            }
+        }
+        $check = Random::where('vote_id', $vote_id)->count();
+        if ($check != 0) {
             return response()->json('vote_id exited', Response::HTTP_BAD_REQUEST);
         } else {
-            $rand = parent::create($attributes);
-            return $rand;
+            $arr = explode(';', $attributes['rand']);
+            for ($i = 0; $i < count($arr); $i++) {
+                $a = explode(',', $arr[$i]);
+                $vote_id = $a[0];
+                $random = new Random;
+                $random->vote_id = $a[0];
+                $random->seats = $a[1];
+                $random->viewers = $a[2];
+                $random->save();
+            }
+
+            //$rand = parent::create($attributes);
+            $all = Random::where('vote_id', $vote_id)->get();
+            return response()->json($all);
         }
     }
 }
+// $check = Random::where('vote_id', $attributes['vote_id'])->count();
+//        if ($check == 1) {
+//            return response()->json('vote_id exited', Response::HTTP_BAD_REQUEST);
+//        } else {
+//            $rand = parent::create($attributes);
+//            return $rand;
+//        }

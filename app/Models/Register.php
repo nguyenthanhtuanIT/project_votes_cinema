@@ -19,7 +19,7 @@ class Register extends BaseModel
      * @var array
      */
     protected $fillable = ['user_id', 'vote_id',
-        'film_id', 'ticket_number', 'best_friend'];
+        'film_id', 'ticket_number', 'best_friend', 'ticket_outsite'];
 
     public function getNameFilms()
     {
@@ -43,8 +43,13 @@ class Register extends BaseModel
         if (!empty($this->best_friend)) {
             $list = explode(',', $this->best_friend);
             for ($i = 0; $i < count($list); $i++) {
-                $user = User::find($list[$i]);
-                $arr[] = $user->full_name;
+                if (is_numeric($list[$i])) {
+                    $user = User::find($list[$i]);
+                    $arr[] = $user->full_name;
+                } else {
+                    $arr[] = $list[$i];
+                }
+
             }
 
         }
