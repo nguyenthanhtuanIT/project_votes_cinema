@@ -107,4 +107,9 @@ class StatisticalsController extends Controller
 
         return response()->json(null, 204);
     }
+    public function getInforByVote($vote_id)
+    {
+        $result = $this->repository->inforByVote($vote_id);
+        return response()->json($result);
+    }
 }

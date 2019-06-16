@@ -51,6 +51,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('votedetails', 'VoteDetailsController');
         Route::resource('registers', 'RegistersController');
         Route::post('rand', 'ChooseChairsController@randChairs');
+        Route::get('infor_detail/{vote_id}', 'StatisticalsController@getInforByVote');
         //excel
         Route::get('excel', 'RegistersController@Export');
         Route::resource('rands', 'RandomsController');

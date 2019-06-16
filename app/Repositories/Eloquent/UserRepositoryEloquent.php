@@ -87,7 +87,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         $arr_r = array();
         $arr_r1 = array();
-        $arr_r2 = array();
+        //$arr_r2 = array();
         $r = Register::where('vote_id', $vote_id)->get();
         foreach ($r as $val) {
             array_push($arr_r, $val->user_id);
@@ -96,14 +96,16 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         foreach ($r1 as $val) {
             $us = explode(',', $val->best_friend);
             for ($i = 0; $i < count($us); $i++) {
-                $arr_r1[] = $us[$i];
+                if (is_numeric($us[$i])) {
+                    $k = (int) $us[$i];
+                    $arr_r1[] = $k;
+                } else {
+                    $arr_r1[] = $us[$i];
+                }
+
             }
         }
-        for ($i = 0; $i < count($arr_r1); $i++) {
-            $k = (int) $arr_r1[$i];
-            $arr_r2[] = $k;
-        }
-        $arr = array_merge($arr_r, $arr_r2);
+        $arr = array_merge($arr_r, $arr_r1);
         $result = array_unique($arr);
         $user = User::whereNotIn('id', $result)->get(['id', 'avatar', 'full_name', 'email']);
         return response()->json($user);
