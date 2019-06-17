@@ -306,14 +306,16 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td>
-                          <p class="content-title"><b>Vote films</b></p>
+                          <p class="content-title"><b>Thư mời vote phim</b></p>
                           <h2>Hi all,</h2>
                           <p>Đã có đợt vote mới mọi người nhanh tay vào vote nào!</p>
                           <p><b style="color: blue">Infor-votes</b></p>
                           <p>{{$votes->name_vote}}</p>
                           <p>{{$votes->detail}}</p>
-                          <p>{{$votes->time_start}}</p>
-                          <p>{{$votes->name_end}}</p>
+                          <p>{{$votes->time_voting}}</p>
+                          <p>{{$votes->time_registing}}</p>
+                          <p>{{$votes->time_booking_chair}}</p>
+                          <p>{{$votes->time_end}}</p>
                         </td>
                       </tr>
                       <tr><td><p><i>---Green global company---</i></p></td></tr>

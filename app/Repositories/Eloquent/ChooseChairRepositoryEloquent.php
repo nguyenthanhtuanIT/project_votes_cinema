@@ -150,7 +150,6 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
                 'data' => 'Not enoght seats',
             ];
         }
-
         // prepare data: sort viewers and shuffle seats...
         array_multisort(array_map('count', $viewers), SORT_DESC, $viewers);
         shuffle($seats);

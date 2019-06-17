@@ -40,7 +40,11 @@ class Vote extends BaseModel
     public function inforRooms()
     {
         $room = Room::find($this->room_id);
-        $cinema = Cinema::find($room->cinema_id);
-        return $arr = array('name_room' => $room->name_room, 'cinema' => $cinema->name_cinema);
+
+        if ($room) {
+            $cinema = Cinema::find($room->cinema_id);
+            return $arr = array('name_room' => $room->name_room, 'cinema' => $cinema->name_cinema);
+        }
+
     }
 }

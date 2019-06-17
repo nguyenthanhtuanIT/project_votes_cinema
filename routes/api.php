@@ -4,6 +4,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('auth/google', 'Auth\AuthGoogleController@login');
     Route::post('register', 'UsersController@register');
     Route::get('list_films', 'FilmsController@listFilmToVote');
+    Route::resource('blogs', 'BlogsController')->only('index');
 });
 Route::group(['prefix' => 'v1'], function () {
     Route::resource('blogs', 'BlogsController');
@@ -25,12 +26,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('check_register', 'RegistersController@checkRegistered');
     Route::post('un_register', 'RegistersController@unRegister');
     Route::post('guest_refuse', 'RegistersController@guestRefuses');
-    // //get diagram_chairs by votes
+    // get diagram_chairs by votes
     //Route::post('diagrams_by_vote', 'DiagramsController@diagramChairByVote');
     //Route::post('chairs_bought', 'ChairsController@getDiagramChairByVote');
     //check
     Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
-    Route::resource('blogs', 'BlogsController')->only('index');
     Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
     Route::post('film_to_register', 'FilmsController@getFilmToRegister');

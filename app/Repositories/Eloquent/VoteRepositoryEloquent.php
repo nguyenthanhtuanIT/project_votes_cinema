@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Mail\NotificationMessage;
 use App\Models\Chair;
 use App\Models\Cinema;
 use App\Models\Diagram;
@@ -13,6 +14,7 @@ use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -61,12 +63,13 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         $link = Storage::url($name);
         $attributes['background'] = $link;
         $vote = parent::create($attributes);
+        $email = new NotificationMessage();
+        Mail::to('nguyenthanhtuan.15it@gmail.com')->send($email);
         return $vote;
-        // $user = User::all();
+        //$user = User::all();
         // foreach ($user as $us) {
-        //     $email = new NotificationMessage($us);
-        //     Mail::to($us->email)->send($email);
-        // }
+
+        //}
     }
     public function update(array $attributes, $id)
     {
