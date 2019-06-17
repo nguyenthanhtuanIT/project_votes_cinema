@@ -14,9 +14,14 @@ class RegistersExport implements FromCollection, WithHeadings
     /**
      * @return \Illuminate\Support\Collection
      */
+    public $vote_id;
+    public function __construct($vote_id)
+    {
+        $this->vote_id = $vote_id;
+    }
     public function getUsers()
     {
-        $register = Register::all();
+        $register = Register::where('vote_id', $this->vote_id)->get();
         $user = User::all();
         foreach ($register as $r) {
             foreach ($user as $u) {
@@ -29,7 +34,7 @@ class RegistersExport implements FromCollection, WithHeadings
     }
     public function getEmails()
     {
-        $register = Register::all();
+        $register = Register::where('vote_id', $this->vote_id)->get();
         $user = User::all();
         foreach ($register as $r) {
             foreach ($user as $u) {
@@ -42,7 +47,7 @@ class RegistersExport implements FromCollection, WithHeadings
     }
     public function getVotes()
     {
-        $register = Register::all();
+        $register = Register::where('vote_id', $this->vote_id)->get();
         $votes = Vote::all();
         foreach ($register as $r) {
             foreach ($votes as $v) {
@@ -55,7 +60,7 @@ class RegistersExport implements FromCollection, WithHeadings
     }
     public function getFilms()
     {
-        $register = Register::all();
+        $register = Register::where('vote_id', $this->vote_id)->get();
         $films = Films::all();
         foreach ($register as $r) {
             foreach ($films as $f) {
@@ -66,28 +71,33 @@ class RegistersExport implements FromCollection, WithHeadings
         }
         return $film;
     }
-    // public function getbestfriend()
-    // {
-    //     $register = Register::all();
-    //     $user = User::all();
-    //     $u = array();
-    //     foreach ($register as $res) {
-    //         //$str = implode(',', );
-    //         $arr = explode(',', $res->best_friend);
-    //         for ($i = 0; $i < count($arr); $i++) {
-    //             foreach ($user as $us) {
-    //                 if ($arr[$i] == $us->id) {
-    //                     $u[] = $us->full_name;
-    //                 }
-    //             }
-    //         }
-    //         return $u;
-    //     }
+    public function getbestfriend()
+    {
+        $register = Register::where('vote_id', $this->vote_id)->get();
+        $user = User::all();
+        $u = array();
+        foreach ($register as $res) {
+            if (!empty($res->best_friend)) {
+                $arr = explode(',', $res->best_friend);
+                for ($i = 0; $i < count($arr); $i++) {
+                    if (is_numeric($arr[$i])) {
+                        foreach ($user as $us) {
+                            if ($arr[$i] == $us->id) {
+                                $u[] = $us->full_name;
+                            }
+                        }
+                    } else {
+                        $u[] = $arr[$i];
+                    }
+                }
+            }
 
-    // }
+        }
+        return implode(',', $u);
+    }
     public function collection()
     {
-        $register = Register::all();
+        $register = Register::where('vote_id', $this->vote_id)->get();
         if (count($register) > 0) {
             foreach ($register as $reg) {
                 $data[] = array(
@@ -95,7 +105,9 @@ class RegistersExport implements FromCollection, WithHeadings
                     '1' => $this->getEmails(),
                     '2' => $this->getVotes(),
                     '3' => $this->getFilms(),
-                    '4' => $reg->ticket_number);
+                    '4' => $reg->ticket_number,
+                    '5' => $this->getbestfriend(),
+                    '6' => $reg->ticket_outsite);
             }
             return (collect($data));
         } else {
@@ -112,6 +124,8 @@ class RegistersExport implements FromCollection, WithHeadings
             'Name_vote',
             'Name_film',
             'Ticket_number',
+            'Friends',
+            'ticket_outsite',
         ];
     }
 }

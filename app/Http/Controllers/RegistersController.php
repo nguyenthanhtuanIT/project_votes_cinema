@@ -97,9 +97,9 @@ class RegistersController extends Controller
         $this->repository->delete($id);
         return response()->json(null, 204);
     }
-    public function Export()
+    public function Export($vote_id)
     {
-        return Excel::download(new RegistersExport, 'listregister.xlsx');
+        return Excel::download(new RegistersExport($vote_id), 'listregister.xlsx');
     }
     public function checkRegistered(Request $request)
     {
