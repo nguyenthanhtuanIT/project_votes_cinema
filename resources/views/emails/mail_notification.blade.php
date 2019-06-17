@@ -310,13 +310,15 @@
                           <h2>Hi all,</h2>
                           <p>Đã có đợt vote mới mọi người nhanh tay vào vote nào!</p>
                           <p><b style="color: blue">Infor-votes</b></p>
-                          <p>{{$votes->name_vote}}</p>
-                          <p>{{$votes->detail}}</p>
-                          <p>{{$votes->time_voting}}</p>
-                          <p>{{$votes->time_registing}}</p>
-                          <p>{{$votes->time_booking_chair}}</p>
-                          <p>{{$votes->time_end}}</p>
+                          <p><b><label>Title:</label></b>{{$votes->name_vote}}</p>
+                          <p><b><label>Detail:</label></b>{{$votes->detail}}</p>
+                          <p><b><label>Time start vote:</label></b>{{$votes->time_voting}}</p>
+                          <p><b><label>Time start register:</label></b>{{$votes->time_registing}}</p>
+                          <p><b><label>Time start booking chairs:</label></b>{{$votes->time_booking_chair}}</p>
+                          <p><b><label>Time end:</label></b>{{$votes->time_end}}</p>
+                            <p class="btn"><a class="button-primary" href="">Go to vote</a></p>
                         </td>
+
                       </tr>
                       <tr><td><p><i>---Green global company---</i></p></td></tr>
                     </table>
