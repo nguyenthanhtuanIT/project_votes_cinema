@@ -53,14 +53,39 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
             'user_id' => $attributes['user_id'],
             'vote_id' => $attributes['vote_id'],
         ])->count();
+        $user = User::find($attributes['user_id']);
+        $ticket_number = $attributes['ticket_number'];
+        //dd(empty($attributes['best_friend']));
         if ($validate == 1) {
             return response()->json('ready exited', Response::HTTP_BAD_REQUEST);
         } else {
-            $arr = explode(',', $attributes['best_friend']);
-            for ($i = 0; $i < count($arr); $i++) {
-                if (!is_numeric($arr[$i])) {
-                    $ticket_outsite += 1;
+            if (!empty($attributes['best_friend'])) {
+                $arr = explode(',', $attributes['best_friend']);
+                //dd(count($arr));
+                if ($ticket_number > count($arr)) {
+                    $ticket_outsite = $ticket_number - 1 - count($arr);
                 }
+                for ($i = 1; $i <= $ticket_outsite; $i++) {
+                    $arr[] = "$user->full_name $i";
+                }
+                for ($i = 0; $i < count($arr); $i++) {
+                    if (empty($arr[$i])) {
+                        unset($arr[$i]);
+                    }
+                }
+                $attributes['best_friend'] = implode(',', $arr);
+            } else {
+                $a = explode(',', $attributes['best_friend']);
+                $ticket_outsite = $ticket_number - 1;
+                for ($i = 1; $i <= $ticket_outsite; $i++) {
+                    $a[] = "$user->full_name $i";
+                }
+                for ($i = 0; $i < count($a); $i++) {
+                    if (empty($a[$i])) {
+                        unset($a[$i]);
+                    }
+                }
+                $attributes['best_friend'] = implode(',', $a);
             }
             $attributes['ticket_outsite'] = $ticket_outsite;
             $register = parent::create($attributes);
@@ -104,7 +129,6 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                 $check = true;
                 return response()->json(['check' => $check, 'guest' => $guest, 'user_id' => $value->user_id, 'ticket_number' => $value->ticket_number]);
             }
-
         } elseif ($data1->count() != 0) {
             foreach ($data1 as $value) {
                 $peo = explode(',', $value->best_friend);

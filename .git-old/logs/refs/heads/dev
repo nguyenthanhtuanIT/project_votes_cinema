@@ -1,0 +1,91 @@
+0000000000000000000000000000000000000000 d8b727f38e62c6cc044d0e5e979ba0317e8663fd nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558406656 +0700	clone: from git@github.com:nguyenthanhtuanIT/project_votes_cinema.git
+d8b727f38e62c6cc044d0e5e979ba0317e8663fd dcf20b2f52f083044881a63085d478af98715fc1 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558421138 +0700	commit: fix mail
+dcf20b2f52f083044881a63085d478af98715fc1 51eb47c5e76f155288692997644f6a5910796557 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558424438 +0700	commit: add doc.php
+51eb47c5e76f155288692997644f6a5910796557 7feac8a7c1c7f88576dcf87d3527539639f1e448 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558429177 +0700	commit: add doc.php
+7feac8a7c1c7f88576dcf87d3527539639f1e448 66862f54fc812dd1ead5c074928c6864dcf2ce8e nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558431786 +0700	commit: add doc.php
+66862f54fc812dd1ead5c074928c6864dcf2ce8e 95036b7f8cbc0141bd772321e7260e5723b475b1 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558506374 +0700	commit: upload img
+95036b7f8cbc0141bd772321e7260e5723b475b1 38ddd71928bd0c69852508f4dd21e4426e9472ae nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558513673 +0700	commit: fix chair table
+38ddd71928bd0c69852508f4dd21e4426e9472ae 2cc5f3eda6f38b0a266673f9d3964c406f73985a nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558580496 +0700	commit: add database
+2cc5f3eda6f38b0a266673f9d3964c406f73985a b48a40c002822cd25ffdfe5b1d15ed796f31e61e nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558596377 +0700	commit: status_vote_now
+b48a40c002822cd25ffdfe5b1d15ed796f31e61e 1d4e8c49bbedf79d9066034f65ee9041e54545c2 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558598928 +0700	commit: status_vote_ojbect
+1d4e8c49bbedf79d9066034f65ee9041e54545c2 b0dafbfc1b2afe09a5986309ea59a2972c3d32c6 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558600534 +0700	commit: status_vote_ojbect2
+b0dafbfc1b2afe09a5986309ea59a2972c3d32c6 9bacf59ee753232850b40b924e96202d388fae03 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558660752 +0700	commit: fix update votes
+9bacf59ee753232850b40b924e96202d388fae03 d5bc80f1a063350e232061ac44ac904be2358c44 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558689661 +0700	commit: fix_type_return
+d5bc80f1a063350e232061ac44ac904be2358c44 040bfcca26ebead94a391354ed8dc395f5a741c0 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558690843 +0700	commit: fix_status_vote
+040bfcca26ebead94a391354ed8dc395f5a741c0 b0f120201140d599d5d20fee5e642d008e724103 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558932010 +0700	commit: check_voted
+b0f120201140d599d5d20fee5e642d008e724103 dde46edfee3436a16d6d7967619f0b735cb163dd nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558941600 +0700	commit (amend): check_voted
+dde46edfee3436a16d6d7967619f0b735cb163dd f7b4b911f3579a7b2a1426623df790275cce444d nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1558945534 +0700	commit: validation create type_name_cinema
+f7b4b911f3579a7b2a1426623df790275cce444d aedc665bf441f4ddeca40c6e758120475e498252 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559017011 +0700	commit: fix can't run refresh migrate
+aedc665bf441f4ddeca40c6e758120475e498252 47d0eb7bd5e44e4d9b1376774d79b26a26639f9b nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559037535 +0700	commit: create middleware and format PRS2
+47d0eb7bd5e44e4d9b1376774d79b26a26639f9b c32f4a4439762a966e6f6760c97e27eb3c60c703 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559055541 +0700	commit: fix random get film to register
+c32f4a4439762a966e6f6760c97e27eb3c60c703 ae4e29d5a15c6212820f6f9a74ca213bfd5f5f6f nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559096244 +0700	commit: list film to register
+ae4e29d5a15c6212820f6f9a74ca213bfd5f5f6f b80a17e3e1438cccb399db23fdc33e85d28bd5f3 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559112377 +0700	commit: get infor film to register after random
+b80a17e3e1438cccb399db23fdc33e85d28bd5f3 05812cbc603b4b3b96dfcddff6eb95f8913921d1 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559121822 +0700	commit: update return getfilm to register
+05812cbc603b4b3b96dfcddff6eb95f8913921d1 d752b5c07d9786379c112c504894fa13571436ca nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559123637 +0700	commit: checked user register
+d752b5c07d9786379c112c504894fa13571436ca 3d604af81fcb58ddf6abac13f66b9f9e304e10b3 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559179822 +0700	commit: fix count ticket_number
+3d604af81fcb58ddf6abac13f66b9f9e304e10b3 76b80298f08267682d768402106041f511c1c7ef nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559287588 +0700	commit: update diagram_chais
+76b80298f08267682d768402106041f511c1c7ef 50b96ff7671021379865df0f44c6ba55d0b4ce3c nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559288295 +0700	commit: fix migration choose_chair
+50b96ff7671021379865df0f44c6ba55d0b4ce3c 78c606e0913bb1c4674c3c1163a333a604e36dc6 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559294135 +0700	commit: get diagram by vote
+78c606e0913bb1c4674c3c1163a333a604e36dc6 b88f717373550936e673fd84146031cafacf173c nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559400523 +0700	commit: validate create chair
+b88f717373550936e673fd84146031cafacf173c dd5b8b11f572a5b1b17032072c8f621cef43e5df nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559523004 +0700	commit: update authorize
+dd5b8b11f572a5b1b17032072c8f621cef43e5df a2fd0df74e0fde82c164e2ebbb45548734dae6b4 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559567681 +0700	commit: user_choose_chairs
+a2fd0df74e0fde82c164e2ebbb45548734dae6b4 302dbe021bba82b258fb5443c68c4e38a13e5e4a nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559630965 +0700	commit: check user checked chair
+302dbe021bba82b258fb5443c68c4e38a13e5e4a 4902efee1422b45e5ed9c3432f5bb0933fc42791 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559634901 +0700	commit: middleware
+4902efee1422b45e5ed9c3432f5bb0933fc42791 4e932bc5f002f5e201eb64f540796ad856443bb0 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559635582 +0700	commit: fix/me
+4e932bc5f002f5e201eb64f540796ad856443bb0 2907e80857191c053796d6732f90fb6bcedc2d8b nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559638329 +0700	commit: fix/me
+2907e80857191c053796d6732f90fb6bcedc2d8b 1c1fbce416a638d2561cc9d9665581455f73f250 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559638613 +0700	commit: validate mail company
+1c1fbce416a638d2561cc9d9665581455f73f250 15a6af2b4782d2ff17a9b76872d200157702f77f nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559697822 +0700	commit: .gitnore
+15a6af2b4782d2ff17a9b76872d200157702f77f 69af77800e938355ae22246ad2d4e8af61de1b1e nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559722458 +0700	commit: update create voteand get status vote
+69af77800e938355ae22246ad2d4e8af61de1b1e 63351c19a6ebf90a11a9d5dc0dfdd5a7df2b02b1 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559792277 +0700	commit: update get status vote
+63351c19a6ebf90a11a9d5dc0dfdd5a7df2b02b1 f52781fbc0ce2baa3c37599ced6d7de1b505155e nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559794509 +0700	commit: check if not data status
+f52781fbc0ce2baa3c37599ced6d7de1b505155e 9ee626738789a0ac78c084cc99e75e0833559227 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559805616 +0700	commit: get background votes
+9ee626738789a0ac78c084cc99e75e0833559227 bf32a1adaa11b0a52ded4dbad4483734b1602137 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559811229 +0700	commit: return if empty
+bf32a1adaa11b0a52ded4dbad4483734b1602137 b6cee2653043cf05d496ebb93c638c1e2fee528d nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559895965 +0700	commit: update add_checked_votes
+b6cee2653043cf05d496ebb93c638c1e2fee528d c663c3a817e9c9476d0377ea60ebeb5a5a9943ac nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1559899631 +0700	commit: fix votedetail
+c663c3a817e9c9476d0377ea60ebeb5a5a9943ac b3f72592e6a3a6b0faa828f5218ea3d4a307e9cf nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560016211 +0700	commit: update film_to_register
+b3f72592e6a3a6b0faa828f5218ea3d4a307e9cf bb5402f6e8246c81d6282ae7b25624bad6b8c228 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560100961 +0700	commit: update_function_regiter
+bb5402f6e8246c81d6282ae7b25624bad6b8c228 7d886d10abf5045faaa12db48f8bec8925b822b2 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560138967 +0700	commit: fix data
+7d886d10abf5045faaa12db48f8bec8925b822b2 12b1f4e96deedeb4bf669c3b24ef33aaac809d99 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560139492 +0700	commit: list user
+12b1f4e96deedeb4bf669c3b24ef33aaac809d99 8920809c20809f991b607af23cff7824f9cd35b1 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560149272 +0700	commit: fix cinema
+8920809c20809f991b607af23cff7824f9cd35b1 73488455627b3cec3e76b296add2c37c81ce6499 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560215064 +0700	commit: fix list_user
+73488455627b3cec3e76b296add2c37c81ce6499 bc0e784abae7e2fd35e1b5df60e9b3f62afa03c2 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560215239 +0700	commit: movies_type
+bc0e784abae7e2fd35e1b5df60e9b3f62afa03c2 8ac5fd59c9ef914098db4f53badb9bfdabc1ca60 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560220475 +0700	commit: fix check register
+8ac5fd59c9ef914098db4f53badb9bfdabc1ca60 22234cdf7ba22ea62733f453cf14d37ed5a09e6f nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560227046 +0700	commit: guestRefuse
+22234cdf7ba22ea62733f453cf14d37ed5a09e6f f02d3ad365b9c10f708e0ccbc8adcf40c7bc3ea2 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560227941 +0700	commit: fix update vote
+f02d3ad365b9c10f708e0ccbc8adcf40c7bc3ea2 7c0c144c7f948189c7f20221dc7e8c7f5d6c6b71 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560236739 +0700	commit: fix display vote
+7c0c144c7f948189c7f20221dc7e8c7f5d6c6b71 3fba8555c332eac1ea3b1192e71a2899aef8fc51 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560237179 +0700	commit: fix display vote
+3fba8555c332eac1ea3b1192e71a2899aef8fc51 cb9bf40274291ee245379252cc3ab8abb5d6745d nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560237820 +0700	commit: add api
+cb9bf40274291ee245379252cc3ab8abb5d6745d 9063652b054c21963bfee13984d4671029e567c0 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560238604 +0700	commit: set transfomer
+9063652b054c21963bfee13984d4671029e567c0 f2eab3806db0a32803192e9439e211981d61e46c nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560246892 +0700	commit: update getdiagram by vote
+f2eab3806db0a32803192e9439e211981d61e46c b170987cd2a01c228ac5871cad029e21cba6cee4 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560272587 +0700	commit: function user choose chair
+b170987cd2a01c228ac5871cad029e21cba6cee4 2d51391f0f8d95df13d9b39e086b0350945f68ae nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560305078 +0700	commit: custom attriubute
+2d51391f0f8d95df13d9b39e086b0350945f68ae 1723d8a0e25e576ad6fc28db2d0f8137238ae7bf nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560306734 +0700	commit: fix admin register
+1723d8a0e25e576ad6fc28db2d0f8137238ae7bf 098fbd268e595ede1fdc4857e1e4d16a065c05b9 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560327075 +0700	commit: fix request
+098fbd268e595ede1fdc4857e1e4d16a065c05b9 960f188c54e24c06000fbb6cebea81878772fd97 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560332407 +0700	commit: add attribute checkregister
+960f188c54e24c06000fbb6cebea81878772fd97 1fd62894912c44ab59b697081992430b7e8a6701 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560333381 +0700	commit: add attribute checkregister1
+1fd62894912c44ab59b697081992430b7e8a6701 69121c445c9d43a96077f9e96ddb79c9e3b0831a nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560333704 +0700	commit: add attribute checkregister2
+69121c445c9d43a96077f9e96ddb79c9e3b0831a 4d562060f33b4700de80d501d0e2575f6cf2a7d4 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560333833 +0700	commit: add attribute checkregister2
+4d562060f33b4700de80d501d0e2575f6cf2a7d4 46f3a46ba3b72e4b3a199641cbd08f89e607c278 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560347159 +0700	commit: add attribute checkregister2
+46f3a46ba3b72e4b3a199641cbd08f89e607c278 604244e49d6af960501d69dbfa9f33aaa76d1a5a nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560356798 +0700	commit: add attribute checkregister2
+604244e49d6af960501d69dbfa9f33aaa76d1a5a a757ca90ee726f11267d860b8b0d72ff3c7f4a52 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560395225 +0700	commit: fix diagram
+a757ca90ee726f11267d860b8b0d72ff3c7f4a52 6fb5b8b5dc241f799e01a514d64d293e97fa761b nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560397760 +0700	commit: show infor vote
+6fb5b8b5dc241f799e01a514d64d293e97fa761b 25ec52e5ecbd0b7d8a0e1d7cbb89e38094a828bc nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560400266 +0700	commit: tach date/time
+25ec52e5ecbd0b7d8a0e1d7cbb89e38094a828bc 72b84b3b010671e37ba32671307617fa5c38ef0e nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560409754 +0700	commit: get chairs bought
+72b84b3b010671e37ba32671307617fa5c38ef0e 23f576085ec26472edb9a60e6ecfc8b6bfc8c921 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560410316 +0700	commit: add chair infor
+23f576085ec26472edb9a60e6ecfc8b6bfc8c921 b15403e517694c9b8a7bf0560805f119bd7865a1 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560410416 +0700	pull devfresh dev: Merge made by the 'recursive' strategy.
+b15403e517694c9b8a7bf0560805f119bd7865a1 3d614137d202e4e49d9e37e15f473d409ed63118 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560417561 +0700	commit: function comment
+3d614137d202e4e49d9e37e15f473d409ed63118 5ccf2f612854ec75ab561507f9da3ce2ae360305 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560473926 +0700	commit: created table random
+5ccf2f612854ec75ab561507f9da3ce2ae360305 62895d85a3cd1456fa8fbd5ce93558798c416b45 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560474562 +0700	commit: update rand
+62895d85a3cd1456fa8fbd5ce93558798c416b45 e920620bbf117857f4bc2be1206c0a92f999903e nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560475930 +0700	commit: update rand
+e920620bbf117857f4bc2be1206c0a92f999903e 306b078684d5da385fce947a6562b7782bd783c5 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560477054 +0700	commit: update rand
+306b078684d5da385fce947a6562b7782bd783c5 7f2904ecda09d665d745998d9aa3224a4a712840 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560477462 +0700	commit: add route rand
+7f2904ecda09d665d745998d9aa3224a4a712840 66200b7714fc6fd32bcba067e2765e85ad356cda nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560478494 +0700	commit: add route rand
+66200b7714fc6fd32bcba067e2765e85ad356cda 2c8e055bfdd90183c2b8bd6beea413a9b78620b4 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560484649 +0700	commit: add check choosed
+2c8e055bfdd90183c2b8bd6beea413a9b78620b4 c7060aa57efab5768324e758b553cdf00bb5806e nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560493218 +0700	commit: megre create choose_chair
+c7060aa57efab5768324e758b553cdf00bb5806e 02742a2feaa8d8486e03e56bf391b59a5c4cdb7b nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560493489 +0700	commit: megre create choose_chair
+02742a2feaa8d8486e03e56bf391b59a5c4cdb7b b617ba4bedecece314f7118cc535d0e227a0ed5c nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560499144 +0700	commit: megre create choose_chair
+b617ba4bedecece314f7118cc535d0e227a0ed5c 83626a7d7d3830a041d545cb34de9006df6af469 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560522933 +0700	commit: update admin add chairs bought
+83626a7d7d3830a041d545cb34de9006df6af469 a3961973ace82748065ab3bbf31340a407a2ff0b nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560614147 +0700	commit: update admin add best_friend
+a3961973ace82748065ab3bbf31340a407a2ff0b b74f493f8b4c6ad414a7c9ed7921767f823b7764 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560614735 +0700	commit: update admin add best_friend
+b74f493f8b4c6ad414a7c9ed7921767f823b7764 ba1b50870e549f31cb930e8599a1b8f67edb5eb4 nguyenthanhtuan15 <nguyenthanhtuan.15it@gmail.com> 1560699099 +0700	commit: infor detail vote
+                                                                                                                                                                                

@@ -47,16 +47,20 @@ class StatisticalRepositoryEloquent extends BaseRepository implements Statistica
     }
     public function inforByVote($vote_id)
     {
-        $sta = Statistical::where(['vote_id' => $vote_id,
-            'movie_selected' => 1])->first();
         $vote = Vote::find($vote_id);
-        $film = Films::find($sta->films_id);
-        $ticket_outsite = Register::where('vote_id', $vote_id)->sum('ticket_outsite');
-        return response()->json(['name_vote' => $vote->name_vote,
-            'films' => $film->name_film,
-            'amount_vote' => $sta->amount_votes,
-            'amount_register' => $sta->amount_registers,
-            'total_ticket' => $vote->total_ticket,
-            'ticket_outsite' => $ticket_outsite]);
+        if ($vote) {
+            $sta = Statistical::where(['vote_id' => $vote_id,
+                'movie_selected' => 1])->first();
+            $film = Films::find($sta->films_id);
+            $ticket_outsite = Register::where('vote_id', $vote_id)->sum('ticket_outsite');
+            return response()->json(['name_vote' => $vote->name_vote,
+                'films' => $film->name_film,
+                'amount_vote' => $sta->amount_votes,
+                'amount_register' => $sta->amount_registers,
+                'total_ticket' => $vote->total_ticket,
+                'ticket_outsite' => $ticket_outsite]);
+        } else {
+            return response()->json([]);
+        }
     }
 }
