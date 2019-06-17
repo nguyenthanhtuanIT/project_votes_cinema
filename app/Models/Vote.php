@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Cinema;
+use App\Models\Room;
 use App\Models\Vote;
 
 /**
@@ -34,5 +36,11 @@ class Vote extends BaseModel
     public function getListFilmsAttribute($value)
     {
         return explode(',', $value);
+    }
+    public function inforRooms()
+    {
+        $room = Room::find($this->room_id);
+        $cinema = Cinema::find($room->cinema_id);
+        return $arr = array('name_room' => $room->name_room, 'cinema' => $cinema->name_cinema);
     }
 }
