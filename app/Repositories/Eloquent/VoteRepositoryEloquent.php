@@ -113,7 +113,7 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         $vote = Vote::find($vote_id);
         $rom = Room::find($vote->room_id);
         $cinema = Cinema::find($rom->cinema_id);
-        $diagram = Diagram::where('room_id', $rom->id)->get(['chairs']);
+        $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
         $chair = Chair::where('vote_id', $vote_id)->get(['chairs']);
         if (!empty($vote->infor_time)) {
             $t = new Carbon($vote->infor_time);
