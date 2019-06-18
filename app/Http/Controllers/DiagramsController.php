@@ -111,4 +111,9 @@ class DiagramsController extends Controller
         $result = $this->repository->getDiagramChairByVote($request->vote_id);
         return response()->json($result);
     }
+    public function searchByRoom(Request $request)
+    {
+        $result = $this->repository->searchByRoomId($request->room_id);
+        return response()->json($result);
+    }
 }
