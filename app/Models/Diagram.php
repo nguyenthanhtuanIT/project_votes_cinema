@@ -23,7 +23,7 @@ class Diagram extends BaseModel
     {
         return explode(',', $value);
     }
-    public function getRoomIdAttribute($value)
+    public function getRoom($value)
     {
         $room = Room::find($value);
         return $room->name_room;
