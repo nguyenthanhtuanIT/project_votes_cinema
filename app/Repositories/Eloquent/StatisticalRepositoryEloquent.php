@@ -63,4 +63,27 @@ class StatisticalRepositoryEloquent extends BaseRepository implements Statistica
             return response()->json([]);
         }
     }
+    public function amountVoteOfFilm($vote_id)
+    {
+        $infor = array();
+
+        $vote = Vote::find($vote_id);
+        if ($vote) {
+            $data = Statistical::where('vote_id', $vote_id)->get();
+            //dd($vote);
+            $film = Films::all();
+            foreach ($data as $v) {
+                foreach ($film as $val) {
+                    if ($v->films_id == $val->id) {
+                        $infor[] = array($val->name_film, $v->amount_votes);
+                    }
+                }
+
+                //$arr = array_merge($name, $num);
+            }
+            return $res = array('name_vote' => $vote->name_vote, 'infor' => $infor);
+        } else {
+            return $res = array('status' => 'not data');
+        }
+    }
 }

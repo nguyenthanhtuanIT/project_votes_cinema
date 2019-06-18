@@ -112,4 +112,9 @@ class StatisticalsController extends Controller
         $result = $this->repository->inforByVote($vote_id);
         return response()->json($result);
     }
+    public function getAmountVote($vote_id)
+    {
+        $result = $this->repository->amountVoteOfFilm($vote_id);
+        return response()->json($result);
+    }
 }

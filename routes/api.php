@@ -40,6 +40,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('infor_vote', 'VotesController@inforVotes');
     Route::get('user_comment/{blog_id}', 'CommentsController@getComments');
     Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
+    Route::get('amount_vote_films/{vote_id}', 'StatisticalsController@getAmountVote');
     //admin
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('users', 'UsersController');
