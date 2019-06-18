@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Room;
+
 /**
  * Class Diagram.
  *
@@ -20,5 +22,10 @@ class Diagram extends BaseModel
     public function getChairsAttribute($value)
     {
         return explode(',', $value);
+    }
+    public function getRoomIdAttribute($value)
+    {
+        $room = Room::find($value);
+        return $room->name_room;
     }
 }

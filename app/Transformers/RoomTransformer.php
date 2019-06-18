@@ -29,4 +29,11 @@ class RoomTransformer extends \App\Transformers\BaseTransformer
      * @var array
      */
     protected $defaultIncludes = [];
+    public function customAttributes($model): array
+    {
+
+        return [
+            //'room' => $model->getRoom(),
+        ];
+    }
 }

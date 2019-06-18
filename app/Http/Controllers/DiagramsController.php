@@ -60,7 +60,7 @@ class DiagramsController extends Controller
      */
     public function store(DiagramCreateRequest $request)
     {
-        $diagram = $this->repository->create($request->all());
+        $diagram = $this->repository->skipPresenter()->create($request->all());
         return $diagram;
     }
 
