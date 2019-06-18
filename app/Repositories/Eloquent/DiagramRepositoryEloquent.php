@@ -44,6 +44,10 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+    public function custom()
+    {
+        return Diagram::get();
+    }
     public function create(array $attributes)
     {
         //$diagram = '';
@@ -55,7 +59,7 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
             return response()->json('row_of_seats exited', Response::HTTP_BAD_REQUEST);
         } else {
             $diagram = parent::create($attributes);
-            return $diagram;
+            return response()->json([$diagram]);
         }
 
     }
@@ -76,7 +80,7 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
         if ($diagram) {
             return $diagram;
         } else {
-            return response()->json(['status' => 'not room']);
+            return response()->json('not room', Response::HTTP_BAD_REQUEST);
         }
     }
 }
