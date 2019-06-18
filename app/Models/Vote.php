@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Cinema;
 use App\Models\Room;
 use App\Models\Vote;
+use App\User;
 
 /**
  * Class Vote.
@@ -46,5 +47,10 @@ class Vote extends BaseModel
             return $arr = array('name_room' => $room->name_room, 'cinema' => $cinema->name_cinema);
         }
 
+    }
+    public function getUser()
+    {
+        $use = User::find($this->user_id);
+        return $use->full_name;
     }
 }

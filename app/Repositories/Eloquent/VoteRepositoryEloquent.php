@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Jobs\SendEmailJob;
 use App\Models\Chair;
 use App\Models\Cinema;
 use App\Models\Diagram;
@@ -12,6 +11,7 @@ use App\Models\Statistical;
 use App\Models\Vote;
 use App\Presenters\VotePresenter;
 use App\Repositories\Contracts\VoteRepository;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -62,16 +62,13 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         $link = Storage::url($name);
         $attributes['background'] = $link;
         $vote = parent::create($attributes);
-
-        // $user = User::all();
-        // foreach ($user as $us) {
-        //     $email = new NotificationMessage();
-        //     Mail::to($us->email)->queue($email);
-        // }
-        $emailJob = (new SendEmailJob())->delay(Carbon::now()->addSeconds(3));
-        dispatch($emailJob);
+        $user = User::all();
+        if ($vote->status_vote == 'voting') {
+            foreach ($user as $us) {
+                Mail::to($us->email)->queue(new NotificationMessage());
+            }
+        }
         return $vote;
-        //$user = User::all();
 
     }
     public function update(array $attributes, $id)

@@ -2,8 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\NotificationMessage;
-use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,9 +18,10 @@ class SendEmailJob implements ShouldQueue
      *
      * @return void
      */
+    public $user;
     public function __construct()
     {
-        //
+        //$this->user = $user;
     }
 
     /**
@@ -32,10 +31,10 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $user = User::all();
-        foreach ($user as $us) {
-            $email = new NotificationMessage();
-            Mail::to($us->email)->send($email);
-        }
+        $data = array();
+        Mail::send('emails.mail_notification', $data, function ($m) {
+            $m->to('nguyenthanhtuan.15it@gmail.com', 'thanhtuan')->subject('sendmail');
+        });
+
     }
 }
