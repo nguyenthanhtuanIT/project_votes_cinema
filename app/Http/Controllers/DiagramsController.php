@@ -46,7 +46,7 @@ class DiagramsController extends Controller
 
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-        $diagrams = $this->repository->paginate($limit, $columns = ['*']);
+        $diagrams = $this->repository->all($columns = ['*']);
 
         return response()->json($diagrams);
     }
