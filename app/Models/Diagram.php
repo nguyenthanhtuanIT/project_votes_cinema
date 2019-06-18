@@ -23,9 +23,9 @@ class Diagram extends BaseModel
     {
         return explode(',', $value);
     }
-    public function getRoom($value)
+    public function getRoom()
     {
-        $room = Room::find($value);
+        $room = Room::find($this->room_id);
         return $room->name_room;
     }
 }

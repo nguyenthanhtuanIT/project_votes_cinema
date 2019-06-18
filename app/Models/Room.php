@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Cinema;
+
 /**
  * Class Room.
  *
@@ -16,4 +18,9 @@ class Room extends BaseModel
      */
     protected $fillable = ['cinema_id', 'name_room', 'total_chairs'];
 
+    public function getCinema()
+    {
+        $name = Cinema::find($this->cinema_id);
+        return $name->cinema_name;
+    }
 }

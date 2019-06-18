@@ -33,7 +33,7 @@ class RoomTransformer extends \App\Transformers\BaseTransformer
     {
 
         return [
-            //'room' => $model->getRoom(),
+            'cinema' => $model->getCinema(),
         ];
     }
 }

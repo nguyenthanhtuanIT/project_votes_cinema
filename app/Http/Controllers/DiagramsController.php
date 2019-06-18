@@ -114,6 +114,6 @@ class DiagramsController extends Controller
     public function searchByRoom(Request $request)
     {
         $result = $this->repository->searchByRoomId($request->room_id);
-        return response()->json($result);
+        return $this->repository->parserResult($result);
     }
 }

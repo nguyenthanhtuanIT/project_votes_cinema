@@ -74,10 +74,9 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
     {
         $diagram = Diagram::where('room_id', $room_id)->get();
         if ($diagram) {
-            return response()->json($diagram);
+            return $diagram;
         } else {
             return response()->json(['status' => 'not room']);
-
         }
     }
 }
