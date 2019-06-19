@@ -56,7 +56,7 @@ class CommentRepositoryEloquent extends BaseRepository implements CommentReposit
             ->join(
                 'users',
                 'users.id', '=', 'comments.user_id'
-            )->get();
+            )->orderBy('id', 'DESC')->get();
         return $com;
     }
 }

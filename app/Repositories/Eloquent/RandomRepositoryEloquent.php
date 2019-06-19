@@ -68,7 +68,6 @@ class RandomRepositoryEloquent extends BaseRepository implements RandomRepositor
                 $random->viewers = $a[2];
                 $random->save();
             }
-
             //$rand = parent::create($attributes);
             $all = Random::where('vote_id', $vote_id)->get();
             return response()->json($all);
