@@ -104,7 +104,11 @@ class BlogsController extends Controller
     public function destroy($id)
     {
         $this->repository->delete($id);
-
         return response()->json(null, 204);
+    }
+    public function searchBlogByTitle(Request $request)
+    {
+        $result = $this->repository->searchBlog($request->key);
+        return $this->repository->parserResult($result);
     }
 }

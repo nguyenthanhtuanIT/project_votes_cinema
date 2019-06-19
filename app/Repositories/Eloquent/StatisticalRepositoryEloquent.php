@@ -48,9 +48,10 @@ class StatisticalRepositoryEloquent extends BaseRepository implements Statistica
     public function inforByVote($vote_id)
     {
         $vote = Vote::find($vote_id);
-        if ($vote) {
-            $sta = Statistical::where(['vote_id' => $vote_id,
-                'movie_selected' => 1])->first();
+
+        $sta = Statistical::where(['vote_id' => $vote_id,
+            'movie_selected' => 1])->first();
+        if ($sta) {
             $film = Films::find($sta->films_id);
             $ticket_outsite = Register::where('vote_id', $vote_id)->sum('ticket_outsite');
             return response()->json(['name_vote' => $vote->name_vote,
@@ -60,26 +61,28 @@ class StatisticalRepositoryEloquent extends BaseRepository implements Statistica
                 'total_ticket' => $vote->total_ticket,
                 'ticket_outsite' => $ticket_outsite]);
         } else {
-            return response()->json([]);
+            return response()->json(['status' => 'film selected not data']);
         }
+
     }
     public function amountVoteOfFilm($vote_id)
     {
         $infor = array();
-
         $vote = Vote::find($vote_id);
         if ($vote) {
             $data = Statistical::where('vote_id', $vote_id)->get();
-            //dd($vote);
+            //dd($$v->films_id);
             $film = Films::all();
             foreach ($data as $v) {
                 foreach ($film as $val) {
-                    if ($v->films_id == $val->id) {
-                        $infor[] = array($val->name_film, $v->amount_votes);
+                    if ($v->films_id != null) {
+                        if ($v->films_id == $val->id) {
+                            $infor[] = array($val->name_film, $v->amount_votes);
+                        }
+                    } else {
+                        return $res = array('status' => 'not data');
                     }
                 }
-
-                //$arr = array_merge($name, $num);
             }
             return $res = array('name_vote' => $vote->name_vote, 'infor' => $infor);
         } else {
