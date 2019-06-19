@@ -110,8 +110,8 @@ class CommentsController extends Controller
     public function getComments($blog_id)
     {
         $res = $this->repository->commentsByBlog($blog_id);
-        //return response()->json($res);
-        return $res;
+        return response()->json($res);
+        //return $res;
         // //$emp_collection = collect($res);
         //return $res;
 

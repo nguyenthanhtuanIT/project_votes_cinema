@@ -83,4 +83,10 @@ class DiagramRepositoryEloquent extends BaseRepository implements DiagramReposit
             return response()->json('not room', Response::HTTP_BAD_REQUEST);
         }
     }
+    public function delAll($room_id)
+    {
+        $data = Diagram::where('room_id', $room_id)->delete();
+        //$data->delete();
+        return response()->json(null, 204);
+    }
 }

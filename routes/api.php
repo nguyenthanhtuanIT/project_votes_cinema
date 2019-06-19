@@ -46,6 +46,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('cinemas', 'CinemasController');
         Route::resource('rooms', 'RoomsController');
         Route::resource('diagrams', 'DiagramsController');
+        Route::delete('delete_all/{room_id}', 'DiagramsController@deleteAll');
+        Route::delete('del_all/{vote_id}', 'RandomsController@deleteAll');
         Route::resource('votedetails', 'VoteDetailsController');
         Route::resource('registers', 'RegistersController')->only('index', 'destroy');
         Route::post('rand', 'ChooseChairsController@randChairs');

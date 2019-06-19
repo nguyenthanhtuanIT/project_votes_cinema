@@ -111,4 +111,9 @@ class RandomsController extends Controller
         $res = $this->repository->chairsByVote($vote_id);
         return response()->json($res);
     }
+    public function deleteAll($vote_id)
+    {
+        $result = $this->repository->delAll($vote_id);
+        return response()->json(null, 204);
+    }
 }

@@ -116,4 +116,9 @@ class DiagramsController extends Controller
         $result = $this->repository->searchByRoomId($request->room_id);
         return $this->repository->parserResult($result);
     }
+    public function deleteAll($room_id)
+    {
+        $result = $this->repository->delAll($room_id);
+        return response()->json(null, 204);
+    }
 }
