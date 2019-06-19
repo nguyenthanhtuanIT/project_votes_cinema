@@ -14,6 +14,7 @@ use App\Repositories\Contracts\VoteRepository;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
