@@ -32,6 +32,7 @@ class ChairTransformer extends BaseTransformer
     public function customAttributes($model): array
     {
         return [
+            'vote_name' => $model->getVote(),
         ];
     }
 }

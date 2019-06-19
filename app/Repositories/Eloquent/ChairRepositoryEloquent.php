@@ -55,9 +55,8 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
         }
 
     }
-    public function diagramChairByVote(array $attributes)
+    public function diagramChairByVote($vote_id)
     {
-        $vote_id = $attributes['vote_id'];
         $diagram = $this->model()::where('vote_id', $vote_id)->get();
         return $diagram;
     }

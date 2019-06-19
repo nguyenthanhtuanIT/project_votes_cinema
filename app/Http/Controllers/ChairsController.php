@@ -106,9 +106,9 @@ class ChairsController extends Controller
 
         return response()->json(null, 204);
     }
-    public function getDiagramChairByVote(Request $request)
+    public function getDiagramChairByVote($vote_id)
     {
-        $diagram = $this->repository->diagramChairByVote($request->all());
+        $diagram = $this->repository->diagramChairByVote($vote_id);
         return $this->repository->parserResult($diagram);
     }
     public function updateStatusChair(Request $request)

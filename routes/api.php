@@ -59,7 +59,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('comments', 'CommentsController');
         Route::resource('choose_chairs', 'ChooseChairsController')->only(['index', 'update', 'destroy']);
         Route::get('chair_rand_by_vote/{vote_id}', 'RandomsController@getChairsByVote');
-
+        Route::get('chair_by_vote/{vote_id}', 'ChairsController@getDiagramChairByVote');
         //return film to register user
         //Route::get('search', 'VotesController@searchByTitle');
     });

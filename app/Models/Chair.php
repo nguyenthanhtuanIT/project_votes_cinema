@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Vote;
+
 /**
  * Class Chair.
  *
@@ -19,5 +21,10 @@ class Chair extends BaseModel
     public function getChairsAttribute($value)
     {
         return explode(',', $value);
+    }
+    public function getVote()
+    {
+        $vote = Vote::find($this->vote_id);
+        return $vote->name_vote;
     }
 }
