@@ -21,6 +21,6 @@ class Room extends BaseModel
     public function getCinema()
     {
         $name = Cinema::find($this->cinema_id);
-        return $name->cinema_name;
+        return $name->name_cinema;
     }
 }
