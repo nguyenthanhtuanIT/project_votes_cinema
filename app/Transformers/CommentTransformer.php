@@ -29,4 +29,13 @@ class CommentTransformer extends \App\Transformers\BaseTransformer
      * @var array
      */
     protected $defaultIncludes = [];
+
+    public function customAttributes($model): array
+    {
+
+        return [
+            'blog' => $model->getBlog(),
+            'user' => $model->getUser(),
+        ];
+    }
 }
