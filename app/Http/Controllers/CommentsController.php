@@ -111,5 +111,8 @@ class CommentsController extends Controller
     {
         $res = $this->repository->commentsByBlog($blog_id);
         return response()->json($res);
+        //$emp_collection = collect($res);
+        //return $this->repository->parserResult($emp_collection);
+
     }
 }

@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\Comment;
 use App\Presenters\CommentPresenter;
 use App\Repositories\Contracts\CommentRepository;
+use App\User;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -46,14 +47,13 @@ class CommentRepositoryEloquent extends BaseRepository implements CommentReposit
     {
 
         $arr = array();
-        $com = Comment::where('blog_id', $blog_id)->get();
+        $com = Comment::orderBy('id', 'DESC')->where('blog_id', $blog_id)->get(['user_id', 'content']);
+        $user = User::all();
         foreach ($com as $val) {
-            $check = false;
-            if ($val->user_id == 1) {
-                $check = true;
-                $arr[] = ['coment' => $val, 'check' => $check];
-            } else {
-                $arr[] = ['coment' => $val, 'check' => $check];
+            foreach ($user as $us) {
+                if ($val->user_id == $us->id) {
+                    $arr[] = array('coment' => $val, 'name_user' => $us->full_name, 'avatar' => $us->avatar);
+                }
             }
         }
         return $arr;
