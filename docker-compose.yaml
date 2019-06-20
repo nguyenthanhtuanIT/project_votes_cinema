@@ -9,6 +9,7 @@ services:
       - db
     volumes:
       - .:/var/www/app
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     environment:
       - PHP_MEM_LIMIT=1024M
   db:

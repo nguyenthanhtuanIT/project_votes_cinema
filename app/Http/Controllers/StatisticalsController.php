@@ -122,4 +122,9 @@ class StatisticalsController extends Controller
         $del = $this->repository->delAll($vote_id);
         return response()->json(null, 204);
     }
+    public function getInfor()
+    {
+        $res = $this->repository->inforAll();
+        return $res;
+    }
 }

@@ -58,6 +58,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('registers', 'RegistersController')->only('index', 'destroy');
         Route::post('rand', 'ChooseChairsController@randChairs');
         Route::get('infor_detail/{vote_id}', 'StatisticalsController@getInforByVote');
+        Route::get('infor_list_vote', 'StatisticalsController@getInfor');
         Route::post('search_by_room', 'DiagramsController@searchByRoom');
         //excel
         Route::get('excel/{vote_id}', 'RegistersController@Export');

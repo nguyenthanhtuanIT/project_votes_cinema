@@ -45,6 +45,31 @@ class StatisticalRepositoryEloquent extends BaseRepository implements Statistica
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+    public function inforAll()
+    {
+        $arr = array();
+        $vote_id = Statistical::get()->unique('vote_id');
+        foreach ($vote_id as $value) {
+            $vote = Vote::find($value->vote_id);
+
+            $sta = Statistical::where(['vote_id' => $value->vote_id,
+                'movie_selected' => 1])->first();
+            if ($sta) {
+                $film = Films::find($sta->films_id);
+                $ticket_outsite = Register::where('vote_id', $value->vote_id)->sum('ticket_outsite');
+                $arr[] = array('name_vote' => $vote->name_vote,
+                    'films' => $film->name_film,
+                    'amount_vote' => $sta->amount_votes,
+                    'amount_register' => $sta->amount_registers,
+                    'total_ticket' => $vote->total_ticket,
+                    'ticket_outsite' => $ticket_outsite);
+            } else {
+                return response()->json(['status' => 'film selected not data']);
+            }
+        }
+        return $arr;
+
+    }
     public function inforByVote($vote_id)
     {
         $vote = Vote::find($vote_id);
