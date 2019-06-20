@@ -32,7 +32,11 @@ class VoteDetailsTransformer extends BaseTransformer
 
     public function customAttributes($model): array
     {
-        return [];
+        return [
+            'user' => $model->getUser(),
+            'film' => $model->getFilm(),
+            'vote' => $model->getVote(),
+        ];
 
     }
 }

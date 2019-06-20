@@ -82,4 +82,9 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
         $del = $this->delete($votedetail->id);
         return $del;
     }
+    public function delAll($vote_id)
+    {
+        $del = VoteDetails::where('vote_id', $vote_id)->delete();
+        return response()->json(null, 204);
+    }
 }

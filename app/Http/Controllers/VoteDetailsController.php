@@ -116,4 +116,9 @@ class VoteDetailsController extends Controller
         $unvote = $this->repository->delVote($request->all());
         return response()->json(null, 204);
     }
+    public function deleteAll($vote_id)
+    {
+        $del = $this->repository->delAll($vote_id);
+        return response()->json(null, 204);
+    }
 }

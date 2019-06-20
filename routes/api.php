@@ -16,7 +16,7 @@ Route::group(['prefix' => 'v1'], function () {
     //  status_vote_now
     Route::get('status_vote', 'VotesController@showStatusVote');
     //user choose chairs
-    Route::resource('choose_chairs', 'ChooseChairsController')->only('store', 'update');
+    Route::resource('choose_chairs', 'ChooseChairsController');
     //user voting
     Route::resource('votedetails', 'VoteDetailsController');
     // //check voted
@@ -46,6 +46,12 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('cinemas', 'CinemasController');
         Route::resource('rooms', 'RoomsController');
         Route::resource('diagrams', 'DiagramsController');
+        Route::get('choose_chairs', 'ChooseChairsController@index');
+        Route::delete('del_choose_chairs/{vote_id}', 'ChooseChairsController@deleteAll');
+        Route::resource('statisticals', 'StatisticalsController');
+        Route::delete('del_statisticals/{vote_id}', 'StatisticalsController@deleteAll');
+        Route::resource('votedetails', 'VoteDetailsController');
+        Route::delete('del_votedetails/{vote_id}', 'VoteDetailsController@deleteAll');
         Route::delete('delete_all/{room_id}', 'DiagramsController@deleteAll');
         Route::delete('del_all/{vote_id}', 'RandomsController@deleteAll');
         Route::resource('votedetails', 'VoteDetailsController')->only('index', 'destroy');

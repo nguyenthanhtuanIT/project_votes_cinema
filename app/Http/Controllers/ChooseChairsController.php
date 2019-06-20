@@ -128,4 +128,9 @@ class ChooseChairsController extends Controller
         $ac = $this->repository->randChair($request->all());
         return $ac;
     }
+    public function deleteAll($vote_id)
+    {
+        $del = $this->repository->delAll($vote_id);
+        return response()->json(null, 204);
+    }
 }

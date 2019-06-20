@@ -89,4 +89,9 @@ class StatisticalRepositoryEloquent extends BaseRepository implements Statistica
             return $res = array('status' => 'not data');
         }
     }
+    public function delAll($vote_id)
+    {
+        $del = Statistical::where('vote_id', $vote_id)->delete();
+        return response()->json(null, 204);
+    }
 }

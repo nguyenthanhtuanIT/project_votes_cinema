@@ -117,4 +117,9 @@ class StatisticalsController extends Controller
         $result = $this->repository->amountVoteOfFilm($vote_id);
         return response()->json($result);
     }
+    public function deleteAll($vote_id)
+    {
+        $del = $this->repository->delAll($vote_id);
+        return response()->json(null, 204);
+    }
 }
