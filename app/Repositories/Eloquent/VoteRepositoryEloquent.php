@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Mail\NotificationMessage;
 use App\Models\Chair;
 use App\Models\Cinema;
 use App\Models\Diagram;
