@@ -46,7 +46,7 @@ class VoteDetailsController extends Controller
 
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-        $voteDetails = $this->repository->paginate($limit, $columns = ['*']);
+        $voteDetails = $this->repository->all($columns = ['*']);
 
         return response()->json($voteDetails);
     }
