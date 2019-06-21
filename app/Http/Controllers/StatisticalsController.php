@@ -46,7 +46,7 @@ class StatisticalsController extends Controller
 
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-        $statisticals = $this->repository->paginate($limit, $columns = ['*']);
+        $statisticals = $this->repository->all($columns = ['*']);
 
         return response()->json($statisticals);
     }
