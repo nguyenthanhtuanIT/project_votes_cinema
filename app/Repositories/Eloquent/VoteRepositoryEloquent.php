@@ -92,7 +92,7 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->first();
         //dd($vote);
         if ($vote) {
-            $date = Carbon::now()->toDateString();
+            $date = Carbon::now()->toDateTimeString();
             if ($vote->time_registing <= $date && $date < $vote->time_booking_chair && $vote->status_vote != 'registing') {
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'registing']);
             } elseif ($vote->time_booking_chair <= $date && $date < $vote->time_end && $vote->status_vote != 'booking_chair') {
@@ -112,12 +112,16 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
         $result = array();
         $sta = Statistical::where(['vote_id' => $vote_id, 'movie_selected' => 1])->first();
         if (!empty($sta)) {
-
             $film = Films::find($sta->films_id);
             $vote = Vote::find($vote_id);
             $rom = Room::find($vote->room_id);
-            $cinema = Cinema::find($rom->cinema_id);
-            $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
+            if (empty($rom)) {
+                return response()->json(['status' => 'not film or cinema']);
+            } else {
+                $cinema = Cinema::find($rom->cinema_id);
+                $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
+            }
+
             $chair = Chair::where('vote_id', $vote_id)->get(['chairs']);
             if (!empty($vote->infor_time)) {
                 $t = new Carbon($vote->infor_time);

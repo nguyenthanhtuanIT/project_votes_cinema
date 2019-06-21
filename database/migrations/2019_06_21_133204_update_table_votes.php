@@ -14,6 +14,10 @@ class UpdateTableVotes extends Migration
     public function up()
     {
         Schema::table('votes', function (Blueprint $table) {
+            $table->dateTime('time_voting')->change();
+            $table->dateTime('time_registing')->change();
+            $table->dateTime('time_booking_chair')->change();
+            $table->dateTime('time_end')->change();
 
         });
     }
