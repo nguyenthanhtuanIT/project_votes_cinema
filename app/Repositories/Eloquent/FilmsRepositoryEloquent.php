@@ -102,7 +102,7 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
             } else {
                 $rand = Statistical::where(['vote_id' => $vote_id, 'amount_votes' => $max])->get()->random();
                 $films = Films::find($rand->films_id);
-                Statistical::where(['vote_id' => $vote_id, 'films_id' => $films->films_id])->update(['movie_selected' => 1]);
+                Statistical::where(['vote_id' => $vote_id, 'films_id' => $films->id])->update(['movie_selected' => 1]);
                 return $films;
             }
 
