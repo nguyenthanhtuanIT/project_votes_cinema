@@ -5,6 +5,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('register', 'UsersController@register');
     Route::get('list_films', 'FilmsController@listFilmToVote');
     Route::get('get_blogs', 'BlogsController@getBlog');
+    Route::resource('blogs', 'BlogsController')->only('index', 'show');
 });
 Route::group(['prefix' => 'v1'], function () {
     //user information
