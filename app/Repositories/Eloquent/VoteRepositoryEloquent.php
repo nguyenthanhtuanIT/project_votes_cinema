@@ -111,19 +111,24 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     {
         $result = array();
         $sta = Statistical::where(['vote_id' => $vote_id, 'movie_selected' => 1])->first();
-        $film = Films::find($sta->films_id);
-        $vote = Vote::find($vote_id);
-        $rom = Room::find($vote->room_id);
-        $cinema = Cinema::find($rom->cinema_id);
-        $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
-        $chair = Chair::where('vote_id', $vote_id)->get(['chairs']);
-        if (!empty($vote->infor_time)) {
-            $t = new Carbon($vote->infor_time);
-            $date = $t->toDateString();
-            $time = $t->toTimeString();
-            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'date' => $date, 'time' => $time);
+        if (!empty($sta)) {
+
+            $film = Films::find($sta->films_id);
+            $vote = Vote::find($vote_id);
+            $rom = Room::find($vote->room_id);
+            $cinema = Cinema::find($rom->cinema_id);
+            $diagram = Diagram::where('room_id', $rom->id)->get(['row_of_seats', 'chairs']);
+            $chair = Chair::where('vote_id', $vote_id)->get(['chairs']);
+            if (!empty($vote->infor_time)) {
+                $t = new Carbon($vote->infor_time);
+                $date = $t->toDateString();
+                $time = $t->toTimeString();
+                $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'date' => $date, 'time' => $time);
+            } else {
+                $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'time' => $vote->infor_time);}
+            return response()->json($result);
         } else {
-            $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'time' => $vote->infor_time);}
-        return response()->json($result);
+            return response()->json(['status' => 'not film or cinema']);
+        }
     }
 }
