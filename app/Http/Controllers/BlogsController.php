@@ -45,7 +45,6 @@ class BlogsController extends Controller
         }
 
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-
         $blogs = $this->repository->paginate(8, $columns = ['*']);
 
         return response()->json($blogs);
@@ -109,6 +108,11 @@ class BlogsController extends Controller
     public function searchBlogByTitle(Request $request)
     {
         $result = $this->repository->searchBlog($request->key);
+        return $this->repository->parserResult($result);
+    }
+    public function getBlog()
+    {
+        $result = $this->repository->getAll();
         return $this->repository->parserResult($result);
     }
 }

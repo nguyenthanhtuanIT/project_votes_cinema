@@ -71,4 +71,9 @@ class BlogRepositoryEloquent extends BaseRepository implements BlogRepository
             ->get();
         return $blog;
     }
+    public function getAll()
+    {
+        $blog = Blog::orderBy('id', 'DESC')->paginate(8);
+        return $blog;
+    }
 }

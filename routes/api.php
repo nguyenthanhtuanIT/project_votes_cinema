@@ -4,10 +4,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('auth/google', 'Auth\AuthGoogleController@login');
     Route::post('register', 'UsersController@register');
     Route::get('list_films', 'FilmsController@listFilmToVote');
-    Route::resource('blogs', 'BlogsController')->only('index');
+    Route::get('get_blogs', 'BlogsController@getBlog');
 });
 Route::group(['prefix' => 'v1'], function () {
-    Route::resource('blogs', 'BlogsController');
     //user information
     Route::get('me', 'UsersController@me');
     //auth
