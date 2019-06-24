@@ -2,12 +2,11 @@
 
 namespace App\Mail;
 
-use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MailInvite extends Mailable
+class MailFeedback extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,10 +15,9 @@ class MailInvite extends Mailable
      *
      * @return void
      */
-    public $use;
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user = $user;
+        //
     }
 
     /**
@@ -29,6 +27,6 @@ class MailInvite extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.mail_invite')->with('user', $this->user);
+        return $this->view('emails.mail_feedback');
     }
 }

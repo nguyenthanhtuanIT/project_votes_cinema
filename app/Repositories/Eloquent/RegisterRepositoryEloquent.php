@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Mail\MailFeedback;
+use App\Mail\MailInvite;
 use App\Models\Register;
 use App\Presenters\RegisterPresenter;
 use App\Repositories\Contracts\RegisterRepository;
@@ -9,6 +11,7 @@ use App\Services\StatisticalService;
 use App\Services\VoteService;
 use App\User;
 use Illuminate\Http\Response;
+use Mail;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -55,13 +58,15 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         ])->count();
         $user = User::find($attributes['user_id']);
         $ticket_number = $attributes['ticket_number'];
-        //dd(empty($attributes['best_friend']));
         if ($validate == 1) {
             return response()->json('ready exited', Response::HTTP_BAD_REQUEST);
         } else {
             if (!empty($attributes['best_friend'])) {
                 $arr = explode(',', $attributes['best_friend']);
-                //dd(count($arr));
+                for ($i = 0; $i < count($arr); $i++) {
+                    $us = User::find($arr[$i]);
+                    Mail::to($us->email)->send(new MailInvite($us));
+                }
                 if ($ticket_number > count($arr)) {
                     $ticket_outsite = $ticket_number - 1 - count($arr);
                 }
@@ -159,6 +164,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         $vote_id = $attributes['vote_id'];
         $user_id = $attributes['user_id'];
         $guest_id = $attributes['guest_id'];
+
         $data = Register::where(['vote_id' => $vote_id,
             'user_id' => $user_id])->first();
         $arr = explode(',', $data->best_friend);
@@ -177,7 +183,10 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                 'user_id' => $user_id])->first();
             VoteService::updateTicket($vote_id, $data->ticket_number, $new->ticket_number);
         }
+        $us = User::find($user_id);
+        Mail::to("nguyenthanhtuan.15it@gmail.com")->send(new MailFeedback());
         return $c = 'success';
+
     }
 
 }
