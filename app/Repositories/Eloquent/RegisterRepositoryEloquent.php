@@ -184,7 +184,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
             VoteService::updateTicket($vote_id, $data->ticket_number, $new->ticket_number);
         }
         $us = User::find($user_id);
-        Mail::to("nguyenthanhtuan.15it@gmail.com")->send(new MailFeedback());
+        Mail::to($us->email)->send(new MailFeedback());
         return $c = 'success';
 
     }
