@@ -207,7 +207,7 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
         $data = Register::where('vote_id', $vote->id)->get();
         $data1 = Chair::where('vote_id', $vote->id)->get();
 
-        $seats = $viewers = $b = $c = $a = array();
+        $publish = $seats = $viewers = $b = $c = $a = $r = array();
         foreach ($data as $val) {
             if ($val->ticket_number == 1) {
                 $name = User::find($val->user_id);
@@ -231,16 +231,44 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
             }
         }
         $viewers = array_merge($a, $c);
+        //seats
         foreach ($data1 as $val) {
             $arr = $val->chairs;
             $d = array();
             for ($i = 0; $i < count($arr); $i++) {
                 $d[] = $arr[$i];
             }
-            $seats[] = $d;
+            sort($d, SORT_STRING);
+            // dd($d);
+            for ($i = 0; $i < count($d); $i++) {
+                //$publish = array($d[$i]);
+                for ($j = $i + 1; $j < count($d); $j++) {
+                    $publish = array($d[$i]);
+                    $str = substr($d[$i], 0, 1);
+                    $num = (int) substr($d[$i], 1);
+                    $str1 = substr($d[$j], 0, 1);
+                    $num1 = (int) substr($d[$j], 1);
+                    dd($num);
+                    //dd($num);
+                    if (ord($str) == ord($str1)) {
+                        if ($num1 == $num + 1) {
+                            $publish[] = $d[$j];
+                        }
+
+                    }
+                }
+                //var_dump(array_unique($publish));
+                $r[] = $publish;
+            }
+
+            dd($r);
+            //dd($str);
+            //$seats[] = $d;
         }
-        $result = $this->shuffle_seats($seats, $viewers, $vote->id);
-        return $result;
+
+        // dd($seats);
+        // $result = $this->shuffle_seats($seats, $viewers, $vote->id);
+        // return $result;
     }
     public function delAll($vote_id)
     {

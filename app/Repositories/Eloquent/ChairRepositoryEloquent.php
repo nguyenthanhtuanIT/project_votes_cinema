@@ -84,4 +84,9 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
         }
         return response()->json($result);
     }
+    public function delAll($vote_id)
+    {
+        $del = Chair::where('vote_id', $vote_id)->delete();
+        return response()->json(null, 204);
+    }
 }

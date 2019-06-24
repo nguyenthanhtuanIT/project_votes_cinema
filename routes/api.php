@@ -48,6 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('diagrams', 'DiagramsController');
         Route::get('choose_chairs', 'ChooseChairsController@index');
         Route::delete('del_choose_chairs/{vote_id}', 'ChooseChairsController@deleteAll');
+        Route::delete('del_chairs/{vote_id}', 'ChairsController@deleteAll');
         Route::resource('statisticals', 'StatisticalsController');
         Route::delete('del_statisticals/{vote_id}', 'StatisticalsController@deleteAll');
         Route::resource('votedetails', 'VoteDetailsController');
