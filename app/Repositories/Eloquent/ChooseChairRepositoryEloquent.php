@@ -239,36 +239,42 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
                 $d[] = $arr[$i];
             }
             sort($d, SORT_STRING);
-            // dd($d);
             for ($i = 0; $i < count($d); $i++) {
-                //$publish = array($d[$i]);
-                for ($j = $i + 1; $j < count($d); $j++) {
-                    $publish = array($d[$i]);
+                if ($i == (count($d) - 1)) {
                     $str = substr($d[$i], 0, 1);
                     $num = (int) substr($d[$i], 1);
-                    $str1 = substr($d[$j], 0, 1);
-                    $num1 = (int) substr($d[$j], 1);
-                    dd($num);
-                    //dd($num);
-                    if (ord($str) == ord($str1)) {
-                        if ($num1 == $num + 1) {
-                            $publish[] = $d[$j];
+                    $str1 = substr($d[$i - 1], 0, 1);
+                    $num1 = (int) substr($d[$i - 1], 1);
+                    if (ord($str) == ord($str1) && $num1 == $num - 1) {
+                        $publish[] = $d[$i];
+                        $r[] = $publish;
+                    } else {
+                        $r[] = $publish;
+                        $publish = array($d[$i]);
+                        $r[] = $publish;
+                    }
+                } else {
+                    if (empty($publish)) {
+                        $publish = array($d[$i]);
+                    } else {
+                        $str = substr($d[$i], 0, 1);
+                        $num = (int) substr($d[$i], 1);
+                        $str1 = substr($d[$i - 1], 0, 1);
+                        $num1 = (int) substr($d[$i - 1], 1);
+                        if (ord($str) == ord($str1) && $num1 == $num - 1) {
+                            $publish[] = $d[$i];
+                        } else {
+                            $r[] = $publish;
+                            $publish = array($d[$i]);
                         }
-
                     }
                 }
-                //var_dump(array_unique($publish));
-                $r[] = $publish;
             }
-
-            dd($r);
             //dd($str);
-            //$seats[] = $d;
+            $seats = $r;
+            $result = $this->shuffle_seats($seats, $viewers, $vote->id);
+            return $result;
         }
-
-        // dd($seats);
-        // $result = $this->shuffle_seats($seats, $viewers, $vote->id);
-        // return $result;
     }
     public function delAll($vote_id)
     {
