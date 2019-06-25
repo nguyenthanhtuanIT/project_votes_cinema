@@ -6,6 +6,7 @@ use App\Models\VoteDetails;
 use App\Presenters\VoteDetailsPresenter;
 use App\Repositories\Contracts\VoteDetailsRepository;
 use App\Services\StatisticalService;
+use Illuminate\Http\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -46,9 +47,14 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
 
     public function create(array $attributes)
     {
-        $VoteDetails = parent::create($attributes);
-        StatisticalService::addRow($VoteDetails['data']['attributes']['film_id'], $VoteDetails['data']['attributes']['vote_id']);
-        return $VoteDetails;
+        $data = VoteDetails::Where(['vote_id' => $attributes['vote_id'], 'user_id' => $attributes['user_id']])->count();
+        if ($data == 1) {
+            return response()->json('user_id exited');
+        } else {
+            $VoteDetails = parent::create($attributes);
+            StatisticalService::addRow($VoteDetails['data']['attributes']['film_id'], $VoteDetails['data']['attributes']['vote_id']);
+            return $VoteDetails;
+        }
     }
     public function delete($id)
     {
