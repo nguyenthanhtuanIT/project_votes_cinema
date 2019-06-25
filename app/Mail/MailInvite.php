@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Vote;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -16,7 +17,7 @@ class MailInvite extends Mailable
      *
      * @return void
      */
-    public $use;
+    public $user;
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -29,6 +30,7 @@ class MailInvite extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.mail_invite')->with('user', $this->user);
+        $vote = Vote::where('status_vote', 'registing')->first();
+        return $this->view('emails.mail_invite')->with(['user' => $this->user, 'vote' => $vote]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Mail\MailCancel;
 use App\Mail\MailFeedback;
 use App\Mail\MailInvite;
 use App\Models\Register;
@@ -63,10 +64,6 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         } else {
             if (!empty($attributes['best_friend'])) {
                 $arr = explode(',', $attributes['best_friend']);
-                for ($i = 0; $i < count($arr); $i++) {
-                    $us = User::find($arr[$i]);
-                    Mail::to($us->email)->send(new MailInvite($us));
-                }
                 if ($ticket_number > count($arr)) {
                     $ticket_outsite = $ticket_number - 1 - count($arr);
                 }
@@ -78,7 +75,12 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                         unset($arr[$i]);
                     }
                 }
+                for ($i = 0; $i < count($arr); $i++) {
+                    $us = User::find($arr[$i]);
+                    Mail::to($us->email)->queue(new MailInvite($us));
+                }
                 $attributes['best_friend'] = implode(',', $arr);
+
             } else {
                 $a = explode(',', $attributes['best_friend']);
                 $ticket_outsite = $ticket_number - 1;
@@ -156,6 +158,18 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         $data = Register::where([
             'vote_id' => $attributes['vote_id'],
             'user_id' => $attributes['user_id']])->first();
+        $user = User::find($attributes['user_id']);
+
+        if (!empty($data->best_friend)) {
+            $arr = explode(',', $data->best_friend);
+            for ($i = 0; $i < count($arr); $i++) {
+                if (is_numeric($arr[$i])) {
+                    $guest = User::find($arr[$i]);
+                    Mail::to($guest->email)->queue(new MailCancel($user));
+                }
+            }
+        }
+
         $del = $this->delete($data->id);
         return $del;
     }
@@ -184,7 +198,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
             VoteService::updateTicket($vote_id, $data->ticket_number, $new->ticket_number);
         }
         $us = User::find($user_id);
-        Mail::to($us->email)->send(new MailFeedback());
+        Mail::to($us->email)->queue(new MailFeedback());
         return $c = 'success';
 
     }

@@ -114,6 +114,9 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
         } else {
             $data = Register::where('vote_id', $vote->id)->get();
             $data1 = Chair::where('vote_id', $vote->id)->get();
+            if (count($data1) == 0) {
+                return response()->json('not data chairs', Response::HTTP_BAD_REQUEST);
+            }
 
             $publish = $seats = $viewers = $b = $c = $a = $r = array();
             foreach ($data as $val) {

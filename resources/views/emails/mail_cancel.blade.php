@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>M2B - Feedback</title>
+    <title>M2B - Cancel_Register </title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -306,11 +306,10 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td>
-                          <p class="content-title"><b>Thư chia buồn!@!</b></p>
+                          <p class="content-title"><b>Thư thông báo </b></p>
                           <h2>Chào bạn!,</h2>
-                          <p>Crush đã từ chối lời mời xem phim <b>{{$vote->name_vote}}</b> từ bạn .</p>
-
-                            <p class="btn"><a class="button-primary" href="">Hủy đăng kí </a></p>
+                          <p><i style="color: blue">{{$user->full_name}}</i> Đã hủy đăng kí xem phim <b>{{$vote->name_vote}}</b></p>
+                            <p class="btn"><a class="button-primary" href="">Đăng kí </a></p>
                         </td>
 
                       </tr>

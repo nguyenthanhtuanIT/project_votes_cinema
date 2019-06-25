@@ -3,11 +3,12 @@
 namespace App\Mail;
 
 use App\Models\Vote;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MailFeedback extends Mailable
+class MailCancel extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +17,11 @@ class MailFeedback extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $user;
+
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -29,6 +32,6 @@ class MailFeedback extends Mailable
     public function build()
     {
         $vote = Vote::where('status_vote', 'registing')->first();
-        return $this->view('emails.mail_feedback')->with('vote', $vote);
+        return $this->view('emails.mail_cancel')->with(['user' => $this->user, 'vote' => $vote]);
     }
 }

@@ -308,7 +308,7 @@
                         <td>
                           <p class="content-title"><b>Thư mời xem phim</b></p>
                           <h2>Chào bạn!,</h2>
-                          <p>Bạn đã nhận được lời mời đi xem phim cùng <i style="color: blue">{{$user->full_name}}</i></p>
+                          <p>Bạn đã nhận được lời mời đi xem phim <b>{{$vote->name_vote}}</b> cùng <i style="color: blue">{{$user->full_name}}</i></p>
                             <p class="btn"><a class="button-primary" href="">Xác nhận</a></p>
                         </td>
 
