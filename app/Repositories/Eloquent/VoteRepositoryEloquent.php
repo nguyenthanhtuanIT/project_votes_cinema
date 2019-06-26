@@ -109,14 +109,17 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     }
     public function infor($vote_id)
     {
-        $result = array();
+        $result = array('data' => '');
         $sta = Statistical::where(['vote_id' => $vote_id, 'movie_selected' => 1])->first();
         if (!empty($sta)) {
             $film = Films::find($sta->films_id);
             $vote = Vote::find($vote_id);
             $rom = Room::find($vote->room_id);
-            if (empty($rom)) {
-                $chair = Chair::where('vote_id', $vote_id)->get(['chairs']);
+            $chair = Chair::where('vote_id', $vote_id)->get(['chairs']);
+            //dd($vote->room_id);
+            if ($vote->room_id == 0 && $chair->count() == 0) {
+                return response()->json(['status' => 'buying a chair']);
+            } elseif (empty($rom)) {
                 if (!empty($vote->infor_time)) {
                     $t = new Carbon($vote->infor_time);
                     $date = $t->toDateString();
