@@ -21,7 +21,7 @@ class Vote extends BaseModel
      */
     // public $films = $this->list_films;
     protected $fillable = ['name_vote', 'list_films', 'user_id', 'room_id',
-        'background', 'status_vote', 'detail', 'time_voting', 'time_registing', 'time_booking_chair', 'time_end', 'total_ticket'];
+        'background', 'status_vote', 'detail', 'time_voting', 'time_registing', 'time_booking_chair', 'time_end', 'total_ticket', 'infor_time'];
     public function getFilms()
     {
         $str = implode(',', $this->list_films);
