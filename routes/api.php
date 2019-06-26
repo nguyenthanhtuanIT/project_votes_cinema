@@ -38,6 +38,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
     Route::post('search_blog', 'BlogsController@searchBlogByTitle');
     Route::get('amount_vote_films/{vote_id}', 'StatisticalsController@getAmountVote');
+    Route::post('agree', 'RegistersController@userAgree');
     //admin
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('users', 'UsersController');

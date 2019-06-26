@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Mail\MailAgree;
 use App\Mail\MailCancel;
 use App\Mail\MailFeedback;
 use App\Mail\MailInvite;
@@ -156,7 +157,6 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                                         break;
                                     }
                                 }
-
                             }
                             return response()->json(['check' => $check, 'guest' => $guest, 'user_id' => $id, 'fullname' => $user->full_name, 'avatar' => $user->avatar, 'agree' => $agree]);
                         } else {
@@ -216,6 +216,28 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
         $us = User::find($user_id);
         Mail::to($us->email)->queue(new MailFeedback());
         return $c = 'success';
+    }
+    public function agree(array $attributes)
+    {
+
+        $data = Register::where(['user_id' => $attributes['user_id'],
+            'vote_id' => $attributes['vote_id']])->first();
+        $arr = array();
+        if (!empty($data->agree)) {
+            $arr = explode(',', $data->agree);
+        }
+        $arr[] = $attributes['guest_id'];
+        $agree = implode(',', $arr);
+        //dd('ok');
+        $update = Register::where(['user_id' => $attributes['user_id'],
+            'vote_id' => $attributes['vote_id']])->update(['agree' => $agree]);
+        if ($update == 1) {
+            $user = User::find($attributes['user_id']);
+            Mail::to('nguyenthanhtuan15.it@gmail.com')->queue(new MailAgree());
+            return ['status' => 'success'];
+        } else {
+            return ['status' => 'fail'];
+        }
 
     }
 

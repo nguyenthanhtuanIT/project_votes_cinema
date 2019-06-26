@@ -116,4 +116,9 @@ class RegistersController extends Controller
         $ac = $this->repository->guestRefuse($request->all());
         return response()->json(['status' => $ac], 200);
     }
+    public function userAgree(Request $request)
+    {
+        $data = $this->repository->agree($request->all());
+        return response()->json($data);
+    }
 }
