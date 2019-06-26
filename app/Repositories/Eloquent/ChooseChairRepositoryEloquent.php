@@ -49,18 +49,46 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     }
     public function create(array $attributes)
     {
-        $validate = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
-        $validate1 = $this->model()::where(['seats' => $attributes['seats'], 'vote_id' => $attributes['vote_id']])->count();
-        if ($validate1 == 1) {
-            return response()->json('seats not empty');
-        }
-        if ($validate == 1) {
-            $update = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->update(['seats' => $attributes['seats']]);
-            return $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->first();
+        $validate = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->get();
+        if ($validate->count() == 1) {
+            foreach ($validate as $v) {
+                $chairs = $this->model()::whereNotIn('id', [$v->id])->where('vote_id', $attributes['vote_id'])->get();
+            }
+
+            $seat = explode(',', $attributes['seats']);
+            foreach ($chairs as $val) {
+                $chair = explode(',', $val->seats);
+                for ($i = 0; $i < count($chair); $i++) {
+                    for ($j = 0; $j < count($seat); $j++) {
+                        if ($chair[$i] == $seat[$j]) {
+                            return response()->json('seats not empty');
+                            break;
+                        }
+                    }
+                }
+            }
+            $del = $this->model()::find($v->id);
+            $del->delete();
+            $res = parent::create($attributes);
+            return $res;
         } else {
-            $seats = parent::create($attributes);
-            return $seats;
+            $chairs = $this->model()::where('vote_id', $attributes['vote_id'])->get();
+            $seat = explode(',', $attributes['seats']);
+            foreach ($chairs as $val) {
+                $chair = explode(',', $val->seats);
+                for ($i = 0; $i < count($chair); $i++) {
+                    for ($j = 0; $j < count($seat); $j++) {
+                        if ($chair[$i] == $seat[$j]) {
+                            return response()->json('seats not empty');
+                            break;
+                        }
+                    }
+                }
+            }
         }
+        $result = parent::create($attributes);
+        return $result;
+
     }
     public function ticketUser(array $attributes)
     {
