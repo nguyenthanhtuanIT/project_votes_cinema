@@ -50,6 +50,10 @@ class ChooseChairRepositoryEloquent extends BaseRepository implements ChooseChai
     public function create(array $attributes)
     {
         $validate = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->count();
+        $validate1 = $this->model()::where(['seats' => $attributes['seats'], 'vote_id' => $attributes['vote_id']])->count();
+        if ($validate1 == 1) {
+            return response()->json('seats not empty');
+        }
         if ($validate == 1) {
             $update = $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->update(['seats' => $attributes['seats']]);
             return $this->model()::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->first();

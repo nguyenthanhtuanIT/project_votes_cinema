@@ -128,6 +128,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
     {
         $check = false;
         $guest = false;
+        $agree = false;
         $data = Register::where(['user_id' => $attributes['user_id'], 'vote_id' => $attributes['vote_id']])->get();
         $data1 = Register::where('vote_id', $attributes['vote_id'])->where('ticket_number', '>', 1)->get();
         //dd($data1->count());
@@ -146,8 +147,22 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                         $id = $value->user_id;
                         $user = User::find($id);
                         //
-                        return response()->json(['check' => $check, 'guest' => $guest, 'fullname' => $user->full_name, 'avatar' => $user->avatar, 'user_id' => $id]);
-                        break;
+                        if ($guest == true) {
+                            if (!empty($value->agree)) {
+                                $agr = explode(',', $value->agree);
+                                for ($i = 0; $i < count($agr); $i++) {
+                                    if ($agr[$i] == $attributes['user_id']) {
+                                        $agree = true;
+                                        break;
+                                    }
+                                }
+
+                            }
+                            return response()->json(['check' => $check, 'guest' => $guest, 'user_id' => $id, 'fullname' => $user->full_name, 'avatar' => $user->avatar, 'agree' => $agree]);
+                        } else {
+                            return response()->json(['check' => $check, 'guest' => $guest, 'fullname' => $user->full_name, 'avatar' => $user->avatar, 'user_id' => $id]);
+                            break;
+                        }
                     }
                 }
             }
