@@ -90,7 +90,11 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     public function getStatus()
     {
         $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->first();
+        $chair = Chair::where('vote_id', $vote->id)->get(['chairs']);
         //dd($vote);
+        if ($vote->room_id == 0 || $chair->count() == 0) {
+            return response()->json(['status' => 'buying a chair']);
+        }
         if ($vote) {
             $date = Carbon::now()->toDateTimeString();
             if ($vote->time_registing <= $date && $date < $vote->time_booking_chair && $vote->status_vote != 'registing') {
@@ -117,9 +121,7 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
             $rom = Room::find($vote->room_id);
             $chair = Chair::where('vote_id', $vote_id)->get(['chairs']);
             //dd($vote->room_id);
-            if ($vote->room_id == 0 && $chair->count() == 0) {
-                return response()->json(['status' => 'buying a chair']);
-            } elseif (empty($rom)) {
+            if (empty($rom)) {
                 if (!empty($vote->infor_time)) {
                     $t = new Carbon($vote->infor_time);
                     $date = $t->toDateString();

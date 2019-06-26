@@ -145,6 +145,7 @@ class RegisterRepositoryEloquent extends BaseRepository implements RegisterRepos
                         $guest = true;
                         $id = $value->user_id;
                         $user = User::find($id);
+                        //
                         return response()->json(['check' => $check, 'guest' => $guest, 'fullname' => $user->full_name, 'avatar' => $user->avatar, 'user_id' => $id]);
                         break;
                     }
