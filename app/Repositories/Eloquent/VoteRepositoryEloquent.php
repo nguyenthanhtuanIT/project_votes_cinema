@@ -90,8 +90,6 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     public function getStatus()
     {
         $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->orderBy('id', 'DESC')->first();
-
-        //dd($vote);
         if (!empty($vote)) {
             $chair = Chair::where('vote_id', $vote->id)->get(['chairs']);
             $date = Carbon::now()->toDateTimeString();
@@ -99,15 +97,20 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'registing']);
             } elseif ($vote->time_booking_chair <= $date && $date < $vote->time_end && $vote->status_vote != 'booking_chair') {
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'booking_chair']);
-                $check = Vote::find($vote->id);
-                if ($check->room_id == 0 || $chair->count() == 0) {
+                if ($vote->room_id == 0 || $chair->count() == 0) {
                     return response()->json(['status' => 'buying a chair']);
                 }
             } elseif ($date >= $vote->time_end && $vote->status_vote != 'end') {
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'end']);
             }
-            $v = Vote::find($vote->id);
-            return response()->json(['id' => $v->id, 'background' => $v->background, 'status' => $v->status_vote, 'time_voting' => $v->time_voting, 'time_registing' => $v->time_registing, 'time_booking_chair' => $v->time_booking_chair, 'time_end' => $v->time_end]);
+            return response()->json([
+                'id' => $vote->id,
+                'background' => $vote->background,
+                'status' => $vote->status_vote,
+                'time_voting' => $vote->time_voting,
+                'time_registing' => $vote->time_registing,
+                'time_booking_chair' => $vote->time_booking_chair,
+                'time_end' => $vote->time_end]);
 
         } else {
             return response()->json(['status' => 'not votes']);
@@ -128,10 +131,24 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
                     $t = new Carbon($vote->infor_time);
                     $date = $t->toDateString();
                     $time = $t->toTimeString();
-                    $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'chairs' => $chair, 'date' => $date, 'time' => $time);
+                    $result = array(
+                        'poter' => $film->img,
+                        'name_film' => $film->name_film,
+                        'amount_vote' => $sta->amount_votes,
+                        'amount_registers' => $sta->amount_registers,
+                        'chairs' => $chair,
+                        'date' => $date,
+                        'time' => $time);
                     return response()->json($result);
                 } else {
-                    $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'chairs' => $chair, 'time' => $vote->infor_time);}
+                    $result = array(
+                        'poter' => $film->img,
+                        'name_film' => $film->name_film,
+                        'amount_vote' => $sta->amount_votes,
+                        'amount_registers' => $sta->amount_registers,
+                        'chairs' => $chair,
+                        'time' => $vote->infor_time);
+                }
                 return response()->json($result);
             } else {
                 $cinema = Cinema::find($rom->cinema_id);
@@ -141,10 +158,33 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
                     $t = new Carbon($vote->infor_time);
                     $date = $t->toDateString();
                     $time = $t->toTimeString();
-                    $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'date' => $date, 'time' => $time);
+                    $result = array(
+                        'poter' => $film->img,
+                        'name_film' => $film->name_film,
+                        'amount_vote' => $sta->amount_votes,
+                        'amount_registers' => $sta->amount_registers,
+                        'cinema' => $cinema->name_cinema,
+                        'address' => $cinema->address,
+                        'room' => $rom->name_room,
+                        'room_id' => $rom->id,
+                        'diagram' => $diagram,
+                        'chairs' => $chair,
+                        'date' => $date,
+                        'time' => $time);
                     return response()->json($result);
                 } else {
-                    $result = array('poter' => $film->img, 'name_film' => $film->name_film, 'amount_vote' => $sta->amount_votes, 'amount_registers' => $sta->amount_registers, 'cinema' => $cinema->name_cinema, 'address' => $cinema->address, 'room' => $rom->name_room, 'room_id' => $rom->id, 'diagram' => $diagram, 'chairs' => $chair, 'time' => $vote->infor_time);
+                    $result = array(
+                        'poter' => $film->img,
+                        'name_film' => $film->name_film,
+                        'amount_vote' => $sta->amount_votes,
+                        'amount_registers' => $sta->amount_registers,
+                        'cinema' => $cinema->name_cinema,
+                        'address' => $cinema->address,
+                        'room' => $rom->name_room,
+                        'room_id' => $rom->id,
+                        'diagram' => $diagram,
+                        'chairs' => $chair,
+                        'time' => $vote->infor_time);
                 }
                 return response()->json($result);
             }

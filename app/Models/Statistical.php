@@ -18,12 +18,12 @@ class Statistical extends BaseModel
     protected $fillable = ['vote_id', 'films_id', 'amount_votes', 'movie_selected'];
     public function getVote()
     {
-        $name = Vote::where('id', $this->vote_id)->value('name_vote');
-        return $name;
+        $name = Vote::where('id', $this->vote_id);
+        return $name->name_vote;
     }
     public function getNameFilms()
     {
-        $name = Films::where('id', $this->films_id)->value('name_film');
-        return $name;
+        $name = Films::where('id', $this->films_id);
+        return $name->name_film;
     }
 }
