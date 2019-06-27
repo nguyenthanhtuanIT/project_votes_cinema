@@ -23,18 +23,18 @@ class VoteDetails extends BaseModel
     public function getFilm()
     {
 
-        $film = Films::find($this->film_id)->value('name_film');
-        return $film;
+        $film = Films::find($this->film_id);
+        return $film->name_film;
     }
     public function getUser()
     {
 
-        $user = User::find($this->user_id)->value('full_name');
-        return $user;
+        $user = User::find($this->user_id);
+        return $user->full_name;
     }
     public function getVote()
     {
-        $vote = Vote::find($this->vote_id)->value('name_vote');
-        return $vote;
+        $vote = Vote::find($this->vote_id);
+        return $vote->name_vote;
     }
 }
