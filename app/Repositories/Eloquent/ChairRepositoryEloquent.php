@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Chair;
 use App\Models\ChooseChair;
+use App\Models\Vote;
 use App\Presenters\ChairPresenter;
 use App\Repositories\Contracts\ChairRepository;
 use Illuminate\Http\Response;
@@ -49,10 +50,16 @@ class ChairRepositoryEloquent extends BaseRepository implements ChairRepository
         $validate = $this->model()::where('vote_id', $attributes['vote_id'])->count();
         if ($validate == 1) {
             return response()->json('attributes aready exited', Response::HTTP_BAD_REQUEST);
+
         } else {
-            $chairs = parent::create($attributes);
-            return $chairs;
+            $vote = Vote::find($attributes['vote_id']);
+            if ($vote->status_vote != 'booking_chair') {
+                return response()->json('status votes not combined',
+                    Response::HTTP_BAD_REQUEST);
+            }
         }
+        $chairs = parent::create($attributes);
+        return $chairs;
 
     }
     public function diagramChairByVote($vote_id)
