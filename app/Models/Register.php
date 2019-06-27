@@ -23,13 +23,13 @@ class Register extends BaseModel
 
     public function getNameFilms()
     {
-        $name = Films::where('id', $this->film_id)->value('name_film');
-        return $name;
+        $name = Films::find($this->film_id);
+        return $name->name_film;
     }
     public function getTitleVote()
     {
-        $name = Vote::where('id', $this->vote_id)->value('name_vote');
-        return $name;
+        $name = Vote::find($this->vote_id);
+        return $name->name_vote;
     }
     public function getUser()
     {
