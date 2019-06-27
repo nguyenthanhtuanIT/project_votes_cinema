@@ -89,18 +89,20 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     }
     public function getStatus()
     {
-        $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->first();
-        $chair = Chair::where('vote_id', $vote->id)->get(['chairs']);
+        $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->orderBy('id', 'DESC')->first();
+
         //dd($vote);
-        if ($vote->room_id == 0 || $chair->count() == 0) {
-            return response()->json(['status' => 'buying a chair']);
-        }
-        if ($vote) {
+        if (!empty($vote)) {
+            $chair = Chair::where('vote_id', $vote->id)->get(['chairs']);
             $date = Carbon::now()->toDateTimeString();
             if ($vote->time_registing <= $date && $date < $vote->time_booking_chair && $vote->status_vote != 'registing') {
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'registing']);
             } elseif ($vote->time_booking_chair <= $date && $date < $vote->time_end && $vote->status_vote != 'booking_chair') {
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'booking_chair']);
+                $check = Vote::find($vote->id);
+                if ($check->room_id == 0 || $chair->count() == 0) {
+                    return response()->json(['status' => 'buying a chair']);
+                }
             } elseif ($date >= $vote->time_end && $vote->status_vote != 'end') {
                 $update = Vote::where('id', $vote->id)->update(['status_vote' => 'end']);
             }
