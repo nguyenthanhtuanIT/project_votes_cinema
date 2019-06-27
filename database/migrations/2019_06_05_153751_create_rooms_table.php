@@ -18,7 +18,7 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
             $table->Integer('cinema_id')->unsigned();
-            $table->foreign('cinema_id')->references('id')->on('cinemas');
+            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
             $table->string('name_room');
             $table->Integer('total_chairs')->nullable();
             $table->timestamps();

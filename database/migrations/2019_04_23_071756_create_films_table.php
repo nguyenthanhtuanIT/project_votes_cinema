@@ -20,11 +20,11 @@ class CreateFilmsTable extends Migration
             $table->string('name_film');
             $table->string('img');
             $table->date('projection_date');
-            $table->string('projection_time');
+            $table->string('projection_time')->nullable();
             $table->string('movies_type')->nullable();
             $table->string('language');
             $table->string('age_limit');
-            $table->string('detail', 3000);
+            $table->string('detail', 3000)->nullable();
             $table->string('trailer_url');
             $table->integer('price_film');
             $table->string('curency');

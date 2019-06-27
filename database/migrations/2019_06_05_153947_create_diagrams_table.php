@@ -18,10 +18,11 @@ class CreateDiagramsTable extends Migration
         Schema::create('diagrams', function (Blueprint $table) {
             $table->increments('id');
             $table->Integer('room_id')->unsigned();
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->string('row_of_seats');
             $table->Integer('amount_chairs_of_row');
             $table->string('chairs');
+            $table->timestamps();
         });
     }
 

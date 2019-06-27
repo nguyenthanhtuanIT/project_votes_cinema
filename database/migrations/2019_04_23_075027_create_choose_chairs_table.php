@@ -20,8 +20,8 @@ class CreateChooseChairsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('vote_id')->unsigned();
             $table->string('seats')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('vote_id')->references('id')->on('votes');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('vote_id')->references('id')->on('votes')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -18,10 +18,9 @@ class CreateChairsTable extends Migration
         Schema::create('chairs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vote_id')->unsigned();
-            $table->foreign('vote_id')->references('id')->on('votes');
-            $table->string('row_of_seats');
+            $table->foreign('vote_id')->references('id')->on('votes')->onDelete('cascade');
             $table->integer('amount_chairs');
-            $table->string('status_chairs');
+            $table->string('chairs');
             $table->timestamps();
         });
     }

@@ -21,15 +21,17 @@ class CreateVotesTable extends Migration
             $table->string('list_films');
             $table->string('background');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade');
             $table->string('status_vote');
             $table->integer('room_id')->default(0);
             $table->string('detail');
-            $table->date('time_voting');
-            $table->date('time_registing');
-            $table->date('time_booking_chair');
-            $table->date('time_end');
-            $table->Integer('total_ticket')->default(0);
+            $table->dateTime('time_voting');
+            $table->dateTime('time_registing');
+            $table->dateTime('time_booking_chair');
+            $table->dateTime('time_end');
+            $table->integer('total_ticket')->default(0);
+            $table->dateTime('infor_time')->nullable();
             $table->timestamps();
         });
     }

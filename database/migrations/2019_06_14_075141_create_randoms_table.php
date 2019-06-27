@@ -18,8 +18,9 @@ class CreateRandomsTable extends Migration
         Schema::create('randoms', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vote_id')->unsigned();
+            $table->foreign('vote_id')->references('id')->on('votes')->onDelete('cascade');
             $table->string('seats');
-            $table->integer('viewers')->nullable();
+            $table->string('viewers')->nullable();
             $table->timestamps();
         });
     }
