@@ -71,6 +71,22 @@ class FilmsRepositoryEloquent extends BaseRepository implements FilmsRepository
         $film = parent::update($attributes, $id);
         return response()->json($film);
     }
+    public function delete($id)
+    {
+        $vote = vote::all();
+        foreach ($vote as $val) {
+            $list = $val->list_films;
+            for ($i = 0; $i < count($list); $i++) {
+                if ($list[$i] == $id) {
+                    unset($list[$i]);
+                    $str = implode(',', $list);
+                    Vote::where('id', $val->id)->update(['list_films' => $str]);
+                }
+            }
+        }
+        $film = parent::delete($id);
+        return response()->json(null, 204);
+    }
     public function getlistFilmToVote()
     {
         $vote = Vote::where('status_vote', 'voting')->first();
