@@ -41,6 +41,22 @@ class StatisticalRepositoryEloquent extends BaseRepository implements Statistica
     /**
      * Boot up the repository, pushing criteria
      */
+    public function update(array $attributes, $id)
+    {
+        if (!empty($attributes['movie_selected'])) {
+            $statistical = Statistical::find($id);
+            $vote_id = $statistical->vote_id;
+            $check = Statistical::where(['vote_id' => $vote_id, 'movie_selected' => 1])->get();
+            if ($check->count() == 1) {
+                foreach ($check as $value) {
+                    $value->update(['movie_selected' => 0]);
+                }
+            }
+
+        }
+        $result = parent::update($attributes, $id);
+        return $result;
+    }
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
