@@ -316,7 +316,7 @@
                           <p><b><label>Time start register:</label></b>{{$votes->time_registing}}</p>
                           <p><b><label>Time start booking chairs:</label></b>{{$votes->time_booking_chair}}</p>
                           <p><b><label>Time end:</label></b>{{$votes->time_end}}</p>
-                            <p class="btn"><a class="button-primary" href="">Go to vote</a></p>
+                            <p class="btn"><a class="button-primary" href="film.greenglobal.vn">Go to vote</a></p>
                         </td>
 
                       </tr>

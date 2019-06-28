@@ -310,7 +310,7 @@
                           <h2>Chào bạn!,</h2>
                           <p>Crush đã từ chối lời mời xem phim <b>{{$vote->name_vote}}</b> từ bạn .</p>
 
-                            <p class="btn"><a class="button-primary" href="">Hủy đăng kí </a></p>
+                            <p class="btn"><a class="button-primary" href="film.greenglobal.vn">Hủy đăng kí </a></p>
                         </td>
 
                       </tr>

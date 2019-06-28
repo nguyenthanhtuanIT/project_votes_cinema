@@ -309,7 +309,7 @@
                           <p class="content-title"><b>Thư thông báo </b></p>
                           <h2>Chào bạn!,</h2>
                           <p><i style="color: blue">{{$user->full_name}}</i> Đã hủy đăng kí xem phim <b>{{$vote->name_vote}}</b></p>
-                            <p class="btn"><a class="button-primary" href="">Đăng kí </a></p>
+                            <p class="btn"><a class="button-primary" href="film.greenglobal.vn">Đăng kí </a></p>
                         </td>
 
                       </tr>

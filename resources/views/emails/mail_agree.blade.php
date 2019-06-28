@@ -309,7 +309,7 @@
                           <p class="content-title"><b>Thư chúc mừng!@!</b></p>
                           <h2>Chào bạn!,</h2>
                           <p>Crush đã đồng ý đi xem phim <b>{{$vote->name_vote}}</b> cùng  bạn .</p>
-                            <p class="btn"><a class="button-primary" href=""> Visit website </a></p>
+                            <p class="btn"><a class="button-primary" href="film.greenglobal.vn"> Visit website </a></p>
                         </td>
                       </tr>
                       <tr><td><p><i>---Green global company---</i></p></td></tr>
