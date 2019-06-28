@@ -7,6 +7,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('get_blogs', 'BlogsController@getBlog');
     Route::resource('blogs', 'BlogsController')->only('index', 'show');
     Route::get('status_vote', 'VotesController@showStatusVote');
+    Route::post('infor_vote', 'VotesController@inforVotes');
+    Route::post('film_to_register', 'FilmsController@getFilmToRegister');
+    Route::resource('statisticals', 'StatisticalsController');
+    Route::get('user_comment/{blog_id}', 'CommentsController@getComments');
+    Route::get('amount_vote_films/{vote_id}', 'StatisticalsController@getAmountVote');
 });
 Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     //user information
@@ -14,7 +19,6 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     //auth
     Route::post('auth/logout', 'Auth\AuthController@logout');
     Route::post('ticket_of_user', 'ChooseChairsController@ticketOfUser');
-
     //user choose chairs
     Route::resource('choose_chairs', 'ChooseChairsController');
     //user voting
@@ -29,15 +33,12 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
     Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
-    Route::post('film_to_register', 'FilmsController@getFilmToRegister');
+
     Route::post('list_users', 'UsersController@listUsers');
     Route::post('un_voted', 'VoteDetailsController@unVoted');
     Route::resource('statisticals', 'StatisticalsController');
-    Route::post('infor_vote', 'VotesController@inforVotes');
-    Route::get('user_comment/{blog_id}', 'CommentsController@getComments');
     Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
     Route::post('search_blog', 'BlogsController@searchBlogByTitle');
-    Route::get('amount_vote_films/{vote_id}', 'StatisticalsController@getAmountVote');
     Route::post('agree', 'RegistersController@userAgree');
     //admin
     Route::group(['prefix' => 'admin', 'middleware' => 'checkroles'], function () {
