@@ -23,16 +23,16 @@ class AuthFacebookRequest extends BaseRequest
     {
         return [
             'token' => 'required',
-            // 'email' => [
-            //     'required',
-            //     'email',
-            //     function ($attribute, $value, $fail) {
-            //         $email = explode('@', $value);
-            //         if ($email[1] != 'greenglobal.vn') {
-            //             return $fail('The ' . $attribute . ' must be greenglobal.vn');
-            //         }
-            //     },
-            // ],
+            'email' => [
+                'required',
+                'email',
+                function ($attribute, $value, $fail) {
+                    $email = explode('@', $value);
+                    if ($email[1] != 'greenglobal.vn') {
+                        return $fail('The ' . $attribute . ' must be greenglobal.vn');
+                    }
+                },
+            ],
         ];
     }
 }

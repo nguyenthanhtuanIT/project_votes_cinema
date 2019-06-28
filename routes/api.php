@@ -7,7 +7,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('get_blogs', 'BlogsController@getBlog');
     Route::resource('blogs', 'BlogsController')->only('index', 'show');
 });
-Route::group(['prefix' => 'v1'], function () {
+Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     //user information
     Route::get('me', 'UsersController@me');
     //auth
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('amount_vote_films/{vote_id}', 'StatisticalsController@getAmountVote');
     Route::post('agree', 'RegistersController@userAgree');
     //admin
-    Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'admin', 'middleware' => 'checkroles'], function () {
         Route::resource('users', 'UsersController');
         Route::resource('votes', 'VotesController');
         Route::resource('films', 'FilmsController');
