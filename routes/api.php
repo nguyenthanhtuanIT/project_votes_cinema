@@ -6,6 +6,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('list_films', 'FilmsController@listFilmToVote');
     Route::get('get_blogs', 'BlogsController@getBlog');
     Route::resource('blogs', 'BlogsController')->only('index', 'show');
+    Route::get('status_vote', 'VotesController@showStatusVote');
 });
 Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     //user information
@@ -13,8 +14,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     //auth
     Route::post('auth/logout', 'Auth\AuthController@logout');
     Route::post('ticket_of_user', 'ChooseChairsController@ticketOfUser');
-    //  status_vote_now
-    Route::get('status_vote', 'VotesController@showStatusVote');
+
     //user choose chairs
     Route::resource('choose_chairs', 'ChooseChairsController');
     //user voting
