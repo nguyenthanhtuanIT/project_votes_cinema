@@ -48,11 +48,6 @@ class EntrustSetupTables extends Migration
             $table->foreign('permission_id')->references('id')->on('permissions');
             $table->foreign('role_id')->references('id')->on('roles');
         });
-        Schema::create('type_cinema', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name_type_cinema')->unique();
-            $table->timestamps();
-        });
         //    DB::commit();
     }
 
@@ -68,8 +63,6 @@ class EntrustSetupTables extends Migration
         Schema::dropIfExists('role_user');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('permission_role');
-        Schema::dropIfExists('type_cinema');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
     }
 }

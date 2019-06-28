@@ -12,7 +12,6 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Socialite;
 
 /**
  * Class UsersController.
@@ -43,19 +42,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-
-        // $limit = request()->get('limit', null);
-        // $includes = request()->get('include', 'roles');
-
-        // if ($includes) {
-        //     $this->repository->with(explode(',', $includes));
-        // }
-
-        // $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-
         $user = $this->repository->all($columns = ['*']);
         return response()->json($user);
-
     }
 
     /**
@@ -161,15 +149,20 @@ class UsersController extends Controller
 
         return $this->presenterPostJson($user);
     }
-    public function redirectGoogle()
+    public function listUsers(Request $request)
     {
-        return Socialite::driver('google')->redirect();
+        $user = $this->repository->getListUser($request->vote_id);
+        return response()->json($user);
     }
-    public function loginGoogle()
-    {
-        //$provider = Social::PROVIDER_GOOGLE;
-        $user = Socialite::driver('google')->user();
-        dd($user);
-    }
+    // public function redirectGoogle()
+    // {
+    //     return Socialite::driver('google')->redirect();
+    // }
+    // public function loginGoogle()
+    // {
+    //     //$provider = Social::PROVIDER_GOOGLE;
+    //     $user = Socialite::driver('google')->user();
+    //     dd($user);
+    // }
 
 }

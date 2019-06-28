@@ -2,11 +2,12 @@
 
 namespace App\Repositories\Eloquent;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\Contracts\BlogRepository;
-use App\Presenters\BlogPresenter;
 use App\Models\Blog;
+use App\Presenters\BlogPresenter;
+use App\Repositories\Contracts\BlogRepository;
+use Illuminate\Support\Facades\Storage;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class BlogRepositoryEloquent.
@@ -42,5 +43,37 @@ class BlogRepositoryEloquent extends BaseRepository implements BlogRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+    public function create(array $attributes)
+    {
+        $name = $attributes['img']->store('photos');
+        $link = Storage::url($name);
+        $attributes['img'] = $link;
+        $blog = parent::create($attributes);
+        return $blog;
+    }
+    public function update(array $attributes, $id)
+    {
+        if (isset($attributes['img'])) {
+            $name = $attributes['img']->store('photos');
+            $link = Storage::url($name);
+            $attributes['img'] = $link;
+            $img = Blog::find($id);
+            $imgold = $img->img;
+            $nameimg = explode('/', $imgold);
+            Storage::delete('/photos/' . $nameimg[5]);
+        }
+        $blog = parent::update($attributes, $id);
+        return $blog;
+    }
+    public function searchBlog($key)
+    {
+        $blog = Blog::where('name_blog', 'LIKE', "%{$key}%")
+            ->get();
+        return $blog;
+    }
+    public function getAll()
+    {
+        $blog = Blog::orderBy('id', 'DESC')->paginate(8);
+        return $blog;
+    }
 }

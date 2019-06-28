@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Requests\BlogCreateRequest;
 use App\Http\Requests\BlogUpdateRequest;
 use App\Repositories\Contracts\BlogRepository;
+use Illuminate\Http\Request;
 
 /**
  * Class BlogsController.
@@ -39,7 +37,7 @@ class BlogsController extends Controller
     public function index()
     {
         $limit = request()->get('limit', null);
-        
+
         $includes = request()->get('include', '');
 
         if ($includes) {
@@ -47,8 +45,7 @@ class BlogsController extends Controller
         }
 
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-
-        $blogs = $this->repository->paginate($limit, $columns = ['*']);
+        $blogs = $this->repository->paginate(8, $columns = ['*']);
 
         return response()->json($blogs);
     }
@@ -77,7 +74,7 @@ class BlogsController extends Controller
     public function show($id)
     {
         $blog = $this->repository->find($id);
-        
+
         return response()->json($blog);
     }
 
@@ -106,7 +103,16 @@ class BlogsController extends Controller
     public function destroy($id)
     {
         $this->repository->delete($id);
-
         return response()->json(null, 204);
+    }
+    public function searchBlogByTitle(Request $request)
+    {
+        $result = $this->repository->searchBlog($request->key);
+        return $this->repository->parserResult($result);
+    }
+    public function getBlog()
+    {
+        $result = $this->repository->getAll();
+        return $this->repository->parserResult($result);
     }
 }

@@ -4,59 +4,72 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('auth/google', 'Auth\AuthGoogleController@login');
     Route::post('register', 'UsersController@register');
     Route::get('list_films', 'FilmsController@listFilmToVote');
+    Route::get('get_blogs', 'BlogsController@getBlog');
+    Route::resource('blogs', 'BlogsController')->only('index', 'show');
+    Route::get('status_vote', 'VotesController@showStatusVote');
+    Route::post('infor_vote', 'VotesController@inforVotes');
+    Route::post('film_to_register', 'FilmsController@getFilmToRegister');
+    Route::resource('statisticals', 'StatisticalsController');
+    Route::get('user_comment/{blog_id}', 'CommentsController@getComments');
+    Route::get('amount_vote_films/{vote_id}', 'StatisticalsController@getAmountVote');
 });
-Route::group(['prefix' => 'v1', 'auth:api'], function () {
-    Route::resource('registers', 'RegistersController')->only('store');
+Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     //user information
     Route::get('me', 'UsersController@me');
     //auth
     Route::post('auth/logout', 'Auth\AuthController@logout');
-    //chair
-    Route::get('user_choose_chair', 'ChooseChairsController@choose');
-    //sum ticket
-    Route::post('total_ticket', 'FilmsController@getTotalTicket');
-    //status_vote_now
-    Route::get('status_vote', 'VotesController@showStatusVote');
+    Route::post('ticket_of_user', 'ChooseChairsController@ticketOfUser');
     //user choose chairs
-    Route::resource('choose_chairs', 'ChooseChairsController')->only('store');
+    Route::resource('choose_chairs', 'ChooseChairsController');
     //user voting
-    Route::resource('votedetails', 'VoteDetailsController')->only('store');
-    //check voted
+    Route::resource('votedetails', 'VoteDetailsController');
+    // //check voted
     Route::post('check_voted', 'VoteDetailsController@checkVoted');
-    //check register
+    Route::resource('registers', 'RegistersController');
+    // //check register
     Route::post('check_register', 'RegistersController@checkRegistered');
-    //get diagram_chairs by votes
-    Route::post('chairs_by_vote', 'ChairsController@getDiagramChairByVote');
+    Route::post('un_register', 'RegistersController@unRegister');
+    Route::post('guest_refuse', 'RegistersController@guestRefuses');
+    Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
     Route::post('update_status_chair', 'ChairsController@updateStatusChair');
-    //check
-    Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChooed');
-    Route::get('film_to_register', 'FilmsController@getFilmToRegister');
-    Route::get('list_film_to_register', 'FilmsController@listMaxVote');
+    Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
+
+    Route::post('list_users', 'UsersController@listUsers');
+    Route::post('un_voted', 'VoteDetailsController@unVoted');
+    Route::resource('statisticals', 'StatisticalsController');
+    Route::resource('comments', 'CommentsController')->only('store', 'update', 'destroy');
+    Route::post('search_blog', 'BlogsController@searchBlogByTitle');
+    Route::post('agree', 'RegistersController@userAgree');
     //admin
     Route::group(['prefix' => 'admin', 'middleware' => 'checkroles'], function () {
-        //users
         Route::resource('users', 'UsersController');
-        //votes
         Route::resource('votes', 'VotesController');
-        //film
         Route::resource('films', 'FilmsController');
-        //cinema
         Route::resource('cinemas', 'CinemasController');
-        //admin votedetail
-        Route::resource('votedetails', 'VoteDetailsController')->only(['index', 'destroy', 'update']);
-        Route::resource('registers', 'RegistersController')->only(['index', 'destroy', 'update']);
-        //excel
-        Route::get('excel', 'RegistersController@Export');
-        //blog
+        Route::resource('rooms', 'RoomsController');
+        Route::resource('diagrams', 'DiagramsController');
+        Route::get('choose_chairs', 'ChooseChairsController@index');
+        Route::delete('del_choose_chairs/{vote_id}', 'ChooseChairsController@deleteAll');
+        Route::delete('del_chairs/{vote_id}', 'ChairsController@deleteAll');
+        Route::resource('statisticals', 'StatisticalsController');
+        Route::delete('del_statisticals/{vote_id}', 'StatisticalsController@deleteAll');
+        Route::resource('votedetails', 'VoteDetailsController');
+        Route::delete('del_votedetails/{vote_id}', 'VoteDetailsController@deleteAll');
+        Route::delete('delete_all/{room_id}', 'DiagramsController@deleteAll');
+        Route::delete('del_all/{vote_id}', 'RandomsController@deleteAll');
+        Route::resource('votedetails', 'VoteDetailsController')->only('index', 'destroy');
+        Route::resource('registers', 'RegistersController')->only('index', 'destroy');
+        Route::post('rand', 'ChooseChairsController@randChairs');
+        Route::get('infor_detail/{vote_id}', 'StatisticalsController@getInforByVote');
+        Route::get('infor_list_vote', 'StatisticalsController@getInfor');
+        Route::post('search_by_room', 'DiagramsController@searchByRoom');
+        Route::get('excel/{vote_id}', 'RegistersController@Export');
+        Route::resource('rands', 'RandomsController');
         Route::resource('blogs', 'BlogsController');
-        //type-cinemas
-        Route::resource('typecinemas', 'TypeCinemasController');
-        //chair
         Route::resource('chairs', 'ChairsController');
-        //admin choose chairs
+        Route::resource('comments', 'CommentsController');
         Route::resource('choose_chairs', 'ChooseChairsController')->only(['index', 'update', 'destroy']);
-        Route::post('search_films', 'FilmsController@getFilmsByDate');
-        //return film to register user
-        Route::get('search', 'VotesController@searchByTitle');
+        Route::get('chair_rand_by_vote/{vote_id}', 'RandomsController@getChairsByVote');
+        Route::get('chair_by_vote/{vote_id}', 'ChairsController@getDiagramChairByVote');
     });
 });

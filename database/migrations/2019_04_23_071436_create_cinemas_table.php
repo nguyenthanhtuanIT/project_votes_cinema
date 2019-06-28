@@ -19,6 +19,7 @@ class CreateCinemasTable extends Migration
             $table->increments('id');
             $table->string('name_cinema');
             $table->string('address');
+            $table->Integer('amount_rooms')->nullable();
             $table->timestamps();
         });
     }

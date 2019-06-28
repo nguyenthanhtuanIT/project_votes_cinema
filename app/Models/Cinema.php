@@ -14,6 +14,6 @@ class Cinema extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['name_cinema', 'address'];
+    protected $fillable = ['name_cinema', 'address', 'amount_rooms'];
 
 }

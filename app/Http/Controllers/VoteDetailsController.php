@@ -46,7 +46,7 @@ class VoteDetailsController extends Controller
 
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
 
-        $voteDetails = $this->repository->paginate($limit, $columns = ['*']);
+        $voteDetails = $this->repository->all($columns = ['*']);
 
         return response()->json($voteDetails);
     }
@@ -104,12 +104,21 @@ class VoteDetailsController extends Controller
     public function destroy($id)
     {
         $this->repository->delete($id);
-
         return response()->json(null, 204);
     }
     public function checkVoted(Request $request)
     {
         $check = $this->repository->checkVotes($request->all());
         return response()->json($check);
+    }
+    public function unVoted(Request $request)
+    {
+        $unvote = $this->repository->delVote($request->all());
+        return response()->json(null, 204);
+    }
+    public function deleteAll($vote_id)
+    {
+        $del = $this->repository->delAll($vote_id);
+        return response()->json(null, 204);
     }
 }

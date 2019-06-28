@@ -6,6 +6,7 @@ use App\Http\Requests\ChooseChairCreateRequest;
 use App\Http\Requests\ChooseChairUpdateRequest;
 use App\Repositories\Contracts\ChooseChairRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * Class ChooseChairsController.
@@ -62,7 +63,7 @@ class ChooseChairsController extends Controller
     {
         $chooseChair = $this->repository->skipPresenter()->create($request->all());
 
-        return response()->json($chooseChair->presenter(), 201);
+        return response()->json($chooseChair, 201);
     }
 
     /**
@@ -90,8 +91,7 @@ class ChooseChairsController extends Controller
     public function update(Request $request, $id)
     {
         $chooseChair = $this->repository->skipPresenter()->update($request->all(), $id);
-
-        return response()->json($chooseChair->presenter(), 200);
+        return response()->json($chooseChair, 200);
     }
 
     /**
@@ -107,15 +107,30 @@ class ChooseChairsController extends Controller
 
         return response()->json(null, 204);
     }
-    public function choose(Request $request)
+    public function ticketOfUser(Request $request)
     {
-        $seat = $this->repository->chooseSeats($request->all());
+        $ticket = $this->repository->ticketUser($request->all());
         //dd($seat);
-        return response()->json($seat);
+        return response()->json($ticket);
     }
-    public function checkUserChooed(Request $request)
+    public function checkUserChoosed(Request $request)
     {
         $check = $this->repository->checkChoosed($request->all());
         return response()->json($check);
+    }
+    public function reChooses(Request $request)
+    {
+        $re = $this->repository->reChoose($request->all());
+        return response()->json($re, 201);
+    }
+    public function randChairs(Request $request)
+    {
+        $ac = $this->repository->randChair($request->all());
+        return $ac;
+    }
+    public function deleteAll($vote_id)
+    {
+        $del = $this->repository->delAll($vote_id);
+        return response()->json(null, 204);
     }
 }

@@ -14,6 +14,6 @@ class Blog extends BaseModel
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name_blog', 'img', 'description', 'content', 'user_id'];
 
 }

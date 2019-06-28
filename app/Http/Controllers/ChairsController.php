@@ -61,7 +61,7 @@ class ChairsController extends Controller
     public function store(ChairCreateRequest $request)
     {
         $chair = $this->repository->create($request->all());
-        return response()->json($chair, 201);
+        return $chair;
     }
 
     /**
@@ -106,15 +106,20 @@ class ChairsController extends Controller
 
         return response()->json(null, 204);
     }
-    public function getDiagramChairByVote(Request $request)
+    public function getDiagramChairByVote($vote_id)
     {
-        $diagram = $this->repository->diagramChairByVote($request->all());
+        $diagram = $this->repository->diagramChairByVote($vote_id);
         return $this->repository->parserResult($diagram);
     }
     public function updateStatusChair(Request $request)
     {
-        $status = $this->repository->test($request->all());
-        return response()->json($status);
+        $result = $this->repository->updateChairs($request->all());
+        return response()->json($result);
+    }
+    public function deleteAll($vote_id)
+    {
+        $result = $this->repository->delAll($vote_id);
+        return response()->json(null, 204);
     }
 
 }

@@ -5,7 +5,8 @@ namespace App\Repositories\Eloquent;
 use App\Models\VoteDetails;
 use App\Presenters\VoteDetailsPresenter;
 use App\Repositories\Contracts\VoteDetailsRepository;
-use App\Services\VoteService;
+use App\Services\StatisticalService;
+use Illuminate\Http\Response;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -46,24 +47,47 @@ class VoteDetailsRepositoryEloquent extends BaseRepository implements VoteDetail
 
     public function create(array $attributes)
     {
+
         $VoteDetails = parent::create($attributes);
-        VoteService::add($VoteDetails['data']['attributes']['film_id']);
+        StatisticalService::addRow($VoteDetails['data']['attributes']['film_id'], $VoteDetails['data']['attributes']['vote_id']);
         return $VoteDetails;
+
     }
+    public function delete($id)
+    {
+        $data = VoteDetails::find($id);
+        StatisticalService::updateRow($data->film_id, $data->vote_id);
+        $VoteDetails = parent::delete($id);
+        return response()->json(null, 204);
+    }
+
     public function checkVotes(array $attributes)
     {
-        $data = $this->model()::where('user_id', $attributes['user_id'])->where('vote_id', $attributes['vote_id'])->first();
-        $check = 'false';
-        if ($data) {
-            $film_id = $data->film_id;
-            $check = 'true';
-            $result[] = array('check' => $check,
-                'film_id' => $film_id);
+        $user_id = $attributes['user_id'];
+        $vote_id = $attributes['vote_id'];
+        $data = $this->model()::where(['user_id' => $user_id, 'vote_id' => $vote_id])->get();
+        if (count($data) != 0) {
+            foreach ($data as $value) {
+                $arr[] = $value->film_id;
+            }
+            return response()->json($arr);
         } else {
-            $result[] = array('check' => $check);
+            return response()->json([]);
         }
-
-        return $result;
     }
-
+    public function delVote(array $attributes)
+    {
+        $votedetail = VoteDetails::where([
+            'vote_id' => $attributes['vote_id'],
+            'film_id' => $attributes['film_id'],
+            'user_id' => $attributes['user_id'],
+        ])->first();
+        $del = $this->delete($votedetail->id);
+        return $del;
+    }
+    public function delAll($vote_id)
+    {
+        $del = VoteDetails::where('vote_id', $vote_id)->delete();
+        return response()->json(null, 204);
+    }
 }

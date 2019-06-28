@@ -97,13 +97,28 @@ class RegistersController extends Controller
         $this->repository->delete($id);
         return response()->json(null, 204);
     }
-    public function Export()
+    public function Export($vote_id)
     {
-        return Excel::download(new RegistersExport, 'listregister.xlsx');
+        return Excel::download(new RegistersExport($vote_id), 'listregister.xlsx');
     }
     public function checkRegistered(Request $request)
     {
-        $check = $this->repository->checkRegister($request->all());
-        return response()->json($check);
+        $arr = $this->repository->checkRegister($request->all());
+        return $arr;
+    }
+    public function unRegister(Request $request)
+    {
+        $un = $this->repository->delRegister($request->all());
+        return $un;
+    }
+    public function guestRefuses(Request $request)
+    {
+        $ac = $this->repository->guestRefuse($request->all());
+        return response()->json(['status' => $ac], 200);
+    }
+    public function userAgree(Request $request)
+    {
+        $data = $this->repository->agree($request->all());
+        return response()->json($data);
     }
 }
