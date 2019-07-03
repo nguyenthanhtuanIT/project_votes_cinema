@@ -12,6 +12,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::resource('statisticals', 'StatisticalsController');
     Route::get('user_comment/{blog_id}', 'CommentsController@getComments');
     Route::get('amount_vote_films/{vote_id}', 'StatisticalsController@getAmountVote');
+    Route::post('update_status_chair', 'ChairsController@updateStatusChair');
 });
 Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     //user information
@@ -31,9 +32,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::post('un_register', 'RegistersController@unRegister');
     Route::post('guest_refuse', 'RegistersController@guestRefuses');
     Route::post('check_user_choose_chair', 'ChooseChairsController@checkUserChoosed'); //
-    Route::post('update_status_chair', 'ChairsController@updateStatusChair');
     Route::post('re_choose_chair', 'ChooseChairsController@reChooses');
-
     Route::post('list_users', 'UsersController@listUsers');
     Route::post('un_voted', 'VoteDetailsController@unVoted');
     Route::resource('statisticals', 'StatisticalsController');

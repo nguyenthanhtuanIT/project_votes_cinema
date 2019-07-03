@@ -89,7 +89,8 @@ class VoteRepositoryEloquent extends BaseRepository implements VoteRepository
     }
     public function getStatus()
     {
-        $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->orderBy('id', 'DESC')->first();
+        $vote = Vote::whereNotIn('status_vote', ['end', 'created'])->first();
+
         if (!empty($vote)) {
             $chair = Chair::where('vote_id', $vote->id)->get(['chairs']);
             $date = Carbon::now()->toDateTimeString();
